@@ -1,38 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+
 body {
     box-sizing: content-box;
     margin: 0;
+    font-family: Poppins;
+    font-size: 12px;
 }
 
 header {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     background-color: #fff;
     padding: 5px 125px;
     box-shadow: 5px 5px 12px rgb(0, 0, 0, 0.28);
+    min-height: 48px;
 }
 
-header .menu {
-    margin: 0;
+header .navbar {
     display: flex;
+    align-items: center;
+    width: 74vw;
+    justify-content: space-between;
 }
 
-header .menu li {
+header .navbar .menu {
+    margin: 0;
+    padding-left: 0;
+    display: flex;
+    font-family: Poppins;
+    font-weight: 600;
+}
+
+header .navbar .menu li {
     list-style: none;
     padding: 10px 10px;
     margin: 0px 5px;
 }
 
-header .menu li a {
+header .navbar .menu li a {
     text-decoration: none;
     color: rgb(0, 0, 0, 0.75);;
 }
 
-header .menu li:hover {
+header .navbar .menu li:hover {
     transform: scale(1.1);
 }
 
-header .header-right a {
+header .navbar .header-right a {
     color: rgb(0, 0, 0, 0.75);
     border: 1px solid rgb(0, 0, 0, 0.75);;
     border-radius: 50px;
@@ -40,7 +55,37 @@ header .header-right a {
     text-decoration: none;
 }
 
-header .header-right a:hover {
+header .navbar .header-right a:hover {
     background-color: rgb(0, 0, 0, 0.75);
     color: #fff;
+}
+
+.mobile-nav-toggle {
+	color: #012970;
+	font-size: 28px;
+	cursor: pointer;
+	display: none;
+	line-height: 0;
+	transition: 0.5s;
+}
+
+@media (max-width: 1025px) {
+    header .navbar {
+		width: 66vw;
+	}
+}
+@media (max-width: 991px) {
+	.mobile-nav-toggle {
+		display: block;
+	}
+
+    header {
+        padding: 25px;
+        min-height: 25px;
+        justify-content: space-between;
+    }
+
+	header .navbar {
+		display: none;
+	}
 }
