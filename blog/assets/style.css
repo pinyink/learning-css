@@ -9,22 +9,28 @@ body {
 
 header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
     background-color: #fff;
-    padding: 5px 125px;
-    box-shadow: 5px 5px 12px rgb(0, 0, 0, 0.28);
-    min-height: 48px;
+    width: calc(100% - 300px);
+    padding: 0 150px;
+    box-shadow: 0 0 5px rgb(0, 0, 0, 0.75);
+}
+
+header .logo {
+    width: 120px;
 }
 
 header .navbar {
     display: flex;
     align-items: center;
-    width: 74vw;
     justify-content: space-between;
+    min-height: 64px;
+    width: calc(100% - 120px);
+    font-weight: 800;
 }
 
-header .navbar .menu {
+.navbar .menu {
     margin: 0;
     padding-left: 0;
     display: flex;
@@ -40,16 +46,18 @@ header .navbar .menu li {
 
 header .navbar .menu li a {
     text-decoration: none;
-    color: rgb(0, 0, 0, 0.75);;
+    color: rgb(0, 0, 0, 0.75);
+    ;
 }
 
-header .navbar .menu li:hover {
-    transform: scale(1.1);
+header .navbar .menu li a:hover {
+    color: rgba(180, 164, 164, 0.75);
 }
 
 header .navbar .header-right a {
     color: rgb(0, 0, 0, 0.75);
-    border: 1px solid rgb(0, 0, 0, 0.75);;
+    border: 1px solid rgb(0, 0, 0, 0.75);
+    ;
     border-radius: 50px;
     padding: 5px 20px;
     text-decoration: none;
@@ -61,31 +69,70 @@ header .navbar .header-right a:hover {
 }
 
 .mobile-nav-toggle {
-	color: #012970;
-	font-size: 28px;
-	cursor: pointer;
-	display: none;
-	line-height: 0;
-	transition: 0.5s;
+    color: #012970;
+    font-size: 28px;
+    cursor: pointer;
+    display: none;
+    line-height: 0;
+    transition: 0.5s;
 }
 
-@media (max-width: 1025px) {
-    header .navbar {
-		width: 66vw;
-	}
-}
 @media (max-width: 991px) {
-	.mobile-nav-toggle {
-		display: block;
-	}
-
-    header {
-        padding: 25px;
-        min-height: 25px;
-        justify-content: space-between;
+    .mobile-nav-toggle {
+        display: block;
     }
 
-	header .navbar {
-		display: none;
-	}
+    header {
+        min-height: 25px;
+        padding: 0 25px;
+        width: calc(100% - 30px);
+    }
+
+    .navbar .header-right,
+    header .navbar ul li {
+        display: none;
+    }
+    
+}
+
+header .navbar-mobile {
+    display: block;
+    width: 100vw;
+    position: fixed;
+    overflow: hidden;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background: rgba(1, 22, 61, 0.9);
+    transition: 0.3s;
+}
+
+header .navbar-mobile .mobile-nav-toggle {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    color: #fff;
+}
+
+header .navbar-mobile ul {
+    position: absolute;
+    flex-direction: column;
+    top: 55px;
+    right: 15px;
+    bottom: 15px;
+    left: 15px;
+    padding: 10px 0;
+    border-radius: 10px;
+    background-color: #fff;
+    overflow-y: auto;
+    transition: 0.3s;
+}
+
+header .navbar-mobile ul li {
+    display: block;
+}
+
+header .navbar-mobile .menu li a:hover {
+    color: rgba(180, 164, 164, 0.75);
 }
