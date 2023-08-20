@@ -203,6 +203,7 @@ header .navbar-mobile .menu li a:hover {
     align-content: flex-start;
     flex-wrap: wrap;
     gap: 20px;
+    min-height: 50vh;
 }
 
 .box {
@@ -290,7 +291,78 @@ a.categories:hover {
 .img-blog {
     width: 100%;
     border-radius: 15px;
-    height: 600px;
+    height: 260px;
+}
+
+.content .blog {
+    display: flex;
+    flex-direction: row;
+    gap: 25px;
+    width: 100%;
+    margin-bottom: 25px;
+    color: rgb(0, 0, 0, 0.75);
+}
+
+.blog .blog-detail {
+    width: 75%;
+}
+
+.blog h1 {
+    font-size: 18pt;
+}
+
+.blog h2 {
+    font-size: 16pt;
+}
+
+.blog .blog-aside {
+    width: 25%;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    min-height: 70vh;
+    padding: 0 15px;
+}
+
+.blog-aside .box-aside {
+    display: flex;
+    justify-content: flex-start;
+    align-items: top;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.box-aside img {
+    width: 60px;
+    height: 60px;
+}
+
+.box-aside-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.box-aside-body h3 {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-weight: 600;
+}
+
+@media screen and (max-width: 991px) {
+    .img-blog { 
+        height: 240px;
+    }
+
+    .content .blog {
+        flex-wrap: wrap;
+    }
+
+    .blog .blog-detail {
+        width: 100%;
+    }
+    
+    .blog .blog-aside {
+        width: 100%;
+    }
 }
 
 .paging {
