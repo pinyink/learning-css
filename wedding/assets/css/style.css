@@ -1,0 +1,27 @@
+body {
+    font-family: Roboto;
+}
+
+#navbar .navbar-nav .nav-item {
+    margin-left: 10px;
+}
+
+#navbar-profil {
+    gap: 6px;
+}
+
+.btn-outline-dark:hover {
+    background-color: #414141;
+    border: none;
+    color: #fff;
+}
+
+#caraousel-product .carousel-item {
+    height: 480px;
+}
+
+@media (max-width: 755px) {
+    .div-detail-product {
+        margin-top: 30px;
+    }
+}
