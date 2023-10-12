@@ -1,5 +1,5 @@
 .header-dark {
-  background: url(../../assets/img/mountain_bg.jpg) #444;
+  background: url(../../assets/img/building-8260627_1280.jpg) #000;
   background-size: cover;
   padding-bottom: 80px;
   min-height: calc(100vh - 60px);
@@ -12,17 +12,19 @@
 }
 
 .header-dark .navbar {
-  background: #ed7505;
+  background: #0d9dd6;
+  border: 1px solid #0d9dd6;
+  transition: all 0.5s;
+  z-index: 997;
   color: #fff;
   border-radius: 0;
   box-shadow: none;
-  border: none;
 }
 
 @media (min-width:768px) {
   .header-dark .navbar {
-    padding-top: .75rem;
-    padding-bottom: .75rem;
+    padding-top: .60rem;
+    padding-bottom: .60rem;
   }
 }
 
@@ -99,7 +101,7 @@
 }
 
 .header-dark .navbar .action-button, .header-dark .navbar .action-button:active {
-  background: #208f8f;
+  background: #3d0ff5;
   border-radius: 20px;
   font-size: inherit;
   color: #fff;
@@ -111,7 +113,7 @@
 }
 
 .header-dark .navbar .action-button:hover {
-  background: #269d9d;
+  background: #3d0ff5;
 }
 
 .header-dark .navbar .form-inline label {
@@ -147,8 +149,9 @@
 
 .header-dark .hero h1 {
   color: #fff;
-  font-family: 'Bitter', serif;
+  font-family: 'poppins', sans-serif;
   font-size: 40px;
+  font-weight: bold;
   margin-top: 20px;
   margin-bottom: 80px;
 }
@@ -163,4 +166,3 @@
 .header-dark .hero .embed-responsive iframe {
   background-color: #666;
 }
-

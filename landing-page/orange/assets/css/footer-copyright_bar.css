@@ -34,12 +34,13 @@ p {
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
+  z-index: 997;
   /*height: 120px;*/
 }
 
 .footer .copy-right_text {
   padding-bottom: 20px;
-  background: #ed7505;
+  background: #0d9dd6;
 }
 
 .footer .copy-right_text .footer_border {
