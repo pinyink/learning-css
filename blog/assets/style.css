@@ -132,7 +132,7 @@ header .navbar-mobile .menu {
     position: absolute;
     flex-direction: column;
     top: 55px;
-    right: 15px;
+    right: 20px;
     bottom: 15px;
     left: 15px;
     padding: 10px 0;
@@ -188,10 +188,63 @@ header .navbar-mobile .menu li a:hover {
     gap: 25px;
 }
 
+#hero .search input {
+    height: 26px;
+    width: 240px;
+    padding-left: 5px;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+
+#hero .search button {
+    height: 30px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 1px solid black;
+    color: rgb(0, 0, 0);
+    background-color: #fff;
+    margin-left: 10px;
+    font-weight: 400;
+}
+
+#hero .search button:hover {
+    background-color: rgb(0, 0, 0);
+    color: #fff;
+}
+
 @media (max-width: 991px) {
     #hero {
         width: calc((100% - 90px));
         padding: 15px 45px;
+    }
+
+    #hero h1 {
+        font-size: 36pt;
+    }
+}
+
+@media (max-width: 520px) {
+    #hero {
+        width: calc((100% - 90px));
+        padding: 5px 45px;
+    }
+
+    #hero h1 {
+        font-size: 18pt;
+        margin-bottom: 1px;
+        margin-top: 1px;
+    }
+
+    #hero h2 {
+        font-size: 16pt;
+    }
+
+    #hero p {
+        font-size: 10pt;
+    }
+
+    #hero .search input {
+        width: 180px;
     }
 }
 
