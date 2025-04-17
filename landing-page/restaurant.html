@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ocean Catch - Premium Seafood Restaurant</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-orange: #FF8C42;
+            --dark-orange: #E67332;
+            --light-orange: #FFB347;
+            --cream: #FFF5EE;
+            --dark-blue: #003366;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+            background-color: var(--cream);
+        }
+        
+        h1, h2, h3, h4, h5 {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .bg-primary-orange {
+            background-color: var(--primary-orange);
+        }
+        
+        .bg-dark-orange {
+            background-color: var(--dark-orange);
+        }
+        
+        .bg-light-orange {
+            background-color: var(--light-orange);
+        }
+        
+        .text-primary-orange {
+            color: var(--primary-orange);
+        }
+        
+        .btn-orange {
+            background-color: var(--primary-orange);
+            color: white;
+            border: none;
+        }
+        
+        .btn-orange:hover {
+            background-color: var(--dark-orange);
+            color: white;
+        }
+        
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1510626176961-4b1d04cf4fbf?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            min-height: 90vh;
+            color: white;
+        }
+        
+        .navbar {
+            transition: all 0.3s ease;
+        }
+        
+        .navbar.scrolled {
+            background-color: var(--dark-orange) !important;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .menu-card {
+            border: none;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .menu-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .menu-card img {
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .testimonial-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 30px;
+        }
+        
+        .testimonial-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary-orange);
+        }
+        
+        .footer {
+            background-color: var(--dark-blue);
+            color: white;
+        }
+        
+        .footer a {
+            color: var(--light-orange);
+            text-decoration: none;
+        }
+        
+        .footer a:hover {
+            color: white;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            background-color: var(--primary-orange);
+            transform: translateY(-3px);
+        }
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 30px;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 3px;
+            background-color: var(--primary-orange);
+            bottom: -10px;
+            left: 0;
+        }
+        
+        .reservation-form {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark-orange fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <h2 class="mb-0"><i class="fas fa-fish me-2"></i>Ocean Catch</h2>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#menu">Menu</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#gallery">Gallery</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#testimonials">Reviews</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+                <a href="#reservation" class="btn btn-orange ms-lg-3">Reservations</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-section d-flex align-items-center">
+        <div class="container text-center text-white">
+            <h1 class="display-3 fw-bold mb-4">Fresh Seafood Delights</h1>
+            <p class="lead mb-5">Experience the taste of the ocean with our premium selection of fresh seafood</p>
+            <div class="d-flex justify-content-center gap-3">
+                <a href="#menu" class="btn btn-orange btn-lg px-4 py-2">Our Menu</a>
+                <a href="#reservation" class="btn btn-outline-light btn-lg px-4 py-2">Book a Table</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="py-5 py-lg-7">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Restaurant Interior" class="img-fluid rounded shadow">
+                </div>
+                <div class="col-lg-6">
+                    <h2 class="section-title">Our Story</h2>
+                    <p class="lead text-primary-orange">Since 1995, serving the freshest seafood in town</p>
+                    <p>Ocean Catch was founded with a simple mission: to bring the freshest seafood from the ocean to your plate. Our founder, a third-generation fisherman, wanted to share his passion for quality seafood with the community.</p>
+                    <p>Today, we continue that tradition by sourcing only the highest quality, sustainably caught seafood from local fishermen and trusted suppliers around the world.</p>
+                    <div class="row mt-4">
+                        <div class="col-md-6 mb-3">
+                            <div class="d-flex align-items-center">
+                                <div class="bg-primary-orange text-white rounded-circle p-3 me-3">
+                                    <i class="fas fa-anchor fa-lg"></i>
+                                </div>
+                                <div>
+                                    <h5 class="mb-0">Fresh Daily</h5>
+                                    <p class="mb-0">Never frozen</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="d-flex align-items-center">
+                                <div class="bg-primary-orange text-white rounded-circle p-3 me-3">
+                                    <i class="fas fa-utensils fa-lg"></i>
+                                </div>
+                                <div>
+                                    <h5 class="mb-0">Expert Chefs</h5>
+                                    <p class="mb-0">20+ years experience</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="d-flex align-items-center">
+                                <div class="bg-primary-orange text-white rounded-circle p-3 me-3">
+                                    <i class="fas fa-leaf fa-lg"></i>
+                                </div>
+                                <div>
+                                    <h5 class="mb-0">Sustainable</h5>
+                                    <p class="mb-0">Eco-friendly sourcing</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="d-flex align-items-center">
+                                <div class="bg-primary-orange text-white rounded-circle p-3 me-3">
+                                    <i class="fas fa-award fa-lg"></i>
+                                </div>
+                                <div>
+                                    <h5 class="mb-0">Award Winning</h5>
+                                    <p class="mb-0">Best seafood 2023</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Special Offers -->
+    <section class="py-5 bg-light-orange text-white">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <h3 class="mb-3">Happy Hour Special!</h3>
+                    <p class="mb-lg-0">Join us weekdays from 3-6pm for discounted oysters, cocktails, and appetizers. Perfect for after-work gatherings!</p>
+                </div>
+                <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
+                    <a href="#reservation" class="btn btn-dark btn-lg">Book Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="py-5 py-lg-7">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Our Menu</h2>
+                <p class="lead">Fresh from the ocean to your plate</p>
+            </div>
+            
+            <ul class="nav nav-tabs justify-content-center mb-5" id="menuTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="starters-tab" data-bs-toggle="tab" data-bs-target="#starters" type="button" role="tab">Starters</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="mains-tab" data-bs-toggle="tab" data-bs-target="#mains" type="button" role="tab">Main Courses</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="specials-tab" data-bs-toggle="tab" data-bs-target="#specials" type="button" role="tab">Chef's Specials</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="desserts-tab" data-bs-toggle="tab" data-bs-target="#desserts" type="button" role="tab">Desserts</button>
+                </li>
+            </ul>
+            
+            <div class="tab-content" id="menuTabsContent">
+                <div class="tab-pane fade show active" id="starters" role="tabpanel">
+                    <div class="row g-4">
+                        <div class="col-md-6 col-lg-4">
+                            <div class="menu-card card h-100">
+                                <img src="https://images.unsplash.com/photo-1514944288352-fffac99f0bdf?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" class="card-img-top" alt="Oysters">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <h5 class="card-title mb-0">Fresh Oysters</h5>
+                                        <span class="text-primary-orange fw-bold">$18</span>
+                                    </div>
+                                    <p class="card-text">Half dozen fresh oysters served with lemon, mignonette, and cocktail sauce.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4">
+                            <div class="menu-card card h-100">
+                                <img src="https://images.unsplash.com/photo-1601314162302-204d7d3f8c2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" class="card-img-top" alt="Calamari">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <h5 class="card-title mb-0">Crispy Calamari</h5>
+                                        <span class="text-primary-orange fw-bold">$14</span>
+                                    </div>
+                                    <p class="card-text">Lightly fried squid served with spicy aioli and lemon wedges.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4">
+                            <div class="menu-card card h-100">
+                                <img src="https://images.unsplash.com/photo-1510626176961-4b1d04cf4fbf?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" class="card-img-top" alt="Shrimp Cocktail">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <h5 class="card-title mb-0">Shrimp Cocktail</h5>
+                                        <span class="text-primary-orange fw-bold">$16</span>
+                                    </div>
+                                    <p class="card-text">Jumbo shrimp poached to perfection, served chilled with our signature cocktail sauce.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tab-pane fade" id="mains" role="tabpanel">
+                    <div class="row g-4">
+                        <div class="col-md-6 col-lg-4">
+                            <div class="menu-card card h-100">
+                                <img src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" class="card-img-top" alt="Grilled Salmon">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <h5 class="card-title mb-0">Grilled Salmon</h5>
+                                        <span class="text-primary-orange fw-bold">$26</span>
+                                    </div>
+                                    <p class="card-text">Wild-caught salmon grilled to perfection with lemon butter sauce, served with seasonal vegetables.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4">
+                            <div class="menu-card card h-100">
+                                <img src="https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" class="card-img-top" alt="Lobster Thermidor">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <h5 class="card-title mb-0">Lobster Thermidor</h5>
+                                        <span class="text-primary-orange fw-bold">$38</span>
+                                    </div>
+                                    <p class="card-text">Maine lobster cooked in a rich cream sauce with mushrooms, brandy, and cheese, then broiled to golden perfection.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4">
+                            <div class="menu-card card h-100">
+                                <img src="https://images.unsplash.com/photo-1560717843-7b3d5b0c0f6a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" class="card-img-top" alt="Seafood Paella">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <h5 class="card-title mb-0">Seafood Paella</h5>
+                                        <span class="text-primary-orange fw-bold">$32</span>
+                                    </div>
+                                    <p class="card-text">Traditional Spanish rice dish with shrimp, mussels, clams, squid, and chorizo, seasoned with saffron.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tab-pane fade" id="specials" role="tabpanel">
+                    <div class="row g-4">
+                        <div class="col-md-6 col-lg-4">
+                            <div class="menu-card card h-100">
+                                <img src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" class="card-img-top" alt="Surf & Turf">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <h5 class="card-title mb-0">Surf & Turf</h5>
+                                        <span class="text-primary-orange fw-bold">$42</span>
+                                    </div>
+                                    <p class="card-text">8oz filet mignon paired with a butter-poached lobster tail, served with truffle mashed potatoes.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4">
+                            <div class="menu-card card h-100">
+                                <img src="https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" class="card-img-top" alt="Whole Branzino">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <h5 class="card-title mb-0">Whole Branzino</h5>
+                                        <span class="text-primary-orange fw-bold">$34</span>
+                                    </div>
+                                    <p class="card-text">Mediterranean sea bass grilled whole with lemon, herbs, and olive oil, deboned tableside.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4">
+                            <div class="menu-card card h-100">
+                                <img src="https://images.unsplash.com/photo-1560717843-7b3d5b0c0f6a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" class="card-img-top" alt="Seafood Tower">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <h5 class="card-title mb-0">Seafood Tower</h5>
+                                        <span class="text-primary-orange fw-bold">$65</span>
+                                    </div>
+                                    <p class="card-text">An impressive three-tiered display featuring oysters, shrimp, crab legs, lobster, and ceviche.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tab-pane fade" id="desserts" role="tabpanel">
+                    <div class="row g-4">
+                        <div class="col-md-6 col-lg-4">
+                            <div class="menu-card card h-100">
+                                <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" class="card-img-top" alt="Key Lime Pie">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <h5 class="card-title mb-0">Key Lime Pie</h5>
+                                        <span class="text-primary-orange fw-bold">$9</span>
+                                    </div>
+                                    <p class="card-text">Tart and sweet Florida key lime pie with graham cracker crust and whipped cream.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4">
+                            <div class="menu-card card h-100">
+                                <img src="https://images.unsplash.com/photo-1562440499-32c9440fc9a2?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" class="card-img-top" alt="Chocolate Lava Cake">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <h5 class="card-title mb-0">Chocolate Lava Cake</h5>
+                                        <span class="text-primary-orange fw-bold">$10</span>
+                                    </div>
+                                    <p class="card-text">Warm chocolate cake with a molten center, served with vanilla ice cream.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4">
+                            <div class="menu-card card h-100">
+                                <img src="https://images.unsplash.com/photo-1558002038-1055907df827?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" class="card-img-top" alt="Crème Brûlée">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <h5 class="card-title mb-0">Crème Brûlée</h5>
+                                        <span class="text-primary-orange fw-bold">$8</span>
+                                    </div>
+                                    <p class="card-text">Classic vanilla bean custard with a caramelized sugar crust.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-5">
+                <a href="#" class="btn btn-orange btn-lg">View Full Menu</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Gallery</h2>
+                <p class="lead">A glimpse of our restaurant and dishes</p>
+            </div>
+            
+            <div class="row g-3">
+                <div class="col-md-4 col-6">
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#galleryModal" data-bs-img="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80">
+                        <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Restaurant Interior" class="img-fluid rounded shadow-sm">
+                    </a>
+                </div>
+                <div class="col-md-4 col-6">
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#galleryModal" data-bs-img="https://images.unsplash.com/photo-1510626176961-4b1d04cf4fbf?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80">
+                        <img src="https://images.unsplash.com/photo-1510626176961-4b1d04cf4fbf?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Seafood Platter" class="img-fluid rounded shadow-sm">
+                    </a>
+                </div>
+                <div class="col-md-4 col-6">
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#galleryModal" data-bs-img="https://images.unsplash.com/photo-1565557623262-b51c2513a641?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80">
+                        <img src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Grilled Salmon" class="img-fluid rounded shadow-sm">
+                    </a>
+                </div>
+                <div class="col-md-4 col-6">
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#galleryModal" data-bs-img="https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80">
+                        <img src="https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Lobster Dish" class="img-fluid rounded shadow-sm">
+                    </a>
+                </div>
+                <div class="col-md-4 col-6">
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#galleryModal" data-bs-img="https://images.unsplash.com/photo-1560717843-7b3d5b0c0f6a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80">
+                        <img src="https://images.unsplash.com/photo-1560717843-7b3d5b0c0f6a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Seafood Paella" class="img-fluid rounded shadow-sm">
+                    </a>
+                </div>
+                <div class="col-md-4 col-6">
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#galleryModal" data-bs-img="https://images.unsplash.com/photo-1514944288352-fffac99f0bdf?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80">
+                        <img src="https://images.unsplash.com/photo-1514944288352-fffac99f0bdf?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Oysters" class="img-fluid rounded shadow-sm">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-5 py-lg-7">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">What Our Guests Say</h2>
+                <p class="lead">Don't just take our word for it</p>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4">
+                    <div class="testimonial-card h-100">
+                        <div class="d-flex align-items-center mb-4">
+                            <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Sarah J." class="testimonial-img me-3">
+                            <div>
+                                <h5 class="mb-0">Sarah J.</h5>
+                                <div class="text-primary-orange">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p>"The lobster thermidor was absolutely divine! Perfectly cooked with just the right amount of creaminess. The service was impeccable and the ambiance was perfect for our anniversary dinner."</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="testimonial-card h-100">
+                        <div class="d-flex align-items-center mb-4">
+                            <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Michael T." class="testimonial-img me-3">
+                            <div>
+                                <h5 class="mb-0">Michael T.</h5>
+                                <div class="text-primary-orange">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p>"Best seafood I've had in years! The oysters were so fresh they tasted like they just came out of the ocean. The wine pairing suggestions from our server were spot on. Can't wait to come back!"</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="testimonial-card h-100">
+                        <div class="d-flex align-items-center mb-4">
+                            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Jennifer L." class="testimonial-img me-3">
+                            <div>
+                                <h5 class="mb-0">Jennifer L.</h5>
+                                <div class="text-primary-orange">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p>"We had the seafood tower for our girls' night out and it was spectacular! So much variety and everything was incredibly fresh. The staff made us feel so welcome and even gave us a complimentary dessert."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reservation Section -->
+    <section id="reservation" class="py-5 bg-light-orange text-white">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-5 mb-5 mb-lg-0">
+                    <h2 class="mb-4">Make a Reservation</h2>
+                    <p class="mb-4">Book your table online and we'll contact you to confirm your reservation.</p>
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="fas fa-phone-alt me-3 fa-lg"></i>
+                        <div>
+                            <h5 class="mb-0">Call Us</h5>
+                            <p class="mb-0">(555) 123-4567</p>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-clock me-3 fa-lg"></i>
+                        <div>
+                            <h5 class="mb-0">Opening Hours</h5>
+                            <p class="mb-0">Monday - Sunday: 11am - 10pm</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="reservation-form">
+                        <form>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="name" class="form-label">Full Name</label>
+                                    <input type="text" class="form-control" id="name" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="email" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="phone" class="form-label">Phone</label>
+                                    <input type="tel" class="form-control" id="phone" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="guests" class="form-label">Number of Guests</label>
+                                    <select class="form-select" id="guests">
+                                        <option value="1">1 person</option>
+                                        <option value="2" selected>2 people</option>
+                                        <option value="3">3 people</option>
+                                        <option value="4">4 people</option>
+                                        <option value="5">5 people</option>
+                                        <option value="6">6 people</option>
+                                        <option value="7">7 people</option>
+                                        <option value="8">8 people</option>
+                                        <option value="9">9 people</option>
+                                        <option value="10">10 people</option>
+                                        <option value="11">Larger party</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="date" class="form-label">Date</label>
+                                    <input type="date" class="form-control" id="date" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="time" class="form-label">Time</label>
+                                    <select class="form-select" id="time" required>
+                                        <option value="">Select time</option>
+                                        <option value="11:00">11:00 AM</option>
+                                        <option value="11:30">11:30 AM</option>
+                                        <option value="12:00">12:00 PM</option>
+                                        <option value="12:30">12:30 PM</option>
+                                        <option value="13:00">1:00 PM</option>
+                                        <option value="13:30">1:30 PM</option>
+                                        <option value="14:00">2:00 PM</option>
+                                        <option value="17:00">5:00 PM</option>
+                                        <option value="17:30">5:30 PM</option>
+                                        <option value="18:00">6:00 PM</option>
+                                        <option value="18:30">6:30 PM</option>
+                                        <option value="19:00">7:00 PM</option>
+                                        <option value="19:30">7:30 PM</option>
+                                        <option value="20:00">8:00 PM</option>
+                                        <option value="20:30">8:30 PM</option>
+                                        <option value="21:00">9:00 PM</option>
+                                    </select>
+                                </div>
+                                <div class="col-12">
+                                    <label for="special-requests" class="form-label">Special Requests</label>
+                                    <textarea class="form-control" id="special-requests" rows="3"></textarea>
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-orange w-100 py-3">Book Table</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-5 py-lg-7">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 mb-5 mb-lg-0">
+                    <h2 class="section-title mb-4">Contact Us</h2>
+                    <p class="mb-4">Have questions or feedback? We'd love to hear from you!</p>
+                    
+                    <div class="mb-4">
+                        <div class="d-flex align-items-start mb-3">
+                            <i class="fas fa-map-marker-alt text-primary-orange me-3 mt-1"></i>
+                            <div>
+                                <h5 class="mb-1">Address</h5>
+                                <p class="mb-0">123 Ocean Avenue<br>Seaside, CA 93955</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-start mb-3">
+                            <i class="fas fa-phone-alt text-primary-orange me-3 mt-1"></i>
+                            <div>
+                                <h5 class="mb-1">Phone</h5>
+                                <p class="mb-0">(555) 123-4567</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-start mb-3">
+                            <i class="fas fa-envelope text-primary-orange me-3 mt-1"></i>
+                            <div>
+                                <h5 class="mb-1">Email</h5>
+                                <p class="mb-0">info@oceancatch.com</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-start">
+                            <i class="fas fa-clock text-primary-orange me-3 mt-1"></i>
+                            <div>
+                                <h5 class="mb-1">Hours</h5>
+                                <p class="mb-0">Monday - Sunday<br>11:00 AM - 10:00 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h5 class="mb-3">Follow Us</h5>
+                        <div class="d-flex gap-3">
+                            <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="social-icon"><i class="fab fa-yelp"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body p-4 p-lg-5">
+                            <h3 class="mb-4">Send Us a Message</h3>
+                            <form>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label for="contact-name" class="form-label">Name</label>
+                                        <input type="text" class="form-control" id="contact-name" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="contact-email" class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="contact-email" required>
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="contact-subject" class="form-label">Subject</label>
+                                        <input type="text" class="form-control" id="contact-subject" required>
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="contact-message" class="form-label">Message</label>
+                                        <textarea class="form-control" id="contact-message" rows="5" required></textarea>
+                                    </div>
+                                    <div class="col-12">
+                                        <button type="submit" class="btn btn-orange px-4 py-2">Send Message</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <div class="map-section">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.215582003343!2d-73.9878449242396!3d40.7579859713899!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25855c6480299%3A0x55194ec5a1ae072e!2sTimes%20Square!5e0!3m2!1sen!2sus!4v1623255436784!5m2!1sen!2sus" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <h3 class="mb-3"><i class="fas fa-fish me-2"></i>Ocean Catch</h3>
+                    <p>Bringing the freshest seafood from the ocean to your plate since 1995. Our commitment to quality and sustainability ensures you get the best dining experience.</p>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+                    <h5 class="mb-3">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#">Home</a></li>
+                        <li class="mb-2"><a href="#about">About Us</a></li>
+                        <li class="mb-2"><a href="#menu">Menu</a></li>
+                        <li class="mb-2"><a href="#gallery">Gallery</a></li>
+                        <li class="mb-2"><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h5 class="mb-3">Opening Hours</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">Monday - Friday: 11am - 10pm</li>
+                        <li class="mb-2">Saturday: 10am - 11pm</li>
+                        <li class="mb-2">Sunday: 10am - 10pm</li>
+                        <li class="mb-2">Happy Hour: Mon-Fri 3-6pm</li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="mb-3">Newsletter</h5>
+                    <p>Subscribe to our newsletter for special offers and events.</p>
+                    <form class="mb-3">
+                        <div class="input-group">
+                            <input type="email" class="form-control" placeholder="Your email" required>
+                            <button class="btn btn-orange" type="submit"><i class="fas fa-paper-plane"></i></button>
+                        </div>
+                    </form>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-yelp"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4 bg-light">
+            <div class="row align-items-center">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">&copy; 2023 Ocean Catch. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <p class="mb-0">Designed with <i class="fas fa-heart text-danger"></i> by Ocean Catch Team</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Gallery Modal -->
+    <div class="modal fade" id="galleryModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content bg-transparent border-0">
+                <div class="modal-body p-0">
+                    <img src="" alt="" class="img-fluid rounded" id="galleryModalImg">
+                </div>
+                <button type="button" class="btn btn-orange position-absolute top-0 end-0 m-3 rounded-circle" data-bs-dismiss="modal" aria-label="Close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+        
+        // Gallery modal
+        const galleryModal = document.getElementById('galleryModal');
+        if (galleryModal) {
+            galleryModal.addEventListener('show.bs.modal', function(event) {
+                const button = event.relatedTarget;
+                const imgSrc = button.getAttribute('data-bs-img');
+                const modalImg = document.getElementById('galleryModalImg');
+                modalImg.src = imgSrc;
+            });
+        }
+        
+        // Set minimum date for reservation to today
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('date').setAttribute('min', today);
+    </script>
+</body>
+</html>
