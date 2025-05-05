@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --sidebar-width: 250px;
+            --sidebar-collapsed-width: 80px;
+            --header-height: 60px;
+            --primary-color: #4e73df;
+            --secondary-color: #f8f9fc;
+            --body-bg: #f8f9fc;
+            --card-bg: #ffffff;
+            --text-color: #5a5c69;
+            --sidebar-bg: #ffffff;
+            --sidebar-text: #5a5c69;
+            --sidebar-active: #f8f9fc;
+            --sidebar-hover: #f8f9fc;
+            --header-bg: #ffffff;
+            --footer-bg: #ffffff;
+            --border-color: #e3e6f0;
+        }
+
+        [data-bs-theme="dark"] {
+            --body-bg: #1a1a2e;
+            --card-bg: #16213e;
+            --text-color: #e9ecef;
+            --sidebar-bg: #16213e;
+            --sidebar-text: #e9ecef;
+            --sidebar-active: #0f3460;
+            --sidebar-hover: #0f3460;
+            --header-bg: #16213e;
+            --footer-bg: #16213e;
+            --border-color: #2a3a5e;
+            --primary-color: #4e73df;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--body-bg);
+            color: var(--text-color);
+            transition: all 0.3s;
+        }
+
+        /* Sidebar styles */
+        #sidebar {
+            width: var(--sidebar-width);
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            background-color: var(--sidebar-bg);
+            color: var(--sidebar-text);
+            transition: all 0.3s;
+            z-index: 1000;
+            box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
+            border-right: 1px solid var(--border-color);
+            overflow-y: auto;
+        }
+
+        #sidebar.collapsed {
+            width: var(--sidebar-collapsed-width);
+        }
+
+        #sidebar.collapsed .sidebar-text {
+            display: none !important;
+        }
+
+        #sidebar.collapsed .sidebar-item {
+            justify-content: center;
+        }
+
+        #sidebar.collapsed .sidebar-header {
+            justify-content: center;
+        }
+
+        #sidebar.collapsed .dropdown-toggle::after {
+            display: none;
+        }
+
+        #sidebar.collapsed:hover {
+            width: var(--sidebar-width);
+        }
+
+        #sidebar.collapsed:hover .sidebar-text {
+            display: inline-block !important;
+        }
+
+        #sidebar.collapsed:hover .sidebar-item {
+            justify-content: flex-start;
+        }
+
+        #sidebar.collapsed:hover .sidebar-header {
+            justify-content: flex-start;
+        }
+
+        #sidebar.collapsed:hover .dropdown-toggle::after {
+            display: inline-block;
+        }
+
+        .sidebar-header {
+            height: var(--header-height);
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            font-weight: 800;
+            font-size: 1.2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .sidebar-item {
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            color: var(--sidebar-text);
+            text-decoration: none;
+            transition: all 0.3s;
+            border-left: 3px solid transparent;
+        }
+
+        .sidebar-item:hover, .sidebar-item.active {
+            color: var(--primary-color);
+            background-color: var(--sidebar-hover);
+            border-left: 3px solid var(--primary-color);
+        }
+
+        .sidebar-item i {
+            margin-right: 10px;
+            font-size: 1.1rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        .sidebar-text {
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .sidebar-dropdown {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .sidebar-dropdown .sidebar-item {
+            padding-left: 40px;
+        }
+
+        /* Main content styles */
+        #main-content {
+            margin-left: var(--sidebar-width);
+            transition: all 0.3s;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #main-content.collapsed {
+            margin-left: var(--sidebar-collapsed-width);
+        }
+
+        #sidebar.collapsed:hover ~ #main-content {
+            margin-left: var(--sidebar-width);
+        }
+
+        /* Header styles */
+        #header {
+            height: var(--header-height);
+            background-color: var(--header-bg);
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+            z-index: 100;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .header-nav {
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+
+        .header-nav-item {
+            margin-left: 15px;
+            color: var(--text-color);
+            transition: all 0.3s;
+        }
+
+        .header-nav-item:hover {
+            color: var(--primary-color);
+        }
+
+        .header-nav-item i {
+            font-size: 1.2rem;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        /* Footer styles */
+        #footer {
+            background-color: var(--footer-bg);
+            padding: 20px 0;
+            border-top: 1px solid var(--border-color);
+            margin-top: auto;
+        }
+
+        /* Card styles */
+        .card {
+            border: none;
+            border-radius: 0.35rem;
+            box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+            margin-bottom: 1.5rem;
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+        }
+
+        .card-header {
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            font-weight: 700;
+            padding: 1rem 1.35rem;
+            color: var(--text-color);
+        }
+
+        .card-body {
+            padding: 1.25rem;
+        }
+
+        /* Stats card */
+        .stat-card {
+            border-left: 0.25rem solid var(--primary-color);
+        }
+
+        .stat-card .stat-title {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: var(--text-color);
+            opacity: 0.7;
+            font-weight: 700;
+        }
+
+        .stat-card .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .stat-card.primary {
+            border-left-color: var(--primary-color);
+        }
+
+        .stat-card.success {
+            border-left-color: #1cc88a;
+        }
+
+        .stat-card.info {
+            border-left-color: #36b9cc;
+        }
+
+        .stat-card.warning {
+            border-left-color: #f6c23e;
+        }
+
+        /* Chart container */
+        .chart-container {
+            position: relative;
+            height: 300px;
+        }
+
+        /* Theme toggle */
+        .theme-toggle {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            transition: all 0.3s;
+        }
+
+        .theme-toggle:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            #sidebar {
+                margin-left: -250px;
+            }
+            
+            #sidebar.collapsed {
+                margin-left: -80px;
+            }
+            
+            #sidebar.show {
+                margin-left: 0;
+            }
+            
+            #main-content {
+                margin-left: 0;
+            }
+            
+            #sidebar.collapsed:hover ~ #main-content,
+            #sidebar.collapsed ~ #main-content {
+                margin-left: 0;
+            }
+        }
+
+        /* Table styles */
+        .table {
+            color: var(--text-color);
+        }
+
+        .table th {
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .table td, .table th {
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Badge styles */
+        .badge {
+            font-weight: 500;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--sidebar-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3a5bc7;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div id="sidebar" class="collapsed">
+        <div class="sidebar-header d-flex">
+            <span class="sidebar-text">Admin Panel</span>
+        </div>
+        
+        <div class="sidebar-menu py-3">
+            <a href="#" class="sidebar-item active">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span class="sidebar-text">Dashboard</span>
+            </a>
+            
+            <a href="#" class="sidebar-item">
+                <i class="fas fa-fw fa-shopping-cart"></i>
+                <span class="sidebar-text">Orders</span>
+            </a>
+            
+            <a href="#" class="sidebar-item">
+                <i class="fas fa-fw fa-boxes"></i>
+                <span class="sidebar-text">Products</span>
+            </a>
+            
+            <a href="#" class="sidebar-item">
+                <i class="fas fa-fw fa-users"></i>
+                <span class="sidebar-text">Customers</span>
+            </a>
+            
+            <a href="#" class="sidebar-item">
+                <i class="fas fa-fw fa-chart-bar"></i>
+                <span class="sidebar-text">Reports</span>
+            </a>
+            
+            <a href="#" class="sidebar-item">
+                <i class="fas fa-fw fa-tags"></i>
+                <span class="sidebar-text">Coupons</span>
+            </a>
+            
+            <a class="sidebar-item dropdown-toggle" data-bs-toggle="collapse" href="#settingsCollapse">
+                <i class="fas fa-fw fa-cog"></i>
+                <span class="sidebar-text">Settings</span>
+                <i class="fas fa-fw fa-angle-down ms-auto"></i>
+            </a>
+            
+            <div class="collapse sidebar-dropdown" id="settingsCollapse">
+                <a href="#" class="sidebar-item">
+                    <i class="fas fa-fw fa-store"></i>
+                    <span class="sidebar-text">Store Settings</span>
+                </a>
+                <a href="#" class="sidebar-item">
+                    <i class="fas fa-fw fa-credit-card"></i>
+                    <span class="sidebar-text">Payment Methods</span>
+                </a>
+                <a href="#" class="sidebar-item">
+                    <i class="fas fa-fw fa-truck"></i>
+                    <span class="sidebar-text">Shipping</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div id="main-content" class="collapsed">
+        <!-- Header -->
+        <header id="header" class="sticky-top">
+            <div class="container-fluid">
+                <div class="d-flex justify-content-between">
+                    <button id="sidebarToggle" class="btn btn-link">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    
+                    <nav class="header-nav">
+                        <div class="theme-toggle me-2" id="themeToggle">
+                            <i class="fas fa-moon"></i>
+                        </div>
+                        
+                        <div class="dropdown">
+                            <a href="#" class="header-nav-item dropdown-toggle" id="messagesDropdown" role="button" data-bs-toggle="dropdown">
+                                <i class="fas fa-envelope"></i>
+                                <span class="badge bg-danger badge-counter">3</span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end p-0">
+                                <h6 class="dropdown-header bg-light py-2">Messages</h6>
+                                <a href="#" class="dropdown-item d-flex align-items-center">
+                                    <div class="me-3">
+                                        <img class="avatar" src="https://source.unsplash.com/QAB-WJcbgJk/60x60" alt="User">
+                                    </div>
+                                    <div>
+                                        <div class="small">John Smith · 58m</div>
+                                        <span class="font-weight-bold">New order received!</span>
+                                    </div>
+                                </a>
+                                <a href="#" class="dropdown-item text-center small">Read All Messages</a>
+                            </div>
+                        </div>
+                        
+                        <div class="dropdown ms-3">
+                            <a href="#" class="header-nav-item dropdown-toggle" id="alertsDropdown" role="button" data-bs-toggle="dropdown">
+                                <i class="fas fa-bell"></i>
+                                <span class="badge bg-warning badge-counter">5</span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end p-0">
+                                <h6 class="dropdown-header bg-light py-2">Alerts</h6>
+                                <a href="#" class="dropdown-item d-flex align-items-center">
+                                    <div class="me-3">
+                                        <i class="fas fa-file-alt text-primary"></i>
+                                    </div>
+                                    <div>
+                                        <div class="small">December 12, 2023</div>
+                                        <span class="font-weight-bold">A new monthly report is ready to download!</span>
+                                    </div>
+                                </a>
+                                <a href="#" class="dropdown-item text-center small">Show All Alerts</a>
+                            </div>
+                        </div>
+                        
+                        <div class="dropdown ms-3">
+                            <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="userDropdown" role="button" data-bs-toggle="dropdown">
+                                <img class="avatar me-2" src="https://source.unsplash.com/QAB-WJcbgJk/60x60" alt="User">
+                                <span class="d-none d-lg-inline">Admin User</span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <a href="#" class="dropdown-item"><i class="fas fa-user fa-sm fa-fw me-2"></i> Profile</a>
+                                <a href="#" class="dropdown-item"><i class="fas fa-cogs fa-sm fa-fw me-2"></i> Settings</a>
+                                <div class="dropdown-divider"></div>
+                                <a href="#" class="dropdown-item"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2"></i> Logout</a>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Page Content -->
+        <div class="container-fluid px-4">
+            <!-- Page Heading -->
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <h1 class="h3 mb-0">Dashboard</h1>
+                <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                    <i class="fas fa-download fa-sm text-white-50"></i> Generate Report
+                </a>
+            </div>
+            
+            <!-- Stats Cards -->
+            <div class="row">
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card stat-card primary h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col me-2">
+                                    <div class="stat-title">TOTAL REVENUE</div>
+                                    <div class="stat-value">$24,345</div>
+                                    <div class="text-xs font-weight-bold text-success d-inline-flex align-items-center">
+                                        <i class="fas fa-caret-up me-1"></i>
+                                        12%
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card stat-card success h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col me-2">
+                                    <div class="stat-title">TOTAL ORDERS</div>
+                                    <div class="stat-value">1,234</div>
+                                    <div class="text-xs font-weight-bold text-success d-inline-flex align-items-center">
+                                        <i class="fas fa-caret-up me-1"></i>
+                                        8%
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-shopping-cart fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card stat-card info h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col me-2">
+                                    <div class="stat-title">NEW CUSTOMERS</div>
+                                    <div class="stat-value">124</div>
+                                    <div class="text-xs font-weight-bold text-danger d-inline-flex align-items-center">
+                                        <i class="fas fa-caret-down me-1"></i>
+                                        3%
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-user-plus fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card stat-card warning h-100 py-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col me-2">
+                                    <div class="stat-title">PRODUCTS SOLD</div>
+                                    <div class="stat-value">3,456</div>
+                                    <div class="text-xs font-weight-bold text-success d-inline-flex align-items-center">
+                                        <i class="fas fa-caret-up me-1"></i>
+                                        15%
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-box-open fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Charts Row -->
+            <div class="row">
+                <!-- Revenue Chart -->
+                <div class="col-xl-8 col-lg-7">
+                    <div class="card mb-4">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h6 class="m-0 font-weight-bold">Revenue Overview</h6>
+                            <div class="dropdown">
+                                <button class="btn btn-sm btn-link dropdown-toggle" type="button" id="revenueDropdown" data-bs-toggle="dropdown">
+                                    <i class="fas fa-ellipsis-v"></i>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-end">
+                                    <a class="dropdown-item" href="#">This Week</a>
+                                    <a class="dropdown-item" href="#">This Month</a>
+                                    <a class="dropdown-item" href="#">This Year</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container">
+                                <canvas id="revenueChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pie Chart -->
+                <div class="col-xl-4 col-lg-5">
+                    <div class="card mb-4">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h6 class="m-0 font-weight-bold">Revenue Sources</h6>
+                            <div class="dropdown">
+                                <button class="btn btn-sm btn-link dropdown-toggle" type="button" id="pieDropdown" data-bs-toggle="dropdown">
+                                    <i class="fas fa-ellipsis-v"></i>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-end">
+                                    <a class="dropdown-item" href="#">This Week</a>
+                                    <a class="dropdown-item" href="#">This Month</a>
+                                    <a class="dropdown-item" href="#">This Year</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container">
+                                <canvas id="pieChart"></canvas>
+                            </div>
+                            <div class="mt-4 text-center small">
+                                <span class="me-2">
+                                    <i class="fas fa-circle text-primary"></i> Direct
+                                </span>
+                                <span class="me-2">
+                                    <i class="fas fa-circle text-success"></i> Social
+                                </span>
+                                <span class="me-2">
+                                    <i class="fas fa-circle text-info"></i> Referral
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Recent Orders Table -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="card mb-4">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h6 class="m-0 font-weight-bold">Recent Orders</h6>
+                            <a href="#" class="btn btn-sm btn-primary">View All</a>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Order ID</th>
+                                            <th>Customer</th>
+                                            <th>Date</th>
+                                            <th>Status</th>
+                                            <th>Amount</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>#ORD-12345</td>
+                                            <td>John Smith</td>
+                                            <td>2023-12-15</td>
+                                            <td><span class="badge bg-success">Completed</span></td>
+                                            <td>$245.00</td>
+                                            <td>
+                                                <button class="btn btn-sm btn-outline-primary">View</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>#ORD-12344</td>
+                                            <td>Sarah Johnson</td>
+                                            <td>2023-12-14</td>
+                                            <td><span class="badge bg-warning">Processing</span></td>
+                                            <td>$189.50</td>
+                                            <td>
+                                                <button class="btn btn-sm btn-outline-primary">View</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>#ORD-12343</td>
+                                            <td>Michael Brown</td>
+                                            <td>2023-12-14</td>
+                                            <td><span class="badge bg-info">Shipped</span></td>
+                                            <td>$320.75</td>
+                                            <td>
+                                                <button class="btn btn-sm btn-outline-primary">View</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>#ORD-12342</td>
+                                            <td>Emily Davis</td>
+                                            <td>2023-12-13</td>
+                                            <td><span class="badge bg-danger">Cancelled</span></td>
+                                            <td>$75.25</td>
+                                            <td>
+                                                <button class="btn btn-sm btn-outline-primary">View</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>#ORD-12341</td>
+                                            <td>Robert Wilson</td>
+                                            <td>2023-12-12</td>
+                                            <td><span class="badge bg-success">Completed</span></td>
+                                            <td>$420.00</td>
+                                            <td>
+                                                <button class="btn btn-sm btn-outline-primary">View</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <footer id="footer">
+            <div class="container-fluid">
+                <div class="d-flex align-items-center justify-content-between small">
+                    <div>Copyright &copy; Your Website 2023</div>
+                    <div>
+                        <a href="#">Privacy Policy</a>
+                        &middot;
+                        <a href="#">Terms &amp; Conditions</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+    <!-- Bootstrap 5 JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <script>
+        $(document).ready(function() {
+            // Toggle sidebar
+            $('#sidebarToggle').click(function() {
+                $('#sidebar').toggleClass('collapsed');
+                $('#main-content').toggleClass('collapsed');
+                
+                // Store sidebar state in localStorage
+                if ($('#sidebar').hasClass('collapsed')) {
+                    localStorage.setItem('sidebarCollapsed', 'true');
+                } else {
+                    localStorage.setItem('sidebarCollapsed', 'false');
+                }
+            });
+            
+            // Check for saved sidebar state
+            if (localStorage.getItem('sidebarCollapsed') === 'true') {
+                $('#sidebar').addClass('collapsed');
+                $('#main-content').addClass('collapsed');
+            }
+            
+            // Toggle mobile sidebar
+            function handleMobileSidebar() {
+                if ($(window).width() <= 768) {
+                    $('#sidebar').removeClass('collapsed').addClass('show');
+                    $('#main-content').removeClass('collapsed');
+                } else {
+                    $('#sidebar').removeClass('show');
+                }
+            }
+            
+            // Initialize charts
+            initRevenueChart();
+            initPieChart();
+            
+            // Theme toggle
+            $('#themeToggle').click(function() {
+                const html = document.documentElement;
+                const currentTheme = html.getAttribute('data-bs-theme');
+                
+                if (currentTheme === 'dark') {
+                    html.removeAttribute('data-bs-theme');
+                    localStorage.setItem('theme', 'light');
+                    $('#themeToggle i').removeClass('fa-sun').addClass('fa-moon');
+                } else {
+                    html.setAttribute('data-bs-theme', 'dark');
+                    localStorage.setItem('theme', 'dark');
+                    $('#themeToggle i').removeClass('fa-moon').addClass('fa-sun');
+                }
+                
+                // Update charts for new theme
+                initRevenueChart();
+                initPieChart();
+            });
+            
+            // Check for saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                document.documentElement.setAttribute('data-bs-theme', 'dark');
+                $('#themeToggle i').removeClass('fa-moon').addClass('fa-sun');
+            }
+            
+            // Handle window resize
+            $(window).resize(function() {
+                handleMobileSidebar();
+            });
+            
+            // Initialize mobile sidebar
+            handleMobileSidebar();
+        });
+        
+        function initRevenueChart() {
+            // Destroy previous chart if exists
+            if (window.revenueChart) {
+                window.revenueChart.destroy();
+            }
+            
+            // Revenue Chart
+            var ctx = document.getElementById('revenueChart').getContext('2d');
+            window.revenueChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    datasets: [{
+                        label: 'Revenue',
+                        data: [5000, 8000, 12000, 15000, 18000, 20000, 22000, 25000, 20000, 18000, 22000, 28000],
+                        backgroundColor: document.documentElement.getAttribute('data-bs-theme') === 'dark' 
+                            ? 'rgba(78, 115, 223, 0.1)' 
+                            : 'rgba(78, 115, 223, 0.05)',
+                        borderColor: 'rgba(78, 115, 223, 1)',
+                        pointBackgroundColor: 'rgba(78, 115, 223, 1)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgba(78, 115, 223, 1)',
+                        borderWidth: 2,
+                        tension: 0.3,
+                        fill: true
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: document.documentElement.getAttribute('data-bs-theme') === 'dark' 
+                                    ? 'rgba(255, 255, 255, 0.05)' 
+                                    : 'rgba(0, 0, 0, 0.05)',
+                                drawBorder: false
+                            },
+                            ticks: {
+                                callback: function(value) {
+                                    return '$' + value.toLocaleString();
+                                }
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false,
+                                drawBorder: false
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        function initPieChart() {
+            // Destroy previous chart if exists
+            if (window.pieChart) {
+                window.pieChart.destroy();
+            }
+            
+            // Pie Chart
+            var ctx = document.getElementById('pieChart').getContext('2d');
+            window.pieChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Direct', 'Referral', 'Social'],
+                    datasets: [{
+                        data: [55, 30, 15],
+                        backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
+                        hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
+                        hoverBorderColor: document.documentElement.getAttribute('data-bs-theme') === 'dark' 
+                            ? 'rgba(0, 0, 0, 0.5)' 
+                            : 'rgba(234, 236, 244, 1)',
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    var label = context.label || '';
+                                    var value = context.raw || 0;
+                                    return label + ': ' + value + '%';
+                                }
+                            }
+                        }
+                    },
+                    cutout: '80%',
+                }
+            });
+        }
+    </script>
+</body>
+</html>
