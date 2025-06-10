@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pindipin | Software Engineer Portfolio</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom CSS */
+        .hero-carousel {
+            height: 100vh;
+            min-height: 500px;
+        }
+        .carousel-item {
+            height: 100vh;
+            min-height: 500px;
+            background-size: cover;
+            background-position: center;
+        }
+        .carousel-item-1 {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3');
+        }
+        .carousel-item-2 {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3');
+        }
+        .carousel-item-3 {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?ixlib=rb-4.0.3');
+        }
+        .card-hover:hover {
+            transform: translateY(-10px);
+            transition: transform 0.3s ease;
+        }
+        .skill-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-gray-900 fixed-top">
+        <div class="container">
+            <a class="navbar-brand text-2xl font-bold text-pink-500" href="#">PINDIPIN</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-white hover:text-pink-400" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white hover:text-pink-400" href="#skills">Skills</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white hover:text-pink-400" href="#blog">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white hover:text-pink-400" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Carousel -->
+    <section id="home" class="hero-carousel">
+        <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active"></button>
+                <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1"></button>
+                <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active carousel-item-1">
+                    <div class="carousel-caption d-flex flex-column justify-content-center h-100">
+                        <h1 class="text-5xl font-bold text-white mb-4">Hello, I'm Pindipin</h1>
+                        <p class="text-xl text-gray-300 mb-6">Full Stack Software Engineer with 5+ years of experience</p>
+                        <a href="#contact" class="btn btn-lg bg-pink-600 text-white hover:bg-pink-700 w-25 mx-auto">Hire Me</a>
+                    </div>
+                </div>
+                <div class="carousel-item carousel-item-2">
+                    <div class="carousel-caption d-flex flex-column justify-content-center h-100">
+                        <h1 class="text-5xl font-bold text-white mb-4">Creative Solutions</h1>
+                        <p class="text-xl text-gray-300 mb-6">Turning complex problems into elegant software solutions</p>
+                        <a href="#skills" class="btn btn-lg bg-pink-600 text-white hover:bg-pink-700 w-25 mx-auto">My Skills</a>
+                    </div>
+                </div>
+                <div class="carousel-item carousel-item-3">
+                    <div class="carousel-caption d-flex flex-column justify-content-center h-100">
+                        <h1 class="text-5xl font-bold text-white mb-4">Let's Build Something</h1>
+                        <p class="text-xl text-gray-300 mb-6">Custom software development tailored to your needs</p>
+                        <a href="#blog" class="btn btn-lg bg-pink-600 text-white hover:bg-pink-700 w-25 mx-auto">My Projects</a>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </button>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-16 bg-white">
+        <div class="container">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">My Skills & Expertise</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">I specialize in full-stack development with a focus on creating scalable and efficient applications.</p>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="bg-gray-50 p-6 rounded-lg shadow-md h-full text-center card-hover">
+                        <div class="skill-icon text-pink-500">
+                            <i class="fab fa-php"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3">PHP Development</h3>
+                        <p class="text-gray-600">5+ years experience building robust applications with Laravel, Symfony, and custom PHP frameworks.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="bg-gray-50 p-6 rounded-lg shadow-md h-full text-center card-hover">
+                        <div class="skill-icon text-blue-500">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3">MySQL Database</h3>
+                        <p class="text-gray-600">Expert in designing, optimizing, and managing relational databases for high-performance applications.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="bg-gray-50 p-6 rounded-lg shadow-md h-full text-center card-hover">
+                        <div class="skill-icon text-yellow-500">
+                            <i class="fab fa-js"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3">JavaScript</h3>
+                        <p class="text-gray-600">Modern JavaScript frameworks including React, Vue.js, and Node.js for interactive front-end experiences.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="bg-gray-50 p-6 rounded-lg shadow-md h-full text-center card-hover">
+                        <div class="skill-icon text-red-500">
+                            <i class="fab fa-laravel"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3">Laravel Framework</h3>
+                        <p class="text-gray-600">Specialized in building secure, scalable web applications using Laravel's powerful ecosystem.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="bg-gray-50 p-6 rounded-lg shadow-md h-full text-center card-hover">
+                        <div class="skill-icon text-purple-500">
+                            <i class="fas fa-server"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3">API Development</h3>
+                        <p class="text-gray-600">Designing RESTful and GraphQL APIs with proper authentication and documentation standards.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="bg-gray-50 p-6 rounded-lg shadow-md h-full text-center card-hover">
+                        <div class="skill-icon text-green-500">
+                            <i class="fab fa-git-alt"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3">DevOps & Version Control</h3>
+                        <p class="text-gray-600">Experience with Git, Docker, CI/CD pipelines, and deployment strategies for optimal workflow.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog/Projects Section -->
+    <section id="blog" class="py-16 bg-gray-100">
+        <div class="container">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">Recent Projects & Articles</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">Explore some of my latest work and technical articles.</p>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="card border-0 shadow-lg h-full card-hover">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3" class="card-img-top" alt="Project 1" style="height: 200px; object-fit: cover;">
+                        <div class="card-body">
+                            <div class="d-flex justify-between mb-2">
+                                <span class="badge bg-pink-100 text-pink-800 px-2 py-1 rounded">PHP</span>
+                                <span class="text-gray-500 text-sm"><i class="far fa-calendar-alt me-1"></i> May 2023</span>
+                            </div>
+                            <h3 class="card-title text-xl font-bold mb-2">E-commerce Platform</h3>
+                            <p class="text-gray-600">Built a custom e-commerce solution with Laravel, Vue.js, and MySQL processing 1000+ orders daily.</p>
+                        </div>
+                        <div class="card-footer bg-transparent border-0">
+                            <a href="#" class="text-pink-600 font-medium hover:text-pink-800">Read Case Study →</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="card border-0 shadow-lg h-full card-hover">
+                        <img src="https://images.unsplash.com/photo-1661956602868-6ae368943878?ixlib=rb-4.0.3" class="card-img-top" alt="Project 2" style="height: 200px; object-fit: cover;">
+                        <div class="card-body">
+                            <div class="d-flex justify-between mb-2">
+                                <span class="badge bg-blue-100 text-blue-800 px-2 py-1 rounded">Database</span>
+                                <span class="text-gray-500 text-sm"><i class="far fa-calendar-alt me-1"></i> March 2023</span>
+                            </div>
+                            <h3 class="card-title text-xl font-bold mb-2">Optimizing MySQL Queries</h3>
+                            <p class="text-gray-600">How I reduced query times by 85% for a high-traffic application through indexing and optimization.</p>
+                        </div>
+                        <div class="card-footer bg-transparent border-0">
+                            <a href="#" class="text-pink-600 font-medium hover:text-pink-800">Read Article →</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="card border-0 shadow-lg h-full card-hover">
+                        <img src="https://images.unsplash.com/photo-1555774698-0b77e0d5fac6?ixlib=rb-4.0.3" class="card-img-top" alt="Project 3" style="height: 200px; object-fit: cover;">
+                        <div class="card-body">
+                            <div class="d-flex justify-between mb-2">
+                                <span class="badge bg-purple-100 text-purple-800 px-2 py-1 rounded">API</span>
+                                <span class="text-gray-500 text-sm"><i class="far fa-calendar-alt me-1"></i> January 2023</span>
+                            </div>
+                            <h3 class="card-title text-xl font-bold mb-2">REST API Development</h3>
+                            <p class="text-gray-600">Designed a secure microservices architecture for a financial application handling sensitive data.</p>
+                        </div>
+                        <div class="card-footer bg-transparent border-0">
+                            <a href="#" class="text-pink-600 font-medium hover:text-pink-800">View Details →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-10">
+                <a href="#" class="px-6 py-3 bg-pink-600 text-white rounded-lg hover:bg-pink-700 inline-block">
+                    View All Projects & Articles
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 bg-white">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <h2 class="text-4xl font-bold text-gray-900 mb-4">Let's Work Together</h2>
+                    <p class="text-lg text-gray-600 mb-6">Have a project in mind or want to discuss potential opportunities? Feel free to reach out!</p>
+                    
+                    <div class="d-flex align-items-center mb-4">
+                        <div class="p-3 rounded-full bg-pink-100 text-pink-600 me-3">
+                            <i class="fas fa-envelope fa-lg"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold">Email Me</h3>
+                            <p class="text-gray-600">hello@pindipin.dev</p>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex align-items-center mb-4">
+                        <div class="p-3 rounded-full bg-pink-100 text-pink-600 me-3">
+                            <i class="fas fa-phone-alt fa-lg"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold">Call Me</h3>
+                            <p class="text-gray-600">+1 (555) 123-4567</p>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex align-items-center mb-4">
+                        <div class="p-3 rounded-full bg-pink-100 text-pink-600 me-3">
+                            <i class="fas fa-map-marker-alt fa-lg"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-semibold">Location</h3>
+                            <p class="text-gray-600">San Francisco, CA</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6">
+                        <h3 class="text-lg font-semibold mb-3">Follow Me</h3>
+                        <div class="d-flex">
+                            <a href="#" class="p-3 rounded-full bg-gray-100 text-gray-700 hover:bg-pink-100 hover:text-pink-600 me-2">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="#" class="p-3 rounded-full bg-gray-100 text-gray-700 hover:bg-pink-100 hover:text-pink-600 me-2">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="#" class="p-3 rounded-full bg-gray-100 text-gray-700 hover:bg-pink-100 hover:text-pink-600 me-2">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="p-3 rounded-full bg-gray-100 text-gray-700 hover:bg-pink-100 hover:text-pink-600">
+                                <i class="fab fa-stack-overflow"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <div class="bg-gray-50 p-6 rounded-lg shadow-sm">
+                        <h3 class="text-2xl font-bold mb-5">Send Me a Message</h3>
+                        <form>
+                            <div class="mb-4">
+                                <label for="name" class="block text-gray-700 mb-2">Your Name</label>
+                                <input type="text" id="name" class="form-control w-full p-3 border rounded-lg focus:ring-2 focus:ring-pink-300 focus:border-pink-300" placeholder="John Doe">
+                            </div>
+                            <div class="mb-4">
+                                <label for="email" class="block text-gray-700 mb-2">Email Address</label>
+                                <input type="email" id="email" class="form-control w-full p-3 border rounded-lg focus:ring-2 focus:ring-pink-300 focus:border-pink-300" placeholder="john@example.com">
+                            </div>
+                            <div class="mb-4">
+                                <label for="subject" class="block text-gray-700 mb-2">Subject</label>
+                                <input type="text" id="subject" class="form-control w-full p-3 border rounded-lg focus:ring-2 focus:ring-pink-300 focus:border-pink-300" placeholder="Project Inquiry">
+                            </div>
+                            <div class="mb-4">
+                                <label for="message" class="block text-gray-700 mb-2">Message</label>
+                                <textarea id="message" rows="4" class="form-control w-full p-3 border rounded-lg focus:ring-2 focus:ring-pink-300 focus:border-pink-300" placeholder="Tell me about your project..."></textarea>
+                            </div>
+                            <button type="submit" class="btn w-full bg-pink-600 text-white hover:bg-pink-700 py-3 px-4 rounded-lg">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-10">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-6 mb-lg-0">
+                    <h3 class="text-2xl font-bold text-pink-500 mb-4">PINDIPIN</h3>
+                    <p class="text-gray-400 mb-4">Building innovative software solutions with cutting-edge technology and creative problem-solving.</p>
+                    <div class="d-flex">
+                        <a href="#" class="p-2 rounded-full bg-gray-800 text-gray-400 hover:bg-pink-600 hover:text-white me-2">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="p-2 rounded-full bg-gray-800 text-gray-400 hover:bg-pink-600 hover:text-white me-2">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="p-2 rounded-full bg-gray-800 text-gray-400 hover:bg-pink-600 hover:text-white me-2">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="#" class="p-2 rounded-full bg-gray-800 text-gray-400 hover:bg-pink-600 hover:text-white">
+                            <i class="fab fa-medium-m"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-2 col-md-4 mb-6 mb-md-0">
+                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#home" class="text-gray-400 hover:text-pink-400">Home</a></li>
+                        <li class="mb-2"><a href="#skills" class="text-gray-400 hover:text-pink-400">Skills</a></li>
+                        <li class="mb-2"><a href="#blog" class="text-gray-400 hover:text-pink-400">Projects</a></li>
+                        <li class="mb-2"><a href="#contact" class="text-gray-400 hover:text-pink-400">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-3 col-md-4 mb-6 mb-md-0">
+                    <h4 class="text-lg font-semibold mb-4">Services</h4>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-gray-400 hover:text-pink-400">Web Development</a></li>
+                        <li class="mb-2"><a href="#" class="text-gray-400 hover:text-pink-400">API Integration</a></li>
+                        <li class="mb-2"><a href="#" class="text-gray-400 hover:text-pink-400">Database Design</a></li>
+                        <li class="mb-2"><a href="#" class="text-gray-400 hover:text-pink-400">Technical Consulting</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-3 col-md-4">
+                    <h4 class="text-lg font-semibold mb-4">Newsletter</h4>
+                    <p class="text-gray-400 mb-4">Subscribe to get updates on my latest projects and articles.</p>
+                    <form class="d-flex">
+                        <input type="email" placeholder="Your email" class="form-control rounded-l-lg py-2 px-3 bg-gray-800 border-gray-700">
+                        <button type="submit" class="bg-pink-600 text-white px-4 rounded-r-lg hover:bg-pink-700">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <hr class="my-8 border-gray-700">
+            
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="text-gray-400">&copy; 2023 Pindipin. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#" class="text-gray-400 hover:text-pink-400 me-3">Privacy Policy</a>
+                    <a href="#" class="text-gray-400 hover:text-pink-400">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Make navbar change color on scroll
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-opacity-90');
+                navbar.classList.add('shadow-md');
+            } else {
+                navbar.classList.remove('bg-opacity-90');
+                navbar.classList.remove('shadow-md');
+            }
+        });
+    </script>
+</body>
+</html>
