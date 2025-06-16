@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkyLearn - Master New Skills</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --primary-blue: #1e88e5;
+            --light-blue: #64b5f6;
+            --sky-blue: #bbdefb;
+            --dark-blue: #0d47a1;
+            --white: #ffffff;
+            --light-gray: #f5f5f5;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--white);
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-blue), var(--light-blue));
+            color: var(--white);
+            padding: 5rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="rgba(255,255,255,0.1)" d="M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-size: cover;
+            background-position: bottom;
+            background-repeat: no-repeat;
+        }
+        
+        .course-card {
+            transition: all 0.3s ease;
+            border: none;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .course-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(30, 136, 229, 0.2);
+        }
+        
+        .course-card .card-img-top {
+            height: 180px;
+            object-fit: cover;
+        }
+        
+        .badge-popular {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: var(--dark-blue);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+        
+        .nav-pills .nav-link.active {
+            background-color: var(--primary-blue);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-blue);
+            border-color: var(--primary-blue);
+        }
+        
+        .btn-outline-primary {
+            color: var(--primary-blue);
+            border-color: var(--primary-blue);
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: var(--primary-blue);
+            color: white;
+        }
+        
+        .testimonial-card {
+            background-color: var(--sky-blue);
+            border-radius: 10px;
+            padding: 20px;
+            position: relative;
+        }
+        
+        .testimonial-card::before {
+            content: '"';
+            font-size: 5rem;
+            color: rgba(30, 136, 229, 0.1);
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            font-family: Georgia, serif;
+        }
+        
+        .footer {
+            background-color: var(--dark-blue);
+            color: white;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            margin-right: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            background-color: var(--primary-blue);
+            transform: translateY(-3px);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#" style="color: var(--primary-blue);">
+                <i class="fas fa-cloud-sun me-2"></i>SkyLearn
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Courses</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact</a>
+                    </li>
+                </ul>
+                <div class="ms-lg-3 mt-3 mt-lg-0">
+                    <a href="#" class="btn btn-outline-primary me-2">Login</a>
+                    <a href="#" class="btn btn-primary">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container position-relative">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="display-4 fw-bold mb-4">Expand Your Knowledge with SkyLearn</h1>
+                    <p class="lead mb-4">Discover thousands of courses in technology, business, design and more. Learn from industry experts and take your career to new heights.</p>
+                    <div class="d-flex flex-wrap gap-2">
+                        <a href="#" class="btn btn-light btn-lg px-4">Browse Courses</a>
+                        <a href="#" class="btn btn-outline-light btn-lg px-4">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-lg-6 d-none d-lg-block">
+                    <img src="https://images.unsplash.com/photo-1546410531-bb4caa6b424d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Learning illustration" class="img-fluid rounded shadow">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-5 bg-light">
+        <div class="container py-5">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">Why Choose SkyLearn?</h2>
+                <p class="text-muted">We provide the best learning experience for our students</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="text-center p-4 bg-white rounded shadow-sm h-100">
+                        <div class="feature-icon">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                        </div>
+                        <h4>Expert Instructors</h4>
+                        <p class="text-muted">Learn from industry professionals with years of practical experience in their fields.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="text-center p-4 bg-white rounded shadow-sm h-100">
+                        <div class="feature-icon">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <h4>Hands-on Projects</h4>
+                        <p class="text-muted">Apply what you learn with real-world projects and build a portfolio that stands out.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="text-center p-4 bg-white rounded shadow-sm h-100">
+                        <div class="feature-icon">
+                            <i class="fas fa-certificate"></i>
+                        </div>
+                        <h4>Certification</h4>
+                        <p class="text-muted">Earn recognized certificates that you can showcase on LinkedIn and your resume.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Courses -->
+    <section class="py-5">
+        <div class="container py-5">
+            <div class="d-flex justify-content-between align-items-center mb-5">
+                <div>
+                    <h2 class="fw-bold">Popular Courses</h2>
+                    <p class="text-muted">Start learning with our most popular courses</p>
+                </div>
+                <a href="#" class="btn btn-outline-primary">View All Courses</a>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3">
+                    <div class="course-card h-100">
+                        <div class="position-relative">
+                            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" class="card-img-top" alt="Web Development">
+                            <span class="badge-popular">Bestseller</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="badge bg-primary bg-opacity-10 text-primary">Beginner</span>
+                                <span class="text-muted"><i class="fas fa-star text-warning"></i> 4.9 (120)</span>
+                            </div>
+                            <h5 class="card-title">Complete Web Development Bootcamp</h5>
+                            <p class="card-text text-muted">Learn HTML, CSS, JavaScript, React and more to become a full-stack developer.</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="fw-bold text-primary">$89.99</span>
+                                <a href="#" class="btn btn-sm btn-primary">Enroll Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3">
+                    <div class="course-card h-100">
+                        <img src="https://images.unsplash.com/photo-1610563166150-b34df4f3bcd6?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" class="card-img-top" alt="Data Science">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="badge bg-primary bg-opacity-10 text-primary">Intermediate</span>
+                                <span class="text-muted"><i class="fas fa-star text-warning"></i> 4.8 (95)</span>
+                            </div>
+                            <h5 class="card-title">Data Science Fundamentals</h5>
+                            <p class="card-text text-muted">Master Python, Pandas, NumPy, and visualization tools for data analysis.</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="fw-bold text-primary">$99.99</span>
+                                <a href="#" class="btn btn-sm btn-primary">Enroll Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3">
+                    <div class="course-card h-100">
+                        <div class="position-relative">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" class="card-img-top" alt="Digital Marketing">
+                            <span class="badge-popular">Trending</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="badge bg-primary bg-opacity-10 text-primary">Beginner</span>
+                                <span class="text-muted"><i class="fas fa-star text-warning"></i> 4.7 (87)</span>
+                            </div>
+                            <h5 class="card-title">Digital Marketing Masterclass</h5>
+                            <p class="card-text text-muted">Learn SEO, social media marketing, email marketing and Google Analytics.</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="fw-bold text-primary">$79.99</span>
+                                <a href="#" class="btn btn-sm btn-primary">Enroll Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3">
+                    <div class="course-card h-100">
+                        <img src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" class="card-img-top" alt="UX Design">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="badge bg-primary bg-opacity-10 text-primary">Advanced</span>
+                                <span class="text-muted"><i class="fas fa-star text-warning"></i> 4.9 (105)</span>
+                            </div>
+                            <h5 class="card-title">UX/UI Design Specialization</h5>
+                            <p class="card-text text-muted">Master Figma, user research, wireframing, prototyping and design thinking.</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="fw-bold text-primary">$109.99</span>
+                                <a href="#" class="btn btn-sm btn-primary">Enroll Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-5 bg-light">
+        <div class="container py-5">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">What Our Students Say</h2>
+                <p class="text-muted">Hear from our successful students</p>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="testimonial-card h-100">
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="https://randomuser.me/api/portraits/women/43.jpg" alt="Student" class="rounded-circle me-3" width="60">
+                            <div>
+                                <h5 class="mb-0">Sarah Johnson</h5>
+                                <p class="text-muted mb-0">Web Developer</p>
+                            </div>
+                        </div>
+                        <p>"The web development course transformed my career. The hands-on projects gave me the confidence to apply for jobs, and I landed my first developer role within 2 months!"</p>
+                        <div class="text-warning">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="testimonial-card h-100">
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Student" class="rounded-circle me-3" width="60">
+                            <div>
+                                <h5 class="mb-0">Michael Chen</h5>
+                                <p class="text-muted mb-0">Data Analyst</p>
+                            </div>
+                        </div>
+                        <p>"As someone with no prior experience in data science, this course made complex concepts accessible. The instructors were always available to help, and the community was supportive."</p>
+                        <div class="text-warning">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="testimonial-card h-100">
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Student" class="rounded-circle me-3" width="60">
+                            <div>
+                                <h5 class="mb-0">Emma Rodriguez</h5>
+                                <p class="text-muted mb-0">UX Designer</p>
+                            </div>
+                        </div>
+                        <p>"The UX/UI course provided a perfect balance of theory and practice. The portfolio I built during the course helped me stand out in interviews and secure a design position."</p>
+                        <div class="text-warning">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="py-5" style="background-color: var(--sky-blue);">
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h2 class="fw-bold mb-4">Ready to Start Learning?</h2>
+                    <p class="lead mb-5">Join thousands of students who have transformed their careers with SkyLearn. Take the first step towards your dream job today.</p>
+                    <a href="#" class="btn btn-primary btn-lg px-5">Get Started Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section class="py-5">
+        <div class="container py-5">
+            <div class="d-flex justify-content-between align-items-center mb-5">
+                <div>
+                    <h2 class="fw-bold">From Our Blog</h2>
+                    <p class="text-muted">Latest articles and learning resources</p>
+                </div>
+                <a href="#" class="btn btn-outline-primary">View All Articles</a>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card border-0 h-100">
+                        <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" class="card-img-top rounded" alt="Blog post">
+                        <div class="card-body px-0">
+                            <span class="badge bg-primary bg-opacity-10 text-primary mb-2">Technology</span>
+                            <h5 class="card-title">10 Essential JavaScript Concepts Every Developer Should Know</h5>
+                            <p class="card-text text-muted">Master these fundamental JavaScript concepts to write better code and ace your technical interviews.</p>
+                        </div>
+                        <div class="card-footer bg-transparent border-0 px-0">
+                            <div class="d-flex align-items-center">
+                                <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Author" class="rounded-circle me-2" width="30">
+                                <small class="text-muted">John Smith • May 15, 2023</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="card border-0 h-100">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" class="card-img-top rounded" alt="Blog post">
+                        <div class="card-body px-0">
+                            <span class="badge bg-primary bg-opacity-10 text-primary mb-2">Marketing</span>
+                            <h5 class="card-title">The Complete Guide to SEO in 2023</h5>
+                            <p class="card-text text-muted">Learn the latest SEO strategies that will help your website rank higher in search engine results pages.</p>
+                        </div>
+                        <div class="card-footer bg-transparent border-0 px-0">
+                            <div class="d-flex align-items-center">
+                                <img src="https://randomuser.me/api/portraits/women/33.jpg" alt="Author" class="rounded-circle me-2" width="30">
+                                <small class="text-muted">Lisa Wong • May 10, 2023</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="card border-0 h-100">
+                        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" class="card-img-top rounded" alt="Blog post">
+                        <div class="card-body px-0">
+                            <span class="badge bg-primary bg-opacity-10 text-primary mb-2">Career</span>
+                            <h5 class="card-title">How to Build a Tech Portfolio That Gets You Hired</h5>
+                            <p class="card-text text-muted">Follow these expert tips to create a portfolio that showcases your skills and attracts recruiters.</p>
+                        </div>
+                        <div class="card-footer bg-transparent border-0 px-0">
+                            <div class="d-flex align-items-center">
+                                <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Author" class="rounded-circle me-2" width="30">
+                                <small class="text-muted">David Kim • May 5, 2023</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="py-5 bg-primary text-white">
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 text-center">
+                    <h2 class="fw-bold mb-4">Subscribe to Our Newsletter</h2>
+                    <p class="mb-4">Get the latest course updates, learning resources and exclusive offers delivered straight to your inbox.</p>
+                    <form class="row g-2">
+                        <div class="col-12 col-md-8">
+                            <input type="email" class="form-control form-control-lg" placeholder="Your email address">
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <button type="submit" class="btn btn-light btn-lg w-100">Subscribe</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer py-5">
+        <div class="container py-4">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <h4 class="text-white mb-4">
+                        <i class="fas fa-cloud-sun me-2"></i>SkyLearn
+                    </h4>
+                    <p class="text-white-50">Empowering individuals through accessible education and skill development to thrive in the digital economy.</p>
+                    <div class="mt-4">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="col-6 col-md-3 col-lg-2">
+                    <h5 class="text-white mb-4">Company</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">About Us</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Careers</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Blog</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Press</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-6 col-md-3 col-lg-2">
+                    <h5 class="text-white mb-4">Support</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Help Center</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Terms</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Privacy</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">FAQ</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50 text-decoration-none">Feedback</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-md-6 col-lg-4">
+                    <h5 class="text-white mb-4">Contact Us</h5>
+                    <ul class="list-unstyled text-white-50">
+                        <li class="mb-2"><i class="fas fa-map-marker-alt me-2"></i> 123 Learning Street, San Francisco, CA 94107</li>
+                        <li class="mb-2"><i class="fas fa-phone me-2"></i> (123) 456-7890</li>
+                        <li class="mb-2"><i class="fas fa-envelope me-2"></i> hello@skylearn.com</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <hr class="my-4 bg-white-50">
+            
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="text-white-50 mb-0">&copy; 2023 SkyLearn. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <p class="text-white-50 mb-0">Made with <i class="fas fa-heart text-danger"></i> for learners worldwide</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
