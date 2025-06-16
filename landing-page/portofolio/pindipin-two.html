@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>pindipin - Software Engineer Portfolio</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Google Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+                Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            color: #374151;
+            background-color: #ffffff;
+            scroll-behavior: smooth;
+        }
+
+        /* Header */
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.75rem;
+            letter-spacing: 1px;
+            color: #0d6efd;
+            user-select: none;
+        }
+
+        .navbar-brand:hover {
+            color: #0b5ed7;
+        }
+
+        /* Hero Carousel Styling */
+        .carousel-caption {
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+        }
+
+        .carousel-caption h1 {
+            font-weight: 700;
+            font-size: 2.75rem;
+        }
+
+        /* Skills Section */
+        #skills .material-icons {
+            font-size: 48px;
+            color: #0d6efd;
+            margin-bottom: 1rem;
+        }
+
+        .skill-card {
+            border-radius: 0.75rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+            background-color: #f8f9fa;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 20px rgba(13, 110, 253, 0.25);
+        }
+
+        /* Blog Section */
+        #blog .card {
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+            transition: transform 0.3s ease;
+        }
+
+        #blog .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(13, 110, 253, 0.2);
+        }
+
+        /* Contact Section */
+        #contact form .form-control:focus {
+            border-color: #0d6efd;
+            box-shadow: 0 0 8px rgba(13, 110, 253, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #0d6efd;
+            color: #ffffff;
+            padding: 2rem 0;
+        }
+
+        footer a {
+            color: #dbe9ff;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+            color: #a3c1ff;
+        }
+
+        /* Responsive spacing */
+        section {
+            padding-top: 4rem;
+            padding-bottom: 6rem;
+        }
+
+        @media (max-width: 576px) {
+            .carousel-caption h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header / Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#hero">pindipin</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="material-icons">menu</span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto gap-3">
+                    <li class="nav-item"><a class="nav-link active" href="#hero">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#blog">Blog</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Carousel Section -->
+    <section id="hero" class="bg-light">
+        <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="6000"
+            data-bs-pause="hover">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active"
+                    aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/2f9d656d-e36f-4db0-a1fe-b2dd62c31a58.png"
+                        class="d-block w-100" alt="Clean code and architecture illustration" loading="lazy" />
+                    <div class="carousel-caption text-start">
+                        <h1>Clean Code & Robust Architecture</h1>
+                        <p>Building scalable software with best practices and maintainable structure.</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/3a3173ec-d08c-4ea4-8547-374e0d4edfdf.png"
+                        class="d-block w-100" alt="Efficient database solutions concept" loading="lazy" />
+                    <div class="carousel-caption">
+                        <h1>Efficient Database Solutions</h1>
+                        <p>Expertise in PHP, MySQL, and database optimization for high performance.</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/210a5ac9-203a-4f92-ad07-eb0649a50a1d.png"
+                        class="d-block w-100" alt="Innovative web development and teamwork" loading="lazy" />
+                    <div class="carousel-caption text-end">
+                        <h1>Innovative Web Development</h1>
+                        <p>Creating dynamic, responsive websites with modern technologies and creativity.</p>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+                <span class="material-icons" aria-hidden="true">chevron_left</span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+                <span class="material-icons" aria-hidden="true">chevron_right</span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="container" aria-label="Skills">
+        <h2 class="mb-5 text-center display-5 fw-bold">My Skills</h2>
+        <div class="row g-4 justify-content-center">
+            <div class="col-md-4 col-sm-6">
+                <div class="skill-card p-4 text-center h-100">
+                    <span class="material-icons" aria-hidden="true">code</span>
+                    <h3 class="h5 mt-3 mb-2">PHP Development</h3>
+                    <p class="text-muted mb-0">Building efficient backend applications with clean, maintainable PHP
+                        code.</p>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="skill-card p-4 text-center h-100">
+                    <span class="material-icons" aria-hidden="true">storage</span>
+                    <h3 class="h5 mt-3 mb-2">MySQL & Databases</h3>
+                    <p class="text-muted mb-0">Designing optimized database schemas, complex queries, and data integrity
+                        solutions.</p>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="skill-card p-4 text-center h-100">
+                    <span class="material-icons" aria-hidden="true">devices</span>
+                    <h3 class="h5 mt-3 mb-2">Web Technologies</h3>
+                    <p class="text-muted mb-0">Proficient with HTML5, CSS3, JavaScript, and Bootstrap for responsive UI
+                        development.</p>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="skill-card p-4 text-center h-100">
+                    <span class="material-icons" aria-hidden="true">security</span>
+                    <h3 class="h5 mt-3 mb-2">Security Best Practices</h3>
+                    <p class="text-muted mb-0">Implementing secure authentication, data validation, and safe coding
+                        standards.</p>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="skill-card p-4 text-center h-100">
+                    <span class="material-icons" aria-hidden="true">cloud</span>
+                    <h3 class="h5 mt-3 mb-2">Cloud & Deployment</h3>
+                    <p class="text-muted mb-0">Experience with cloud services integration, version control, and CI/CD
+                        pipelines.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Example Blog Section -->
+    <section id="blog" class="bg-light">
+        <div class="container">
+            <h2 class="mb-5 text-center display-5 fw-bold">Latest Blog Posts</h2>
+            <div class="row g-4 justify-content-center">
+                <article class="col-md-6 col-lg-4">
+                    <div class="card h-100">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/9c6aaeed-a0e0-4f50-8bd1-c5d6b57297b6.png"
+                            class="card-img-top" alt="Database optimization article image" loading="lazy" />
+                        <div class="card-body d-flex flex-column">
+                            <h3 class="card-title h6">5 Tips for Optimizing MySQL Queries</h3>
+                            <p class="card-text text-muted flex-grow-1">Learn how to write efficient MySQL queries that
+                                improve performance in your web applications.</p>
+                            <a href="#" class="btn btn-primary mt-auto align-self-start">Read More</a>
+                        </div>
+                    </div>
+                </article>
+                <article class="col-md-6 col-lg-4">
+                    <div class="card h-100">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/02418f2f-7b5b-4a2e-803b-5176523027ba.png"
+                            class="card-img-top" alt="PHP code standards article image" loading="lazy" />
+                        <div class="card-body d-flex flex-column">
+                            <h3 class="card-title h6">Writing Clean PHP Code: Best Practices</h3>
+                            <p class="card-text text-muted flex-grow-1">Tips and tricks to keep your PHP codebase clean,
+                                readable, and maintainable.</p>
+                            <a href="#" class="btn btn-primary mt-auto align-self-start">Read More</a>
+                        </div>
+                    </div>
+                </article>
+                <article class="col-md-6 col-lg-4">
+                    <div class="card h-100">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/ef0a60b0-b745-451a-bc67-9d2c86392237.png"
+                            class="card-img-top" alt="Responsive UI design article image" loading="lazy" />
+                        <div class="card-body d-flex flex-column">
+                            <h3 class="card-title h6">Building Responsive UI with Bootstrap 5</h3>
+                            <p class="card-text text-muted flex-grow-1">Step-by-step guide to building responsive and
+                                accessible user interfaces using Bootstrap.</p>
+                            <a href="#" class="btn btn-primary mt-auto align-self-start">Read More</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="container" aria-label="Contact form">
+        <h2 class="mb-5 text-center display-5 fw-bold">Contact Me</h2>
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <form>
+                    <div class="mb-3">
+                        <label for="nameInput" class="form-label">Full Name</label>
+                        <input type="text" class="form-control" id="nameInput" placeholder="Your full name" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="emailInput" class="form-label">Email address</label>
+                        <input type="email" class="form-control" id="emailInput" placeholder="name@example.com"
+                            required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="messageTextarea" class="form-label">Message</label>
+                        <textarea class="form-control" id="messageTextarea" rows="5"
+                            placeholder="Write your message here" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-center">
+        <div class="container">
+            <p class="mb-2">&copy; 2024 pindipin. All rights reserved.</p>
+            <div class="d-flex justify-content-center gap-3 fs-4">
+                <a href="https://github.com/pindipin" target="_blank" rel="noopener" aria-label="GitHub profile">
+                    <span class="material-icons">code</span>
+                </a>
+                <a href="mailto:pindipin@example.com" aria-label="Send email">
+                    <span class="material-icons">email</span>
+                </a>
+                <a href="https://linkedin.com/in/pindipin" target="_blank" rel="noopener" aria-label="LinkedIn profile">
+                    <span class="material-icons">business</span>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

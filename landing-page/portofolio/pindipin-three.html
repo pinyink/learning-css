@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pindipin - Your Daily Magazine</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --primary-blue: #87CEEB;
+            --secondary-blue: #4682B4;
+            --dark-blue: #1E3A8A;
+            --light-blue: #E6F2FF;
+            --accent-blue: #00B4D8;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+        }
+        
+        .navbar-brand {
+            font-family: 'Georgia', serif;
+            font-weight: 700;
+            font-size: 2rem;
+            color: var(--dark-blue);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        .nav-link {
+            font-weight: 500;
+            color: var(--dark-blue);
+        }
+        
+        .nav-link:hover {
+            color: var(--accent-blue);
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .featured-card {
+            transition: transform 0.3s ease;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-bottom: 1.5rem;
+        }
+        
+        .featured-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card-img-top {
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .category-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: var(--accent-blue);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .ad-container {
+            background-color: var(--light-blue);
+            border: 1px dashed var(--secondary-blue);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 2rem;
+            text-align: center;
+            min-height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .sidebar-widget {
+            background-color: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+        
+        .widget-title {
+            color: var(--dark-blue);
+            border-bottom: 2px solid var(--primary-blue);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .popular-post {
+            display: flex;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .popular-post-img {
+            width: 80px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-right: 1rem;
+        }
+        
+        .popular-post-title {
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 0.2rem;
+        }
+        
+        .popular-post-date {
+            font-size: 0.7rem;
+            color: #666;
+        }
+        
+        .tag {
+            display: inline-block;
+            background-color: var(--light-blue);
+            color: var(--dark-blue);
+            padding: 3px 10px;
+            border-radius: 20px;
+            margin: 0 5px 5px 0;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+        
+        .tag:hover {
+            background-color: var(--accent-blue);
+            color: white;
+        }
+        
+        .newsletter-form {
+            background-color: var(--light-blue);
+            padding: 1.5rem;
+            border-radius: 10px;
+        }
+        
+        .footer {
+            background-color: var(--dark-blue);
+            color: white;
+            padding: 3rem 0;
+            margin-top: 3rem;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            margin-right: 1rem;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary-blue);
+        }
+        
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            margin-right: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            background-color: var(--accent-blue);
+            transform: translateY(-3px);
+        }
+        
+        @media (max-width: 768px) {
+            .navbar-brand {
+                font-size: 1.5rem;
+            }
+            
+            .hero-section {
+                padding: 2rem 0;
+            }
+            
+            .hero-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header/Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="#">Pindipin</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Politics</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Technology</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Business</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Sports</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Entertainment</a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <button class="btn btn-outline-primary me-2">Login</button>
+                    <button class="btn btn-primary">Subscribe</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <span class="badge bg-white text-primary mb-3">TRENDING</span>
+                    <h1 class="hero-title display-4 fw-bold mb-3">The Future of AI in Everyday Life</h1>
+                    <p class="lead mb-4">Discover how artificial intelligence is transforming our daily routines and what it means for the future of humanity.</p>
+                    <a href="#" class="btn btn-light btn-lg px-4 me-2">Read More</a>
+                    <a href="#" class="btn btn-outline-light btn-lg px-4">Watch Video</a>
+                </div>
+                <div class="col-lg-6 d-none d-lg-block">
+                    <img src="https://source.unsplash.com/random/600x400/?ai,technology" alt="AI Technology" class="img-fluid rounded shadow">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container my-5">
+        <div class="row">
+            <!-- Main Content Column -->
+            <div class="col-lg-8">
+                <!-- Featured Posts -->
+                <div class="row mb-5">
+                    <div class="col-md-6">
+                        <div class="featured-card">
+                            <div class="position-relative">
+                                <img src="https://source.unsplash.com/random/600x400/?politics" class="card-img-top" alt="Politics">
+                                <span class="category-badge">Politics</span>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Global Summit Addresses Climate Change</h5>
+                                <p class="card-text">World leaders gather to discuss urgent measures against the escalating climate crisis.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <small class="text-muted">By John Smith • 3 hours ago</small>
+                                    <a href="#" class="btn btn-sm btn-outline-primary">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="featured-card">
+                            <div class="position-relative">
+                                <img src="https://source.unsplash.com/random/600x400/?business" class="card-img-top" alt="Business">
+                                <span class="category-badge">Business</span>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Stock Markets Reach Record Highs</h5>
+                                <p class="card-text">Major indices surge as investor confidence grows amid positive economic indicators.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <small class="text-muted">By Sarah Johnson • 5 hours ago</small>
+                                    <a href="#" class="btn btn-sm btn-outline-primary">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- AdSense Banner -->
+                <div class="ad-container mb-5">
+                    <p class="text-muted mb-0">Advertisement</p>
+                    <div class="d-flex justify-content-center align-items-center h-100">
+                        <div style="width: 728px; height: 90px; background-color: #f0f0f0; display: flex; justify-content: center; align-items: center;">
+                            <span>Google AdSense Banner (728x90)</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Latest Articles -->
+                <h2 class="mb-4 fw-bold" style="color: var(--dark-blue);">Latest Articles</h2>
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <img src="https://source.unsplash.com/random/600x400/?health" class="card-img-top" alt="Health">
+                            <div class="card-body">
+                                <span class="badge bg-primary mb-2">Health</span>
+                                <h5 class="card-title">Breakthrough in Cancer Research</h5>
+                                <p class="card-text">Scientists discover promising new treatment approach that could revolutionize cancer therapy.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <small class="text-muted">By Dr. Emily Chen • Yesterday</small>
+                                    <a href="#" class="btn btn-sm btn-outline-primary">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <img src="https://source.unsplash.com/random/600x400/?sports" class="card-img-top" alt="Sports">
+                            <div class="card-body">
+                                <span class="badge bg-success mb-2">Sports</span>
+                                <h5 class="card-title">Underdog Team Wins Championship</h5>
+                                <p class="card-text">Against all odds, the underrated squad claims victory in a stunning final match.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <small class="text-muted">By Mike Thompson • Yesterday</small>
+                                    <a href="#" class="btn btn-sm btn-outline-primary">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <img src="https://source.unsplash.com/random/600x400/?entertainment" class="card-img-top" alt="Entertainment">
+                            <div class="card-body">
+                                <span class="badge bg-warning text-dark mb-2">Entertainment</span>
+                                <h5 class="card-title">Award-Winning Director Announces New Project</h5>
+                                <p class="card-text">The acclaimed filmmaker reveals details about an ambitious new movie coming next year.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <small class="text-muted">By Lisa Rodriguez • 2 days ago</small>
+                                    <a href="#" class="btn btn-sm btn-outline-primary">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <img src="https://source.unsplash.com/random/600x400/?technology" class="card-img-top" alt="Technology">
+                            <div class="card-body">
+                                <span class="badge bg-info mb-2">Technology</span>
+                                <h5 class="card-title">New Smartphone Breaks Performance Records</h5>
+                                <p class="card-text">The latest flagship device sets new benchmarks in speed and battery life.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <small class="text-muted">By David Kim • 2 days ago</small>
+                                    <a href="#" class="btn btn-sm btn-outline-primary">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pagination -->
+                <nav aria-label="Page navigation" class="mt-5">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                        </li>
+                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            
+            <!-- Sidebar Column -->
+            <div class="col-lg-4">
+                <!-- About Widget -->
+                <div class="sidebar-widget">
+                    <h3 class="widget-title">About Pindipin</h3>
+                    <p>Pindipin is your premier source for news, analysis, and commentary on the most important issues of our time. Our team of expert journalists brings you accurate, timely reporting from around the globe.</p>
+                    <div class="d-flex mt-3">
+                        <a href="#" class="btn btn-sm btn-outline-primary me-2">Learn More</a>
+                        <a href="#" class="btn btn-sm btn-primary">Contact Us</a>
+                    </div>
+                </div>
+                
+                <!-- Newsletter Widget -->
+                <div class="sidebar-widget newsletter-form">
+                    <h3 class="widget-title">Subscribe to Newsletter</h3>
+                    <p>Get the latest news delivered to your inbox daily.</p>
+                    <form>
+                        <div class="mb-3">
+                            <input type="text" class="form-control" placeholder="Your Name">
+                        </div>
+                        <div class="mb-3">
+                            <input type="email" class="form-control" placeholder="Email Address">
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Subscribe Now</button>
+                    </form>
+                </div>
+                
+                <!-- Popular Posts Widget -->
+                <div class="sidebar-widget">
+                    <h3 class="widget-title">Popular Posts</h3>
+                    <div class="popular-post">
+                        <img src="https://source.unsplash.com/random/100x100/?finance" class="popular-post-img" alt="Finance">
+                        <div>
+                            <h5 class="popular-post-title">Economic Recovery Shows Strong Progress</h5>
+                            <div class="popular-post-date">June 15, 2023</div>
+                        </div>
+                    </div>
+                    <div class="popular-post">
+                        <img src="https://source.unsplash.com/random/100x100/?science" class="popular-post-img" alt="Science">
+                        <div>
+                            <h5 class="popular-post-title">New Discovery Could Lead to Clean Energy</h5>
+                            <div class="popular-post-date">June 14, 2023</div>
+                        </div>
+                    </div>
+                    <div class="popular-post">
+                        <img src="https://source.unsplash.com/random/100x100/?travel" class="popular-post-img" alt="Travel">
+                        <div>
+                            <h5 class="popular-post-title">Top 10 Travel Destinations for Summer</h5>
+                            <div class="popular-post-date">June 13, 2023</div>
+                        </div>
+                    </div>
+                    <div class="popular-post">
+                        <img src="https://source.unsplash.com/random/100x100/?food" class="popular-post-img" alt="Food">
+                        <div>
+                            <h5 class="popular-post-title">Healthy Recipes for Busy Professionals</h5>
+                            <div class="popular-post-date">June 12, 2023</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- AdSense Sidebar -->
+                <div class="ad-container mb-4">
+                    <p class="text-muted mb-0">Advertisement</p>
+                    <div class="d-flex justify-content-center align-items-center h-100">
+                        <div style="width: 300px; height: 250px; background-color: #f0f0f0; display: flex; justify-content: center; align-items: center;">
+                            <span>Google AdSense Banner (300x250)</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Categories Widget -->
+                <div class="sidebar-widget">
+                    <h3 class="widget-title">Categories</h3>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <a href="#" class="text-decoration-none">Politics</a>
+                            <span class="badge bg-primary rounded-pill">24</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <a href="#" class="text-decoration-none">Business</a>
+                            <span class="badge bg-primary rounded-pill">18</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <a href="#" class="text-decoration-none">Technology</a>
+                            <span class="badge bg-primary rounded-pill">15</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <a href="#" class="text-decoration-none">Health</a>
+                            <span class="badge bg-primary rounded-pill">12</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <a href="#" class="text-decoration-none">Sports</a>
+                            <span class="badge bg-primary rounded-pill">9</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <a href="#" class="text-decoration-none">Entertainment</a>
+                            <span class="badge bg-primary rounded-pill">7</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Tags Widget -->
+                <div class="sidebar-widget">
+                    <h3 class="widget-title">Tags</h3>
+                    <div class="tags-container">
+                        <a href="#" class="tag">#AI</a>
+                        <a href="#" class="tag">#Finance</a>
+                        <a href="#" class="tag">#Elections</a>
+                        <a href="#" class="tag">#Climate</a>
+                        <a href="#" class="tag">#Innovation</a>
+                        <a href="#" class="tag">#Startups</a>
+                        <a href="#" class="tag">#Wellness</a>
+                        <a href="#" class="tag">#Fitness</a>
+                        <a href="#" class="tag">#Movies</a>
+                        <a href="#" class="tag">#Music</a>
+                        <a href="#" class="tag">#Travel</a>
+                        <a href="#" class="tag">#Food</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <h3 class="text-white mb-4">Pindipin</h3>
+                    <p>Delivering accurate, timely news and analysis to keep you informed about the world around you.</p>
+                    <div class="mt-4">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5 class="text-white mb-4">Quick Links</h5>
+                    <div class="footer-links">
+                        <a href="#">Home</a><br>
+                        <a href="#">About Us</a><br>
+                        <a href="#">Contact</a><br>
+                        <a href="#">Advertise</a><br>
+                        <a href="#">Careers</a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5 class="text-white mb-4">Categories</h5>
+                    <div class="footer-links">
+                        <a href="#">Politics</a><br>
+                        <a href="#">Business</a><br>
+                        <a href="#">Technology</a><br>
+                        <a href="#">Health</a><br>
+                        <a href="#">Sports</a>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <h5 class="text-white mb-4">Contact Us</h5>
+                    <p><i class="fas fa-map-marker-alt me-2"></i> 123 News Street, Media City</p>
+                    <p><i class="fas fa-phone me-2"></i> +1 (234) 567-8900</p>
+                    <p><i class="fas fa-envelope me-2"></i> info@pindipin.com</p>
+                    <div class="mt-3">
+                        <button class="btn btn-outline-light me-2">Contact Form</button>
+                        <button class="btn btn-light">Report Issue</button>
+                    </div>
+                </div>
+            </div>
+            <hr class="mt-4 mb-4" style="border-color: rgba(255,255,255,0.1);">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">© 2023 Pindipin. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#" class="text-white me-3">Privacy Policy</a>
+                    <a href="#" class="text-white me-3">Terms of Service</a>
+                    <a href="#" class="text-white">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Simple script to demonstrate functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add smooth scrolling to all links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+            
+            // Newsletter form submission
+            const newsletterForm = document.querySelector('.newsletter-form form');
+            if (newsletterForm) {
+                newsletterForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    alert('Thank you for subscribing to our newsletter!');
+                    this.reset();
+                });
+            }
+            
+            // Mobile menu enhancement
+            const navbarToggler = document.querySelector('.navbar-toggler');
+            const navbarCollapse = document.querySelector('.navbar-collapse');
+            
+            if (navbarToggler && navbarCollapse) {
+                navbarToggler.addEventListener('click', function() {
+                    navbarCollapse.classList.toggle('show');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
