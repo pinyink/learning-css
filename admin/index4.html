@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Custom CSS for elements that can't be styled with Tailwind */
+        .sidebar {
+            transition: all 0.3s ease;
+        }
+        .sidebar.collapsed {
+            width: 70px;
+        }
+        .sidebar.collapsed .nav-text {
+            display: none;
+        }
+        .sidebar.collapsed .logo-text {
+            display: none;
+        }
+        .sidebar.collapsed .nav-item {
+            justify-content: center;
+        }
+        .main-content {
+            transition: all 0.3s ease;
+        }
+        .sidebar.collapsed + .main-content {
+            margin-left: 70px;
+        }
+        .dark .dark\:bg-dark-800 {
+            background-color: #1e293b;
+        }
+        .dark .dark\:bg-dark-700 {
+            background-color: #334155;
+        }
+        .dark .dark\:text-white {
+            color: #fff;
+        }
+        .dark .dark\:border-dark-600 {
+            border-color: #475569;
+        }
+        .dark .dark\:hover\:bg-dark-600:hover {
+            background-color: #475569;
+        }
+        .dark .dark\:bg-dark-900 {
+            background-color: #0f172a;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 dark:bg-dark-900">
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <div class="sidebar bg-white dark:bg-dark-800 text-gray-800 dark:text-white w-64 fixed h-full shadow-lg z-10">
+            <div class="p-4 flex items-center">
+                <div class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold">
+                    <i class="fas fa-cube"></i>
+                </div>
+                <span class="logo-text ml-3 text-xl font-bold">AdminPro</span>
+            </div>
+            <div class="mt-6">
+                <div class="px-4 py-2 text-xs uppercase font-semibold text-gray-500 dark:text-gray-400">Main</div>
+                <ul class="mt-2">
+                    <li class="nav-item px-4 py-3 flex items-center text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-dark-600 rounded-lg mx-2">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span class="nav-text ml-3">Dashboard</span>
+                    </li>
+                    <li class="nav-item px-4 py-3 flex items-center text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-dark-600 rounded-lg mx-2">
+                        <i class="fas fa-users"></i>
+                        <span class="nav-text ml-3">Users</span>
+                    </li>
+                    <li class="nav-item px-4 py-3 flex items-center text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-dark-600 rounded-lg mx-2">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="nav-text ml-3">Products</span>
+                    </li>
+                    <li class="nav-item px-4 py-3 flex items-center text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-dark-600 rounded-lg mx-2">
+                        <i class="fas fa-chart-line"></i>
+                        <span class="nav-text ml-3">Analytics</span>
+                    </li>
+                    <li class="nav-item px-4 py-3 flex items-center text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-dark-600 rounded-lg mx-2">
+                        <i class="fas fa-envelope"></i>
+                        <span class="nav-text ml-3">Messages</span>
+                        <span class="ml-auto bg-red-500 text-white text-xs px-2 py-1 rounded-full">5</span>
+                    </li>
+                </ul>
+                <div class="px-4 py-2 mt-4 text-xs uppercase font-semibold text-gray-500 dark:text-gray-400">Settings</div>
+                <ul class="mt-2">
+                    <li class="nav-item px-4 py-3 flex items-center text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-dark-600 rounded-lg mx-2">
+                        <i class="fas fa-cog"></i>
+                        <span class="nav-text ml-3">Settings</span>
+                    </li>
+                    <li class="nav-item px-4 py-3 flex items-center text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-dark-600 rounded-lg mx-2">
+                        <i class="fas fa-question-circle"></i>
+                        <span class="nav-text ml-3">Help</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="absolute bottom-0 w-full p-4">
+                <button id="toggleSidebar" class="w-full py-2 px-4 bg-gray-200 dark:bg-dark-700 text-gray-700 dark:text-white rounded-lg flex items-center justify-center">
+                    <i class="fas fa-chevron-left"></i>
+                    <span class="nav-text ml-2">Collapse</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content ml-64 flex-1 overflow-auto">
+            <!-- Top Navbar -->
+            <nav class="bg-white dark:bg-dark-800 shadow-sm py-4 px-6 flex items-center justify-between sticky top-0 z-10">
+                <div class="flex items-center">
+                    <button id="mobileMenuButton" class="mr-4 text-gray-600 dark:text-gray-300 lg:hidden">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                    <div class="relative">
+                        <input type="text" placeholder="Search..." class="pl-10 pr-4 py-2 border border-gray-300 dark:border-dark-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-dark-700 dark:text-white">
+                        <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button id="darkModeToggle" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-dark-700 text-gray-600 dark:text-gray-300">
+                        <i class="fas fa-moon dark:hidden"></i>
+                        <i class="fas fa-sun hidden dark:inline"></i>
+                    </button>
+                    <div class="relative">
+                        <button class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-dark-700 text-gray-600 dark:text-gray-300 relative">
+                            <i class="fas fa-bell"></i>
+                            <span class="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
+                        </button>
+                        <div class="hidden absolute right-0 mt-2 w-64 bg-white dark:bg-dark-700 rounded-lg shadow-lg py-2 z-20">
+                            <a href="#" class="block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-dark-600">New message received</a>
+                            <a href="#" class="block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-dark-600">System update</a>
+                            <a href="#" class="block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-dark-600">New user registered</a>
+                        </div>
+                    </div>
+                    <div class="relative">
+                        <button id="userMenuButton" class="flex items-center space-x-2 focus:outline-none">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User" class="w-8 h-8 rounded-full">
+                            <span class="text-gray-700 dark:text-gray-300 hidden md:inline">John Doe</span>
+                        </button>
+                        <div id="userMenu" class="hidden absolute right-0 mt-2 w-48 bg-white dark:bg-dark-700 rounded-lg shadow-lg py-1 z-20">
+                            <a href="#" class="block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-dark-600">Profile</a>
+                            <a href="#" class="block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-dark-600">Settings</a>
+                            <a href="#" class="block px-4 py-2 text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-dark-600">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Dashboard Content -->
+            <div class="p-6">
+                <h1 class="text-2xl font-bold text-gray-800 dark:text-white mb-6">Dashboard</h1>
+                
+                <!-- Stats Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+                    <div class="bg-white dark:bg-dark-800 rounded-lg shadow p-6">
+                        <div class="flex items-center">
+                            <div class="p-3 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300">
+                                <i class="fas fa-users text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <p class="text-gray-500 dark:text-gray-400">Total Users</p>
+                                <h3 class="text-2xl font-bold text-gray-800 dark:text-white">1,254</h3>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <span class="text-green-500 text-sm font-semibold"><i class="fas fa-arrow-up"></i> 12.5%</span>
+                            <span class="text-gray-500 dark:text-gray-400 text-sm ml-2">vs last month</span>
+                        </div>
+                    </div>
+                    <div class="bg-white dark:bg-dark-800 rounded-lg shadow p-6">
+                        <div class="flex items-center">
+                            <div class="p-3 rounded-full bg-green-100 dark:bg-green-900 text-green-600 dark:text-green-300">
+                                <i class="fas fa-shopping-cart text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <p class="text-gray-500 dark:text-gray-400">Total Sales</p>
+                                <h3 class="text-2xl font-bold text-gray-800 dark:text-white">$12,345</h3>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <span class="text-green-500 text-sm font-semibold"><i class="fas fa-arrow-up"></i> 8.3%</span>
+                            <span class="text-gray-500 dark:text-gray-400 text-sm ml-2">vs last month</span>
+                        </div>
+                    </div>
+                    <div class="bg-white dark:bg-dark-800 rounded-lg shadow p-6">
+                        <div class="flex items-center">
+                            <div class="p-3 rounded-full bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-300">
+                                <i class="fas fa-chart-line text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <p class="text-gray-500 dark:text-gray-400">Active Sessions</p>
+                                <h3 class="text-2xl font-bold text-gray-800 dark:text-white">456</h3>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <span class="text-red-500 text-sm font-semibold"><i class="fas fa-arrow-down"></i> 2.1%</span>
+                            <span class="text-gray-500 dark:text-gray-400 text-sm ml-2">vs last month</span>
+                        </div>
+                    </div>
+                    <div class="bg-white dark:bg-dark-800 rounded-lg shadow p-6">
+                        <div class="flex items-center">
+                            <div class="p-3 rounded-full bg-yellow-100 dark:bg-yellow-900 text-yellow-600 dark:text-yellow-300">
+                                <i class="fas fa-envelope text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <p class="text-gray-500 dark:text-gray-400">New Messages</p>
+                                <h3 class="text-2xl font-bold text-gray-800 dark:text-white">24</h3>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <span class="text-green-500 text-sm font-semibold"><i class="fas fa-arrow-up"></i> 15.8%</span>
+                            <span class="text-gray-500 dark:text-gray-400 text-sm ml-2">vs last month</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts Row -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-white dark:bg-dark-800 rounded-lg shadow p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h2 class="text-lg font-semibold text-gray-800 dark:text-white">Revenue Overview</h2>
+                            <div class="flex space-x-2">
+                                <button class="px-3 py-1 text-xs bg-blue-500 text-white rounded">Month</button>
+                                <button class="px-3 py-1 text-xs bg-gray-200 dark:bg-dark-700 text-gray-700 dark:text-gray-300 rounded">Year</button>
+                            </div>
+                        </div>
+                        <canvas id="lineChart" height="250"></canvas>
+                    </div>
+                    <div class="bg-white dark:bg-dark-800 rounded-lg shadow p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h2 class="text-lg font-semibold text-gray-800 dark:text-white">Sales Distribution</h2>
+                            <div class="flex space-x-2">
+                                <button class="px-3 py-1 text-xs bg-blue-500 text-white rounded">Products</button>
+                                <button class="px-3 py-1 text-xs bg-gray-200 dark:bg-dark-700 text-gray-700 dark:text-gray-300 rounded">Categories</button>
+                            </div>
+                        </div>
+                        <canvas id="pieChart" height="250"></canvas>
+                    </div>
+                </div>
+
+                <!-- Recent Orders Table -->
+                <div class="bg-white dark:bg-dark-800 rounded-lg shadow overflow-hidden mb-6">
+                    <div class="px-6 py-4 border-b border-gray-200 dark:border-dark-600 flex items-center justify-between">
+                        <h2 class="text-lg font-semibold text-gray-800 dark:text-white">Recent Orders</h2>
+                        <button id="addOrderButton" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
+                            <i class="fas fa-plus mr-2"></i>Add Order
+                        </button>
+                    </div>
+                    <div class="px-6 py-4">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="relative w-64">
+                                <input type="text" placeholder="Search orders..." class="pl-10 pr-4 py-2 w-full border border-gray-300 dark:border-dark-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-dark-700 dark:text-white">
+                                <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                            </div>
+                            <div class="flex space-x-2">
+                                <select class="border border-gray-300 dark:border-dark-600 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-dark-700 dark:text-white">
+                                    <option>Filter by status</option>
+                                    <option>Completed</option>
+                                    <option>Pending</option>
+                                    <option>Canceled</option>
+                                </select>
+                                <button class="px-4 py-2 border border-gray-300 dark:border-dark-600 rounded-lg hover:bg-gray-100 dark:hover:bg-dark-700">
+                                    <i class="fas fa-download mr-2"></i>Export
+                                </button>
+                            </div>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full divide-y divide-gray-200 dark:divide-dark-600">
+                                <thead class="bg-gray-50 dark:bg-dark-700">
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                                            <input type="checkbox" class="rounded text-blue-500">
+                                        </th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Order ID</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Customer</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Date</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Amount</th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Status</th>
+                                        <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white dark:bg-dark-800 divide-y divide-gray-200 dark:divide-dark-600">
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <input type="checkbox" class="rounded text-blue-500">
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">#ORD-0001</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">John Smith</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">12 Jun 2023</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">$125.00</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="px-2 py-1 text-xs rounded-full bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-300">Completed</span>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                            <button class="text-blue-500 hover:text-blue-700 mr-3"><i class="fas fa-eye"></i></button>
+                                            <button class="text-yellow-500 hover:text-yellow-700 mr-3"><i class="fas fa-edit"></i></button>
+                                            <button class="text-red-500 hover:text-red-700"><i class="fas fa-trash"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <input type="checkbox" class="rounded text-blue-500">
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">#ORD-0002</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">Sarah Johnson</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">11 Jun 2023</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">$89.50</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="px-2 py-1 text-xs rounded-full bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-300">Pending</span>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                            <button class="text-blue-500 hover:text-blue-700 mr-3"><i class="fas fa-eye"></i></button>
+                                            <button class="text-yellow-500 hover:text-yellow-700 mr-3"><i class="fas fa-edit"></i></button>
+                                            <button class="text-red-500 hover:text-red-700"><i class="fas fa-trash"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <input type="checkbox" class="rounded text-blue-500">
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">#ORD-0003</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">Michael Brown</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">10 Jun 2023</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">$245.75</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="px-2 py-1 text-xs rounded-full bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-300">Completed</span>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                            <button class="text-blue-500 hover:text-blue-700 mr-3"><i class="fas fa-eye"></i></button>
+                                            <button class="text-yellow-500 hover:text-yellow-700 mr-3"><i class="fas fa-edit"></i></button>
+                                            <button class="text-red-500 hover:text-red-700"><i class="fas fa-trash"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <input type="checkbox" class="rounded text-blue-500">
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">#ORD-0004</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">Emily Davis</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">9 Jun 2023</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">$175.20</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="px-2 py-1 text-xs rounded-full bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-300">Canceled</span>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                            <button class="text-blue-500 hover:text-blue-700 mr-3"><i class="fas fa-eye"></i></button>
+                                            <button class="text-yellow-500 hover:text-yellow-700 mr-3"><i class="fas fa-edit"></i></button>
+                                            <button class="text-red-500 hover:text-red-700"><i class="fas fa-trash"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <input type="checkbox" class="rounded text-blue-500">
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">#ORD-0005</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">Robert Wilson</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">8 Jun 2023</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">$320.00</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="px-2 py-1 text-xs rounded-full bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-300">Completed</span>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                            <button class="text-blue-500 hover:text-blue-700 mr-3"><i class="fas fa-eye"></i></button>
+                                            <button class="text-yellow-500 hover:text-yellow-700 mr-3"><i class="fas fa-edit"></i></button>
+                                            <button class="text-red-500 hover:text-red-700"><i class="fas fa-trash"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="px-6 py-4 flex items-center justify-between border-t border-gray-200 dark:border-dark-600">
+                            <div class="text-sm text-gray-500 dark:text-gray-400">
+                                Showing <span class="font-medium">1</span> to <span class="font-medium">5</span> of <span class="font-medium">24</span> results
+                            </div>
+                            <div class="flex space-x-2">
+                                <button class="px-3 py-1 border border-gray-300 dark:border-dark-600 rounded-lg hover:bg-gray-100 dark:hover:bg-dark-700">Previous</button>
+                                <button class="px-3 py-1 bg-blue-500 text-white rounded-lg">1</button>
+                                <button class="px-3 py-1 border border-gray-300 dark:border-dark-600 rounded-lg hover:bg-gray-100 dark:hover:bg-dark-700">2</button>
+                                <button class="px-3 py-1 border border-gray-300 dark:border-dark-600 rounded-lg hover:bg-gray-100 dark:hover:bg-dark-700">3</button>
+                                <button class="px-3 py-1 border border-gray-300 dark:border-dark-600 rounded-lg hover:bg-gray-100 dark:hover:bg-dark-700">Next</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Order Modal -->
+    <div id="addOrderModal" class="fixed inset-0 z-50 hidden overflow-y-auto">
+        <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+                <div class="absolute inset-0 bg-gray-500 dark:bg-gray-900 opacity-75"></div>
+            </div>
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+            <div class="inline-block align-bottom bg-white dark:bg-dark-800 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                <div class="px-6 py-4 border-b border-gray-200 dark:border-dark-600 flex items-center justify-between">
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Add New Order</h3>
+                    <button id="closeModal" class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="px-6 py-4">
+                    <form id="orderForm">
+                        <div class="mb-4">
+                            <label for="customer" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Customer</label>
+                            <select id="customer" class="w-full border border-gray-300 dark:border-dark-600 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-dark-700 dark:text-white">
+                                <option value="">Select customer</option>
+                                <option value="1">John Smith</option>
+                                <option value="2">Sarah Johnson</option>
+                                <option value="3">Michael Brown</option>
+                                <option value="4">Emily Davis</option>
+                                <option value="5">Robert Wilson</option>
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label for="products" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Products</label>
+                            <select id="products" multiple class="w-full border border-gray-300 dark:border-dark-600 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-dark-700 dark:text-white">
+                                <option value="1">Product A - $49.99</option>
+                                <option value="2">Product B - $29.99</option>
+                                <option value="3">Product C - $99.99</option>
+                                <option value="4">Product D - $19.99</option>
+                                <option value="5">Product E - $59.99</option>
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label for="date" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Order Date</label>
+                            <input type="date" id="date" class="w-full border border-gray-300 dark:border-dark-600 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-dark-700 dark:text-white">
+                        </div>
+                        <div class="mb-4">
+                            <label for="status" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Status</label>
+                            <select id="status" class="w-full border border-gray-300 dark:border-dark-600 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-dark-700 dark:text-white">
+                                <option value="pending">Pending</option>
+                                <option value="completed">Completed</option>
+                                <option value="canceled">Canceled</option>
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label for="notes" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Notes</label>
+                            <textarea id="notes" rows="3" class="w-full border border-gray-300 dark:border-dark-600 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-dark-700 dark:text-white"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="px-6 py-4 border-t border-gray-200 dark:border-dark-600 flex justify-end">
+                    <button type="button" class="px-4 py-2 border border-gray-300 dark:border-dark-600 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-dark-700 mr-2">
+                        Cancel
+                    </button>
+                    <button type="button" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
+                        Save Order
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="deleteModal" class="fixed inset-0 z-50 hidden overflow-y-auto">
+        <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+                <div class="absolute inset-0 bg-gray-500 dark:bg-gray-900 opacity-75"></div>
+            </div>
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+            <div class="inline-block align-bottom bg-white dark:bg-dark-800 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+                <div class="px-6 py-4 border-b border-gray-200 dark:border-dark-600 flex items-center justify-between">
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Confirm Deletion</h3>
+                    <button id="closeDeleteModal" class="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="px-6 py-4">
+                    <p class="text-gray-700 dark:text-gray-300">Are you sure you want to delete this order? This action cannot be undone.</p>
+                </div>
+                <div class="px-6 py-4 border-t border-gray-200 dark:border-dark-600 flex justify-end">
+                    <button type="button" id="cancelDelete" class="px-4 py-2 border border-gray-300 dark:border-dark-600 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-dark-700 mr-2">
+                        Cancel
+                    </button>
+                    <button type="button" id="confirmDelete" class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">
+                        Delete
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle sidebar
+        const toggleSidebar = document.getElementById('toggleSidebar');
+        const sidebar = document.querySelector('.sidebar');
+        const mainContent = document.querySelector('.main-content');
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+
+        toggleSidebar.addEventListener('click', () => {
+            sidebar.classList.toggle('collapsed');
+            const isCollapsed = sidebar.classList.contains('collapsed');
+            toggleSidebar.querySelector('.nav-text').textContent = isCollapsed ? 'Expand' : 'Collapse';
+            toggleSidebar.querySelector('i').className = isCollapsed ? 'fas fa-chevron-right' : 'fas fa-chevron-left';
+        });
+
+        mobileMenuButton.addEventListener('click', () => {
+            sidebar.classList.toggle('hidden');
+        });
+
+        // Dark mode toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const html = document.querySelector('html');
+
+        darkModeToggle.addEventListener('click', () => {
+            html.classList.toggle('light');
+            html.classList.toggle('dark');
+            localStorage.setItem('darkMode', html.classList.contains('dark'));
+        });
+
+        // Check for saved dark mode preference
+        if (localStorage.getItem('darkMode') === 'true') {
+            html.classList.add('dark');
+            html.classList.remove('light');
+        } else {
+            html.classList.add('light');
+            html.classList.remove('dark');
+        }
+
+        // User menu dropdown
+        const userMenuButton = document.getElementById('userMenuButton');
+        const userMenu = document.getElementById('userMenu');
+
+        userMenuButton.addEventListener('click', () => {
+            userMenu.classList.toggle('hidden');
+        });
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!userMenuButton.contains(e.target) && !userMenu.contains(e.target)) {
+                userMenu.classList.add('hidden');
+            }
+        });
+
+        // Modal handling
+        const addOrderButton = document.getElementById('addOrderButton');
+        const addOrderModal = document.getElementById('addOrderModal');
+        const closeModal = document.getElementById('closeModal');
+        const deleteModal = document.getElementById('deleteModal');
+        const closeDeleteModal = document.getElementById('closeDeleteModal');
+        const cancelDelete = document.getElementById('cancelDelete');
+        const confirmDelete = document.getElementById('confirmDelete');
+
+        addOrderButton.addEventListener('click', () => {
+            addOrderModal.classList.remove('hidden');
+        });
+
+        closeModal.addEventListener('click', () => {
+            addOrderModal.classList.add('hidden');
+        });
+
+        // Example delete button in table (would be added dynamically in a real app)
+        const deleteButtons = document.querySelectorAll('.fa-trash');
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                deleteModal.classList.remove('hidden');
+            });
+        });
+
+        closeDeleteModal.addEventListener('click', () => {
+            deleteModal.classList.add('hidden');
+        });
+
+        cancelDelete.addEventListener('click', () => {
+            deleteModal.classList.add('hidden');
+        });
+
+        confirmDelete.addEventListener('click', () => {
+            // In a real app, you would handle the deletion here
+            alert('Order deleted successfully!');
+            deleteModal.classList.add('hidden');
+        });
+
+        // Charts
+        // Line Chart
+        const lineCtx = document.getElementById('lineChart').getContext('2d');
+        const lineChart = new Chart(lineCtx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [{
+                    label: 'Revenue',
+                    data: [12000, 19000, 15000, 18000, 21000, 19000],
+                    borderColor: '#3B82F6',
+                    backgroundColor: 'rgba(59, 130, 246, 0.05)',
+                    borderWidth: 2,
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+
+        // Pie Chart
+        const pieCtx = document.getElementById('pieChart').getContext('2d');
+        const pieChart = new Chart(pieCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Electronics', 'Clothing', 'Home', 'Books', 'Other'],
+                datasets: [{
+                    data: [35, 25, 20, 10, 10],
+                    backgroundColor: [
+                        '#3B82F6',
+                        '#10B981',
+                        '#F59E0B',
+                        '#6366F1',
+                        '#EC4899'
+                    ],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                cutout: '70%',
+                plugins: {
+                    legend: {
+                        position: 'right'
+                    }
+                }
+            }
+        });
+
+        // Accessibility - focus management for modals
+        addOrderButton.addEventListener('click', () => {
+            setTimeout(() => {
+                document.querySelector('#customer').focus();
+            }, 100);
+        });
+
+        closeModal.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                addOrderModal.classList.add('hidden');
+            }
+        });
+
+        // Responsive table
+        function handleTableResponsive() {
+            const table = document.querySelector('.min-w-full');
+            if (window.innerWidth < 768) {
+                table.classList.add('block');
+                table.classList.remove('table');
+            } else {
+                table.classList.remove('block');
+                table.classList.add('table');
+            }
+        }
+
+        window.addEventListener('resize', handleTableResponsive);
+        handleTableResponsive();
+    </script>
+</body>
+</html>
