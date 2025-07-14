@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap 5 Admin Dashboard</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    
+    <style>
+        /* Custom CSS for the admin template */
+        :root {
+            --sidebar-width: 280px;
+            --sidebar-collapsed-width: 70px;
+            --header-height: 60px;
+        }
+
+        /* Dark theme variables */
+        [data-bs-theme="dark"] {
+            --bs-body-bg: #1a1a1a;
+            --bs-body-color: #fff;
+            --sidebar-bg: #2d2d2d;
+            --sidebar-border: #404040;
+            --card-bg: #2d2d2d;
+        }
+
+        /* Light theme variables */
+        [data-bs-theme="light"] {
+            --sidebar-bg: #fff;
+            --sidebar-border: #e9ecef;
+            --card-bg: #fff;
+        }
+
+        /* Layout Structure */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bs-body-bg);
+            overflow-x: hidden;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: var(--sidebar-width);
+            background-color: var(--sidebar-bg);
+            border-right: 1px solid var(--sidebar-border);
+            transform: translateX(0);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .sidebar.collapsed {
+            width: var(--sidebar-collapsed-width);
+        }
+
+        .sidebar .nav-link {
+            color: var(--bs-body-color);
+            padding: 0.75rem 1rem;
+            border-radius: 0.375rem;
+            margin: 0.125rem 0.5rem;
+            transition: all 0.2s ease;
+        }
+
+        .sidebar .nav-link:hover,
+        .sidebar .nav-link.active {
+            background-color: var(--bs-primary);
+            color: white;
+        }
+
+        .sidebar .nav-link i {
+            width: 20px;
+            margin-right: 0.5rem;
+        }
+
+        .sidebar.collapsed .nav-link .nav-text {
+            display: none;
+        }
+
+        /* Main Content Area */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            transition: margin-left 0.3s ease;
+            min-height: 100vh;
+        }
+
+        .main-content.expanded {
+            margin-left: var(--sidebar-collapsed-width);
+        }
+
+        /* Top Navbar */
+        .top-navbar {
+            height: var(--header-height);
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--sidebar-border);
+        }
+
+        /* Cards */
+        .stat-card {
+            background: var(--card-bg);
+            border: 1px solid var(--sidebar-border);
+            border-radius: 0.5rem;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            
+            .sidebar.show {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .main-content.expanded {
+                margin-left: 0;
+            }
+        }
+
+        /* Table Styles */
+        .table-container {
+            background: var(--card-bg);
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+
+        /* Form Styles */
+        .form-control:focus,
+        .form-select:focus {
+            box-shadow: 0 0 0 0.2rem rgba(var(--bs-primary-rgb), 0.25);
+        }
+
+        /* Animation for loading */
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        /* Accessibility improvements */
+        .visually-hidden-focusable:not(:focus):not(:focus-within) {
+            position: absolute !important;
+            width: 1px !important;
+            height: 1px !important;
+            padding: 0 !important;
+            margin: -1px !important;
+            overflow: hidden !important;
+            clip: rect(0, 0, 0, 0) !important;
+            white-space: nowrap !important;
+            border: 0 !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip to main content for screen readers -->
+    <a href="#main-content" class="visually-hidden-focusable btn btn-primary">Skip to main content</a>
+
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar" id="sidebar" role="navigation" aria-label="Main Navigation">
+        <div class="p-3 border-bottom">
+            <h4 class="mb-0">
+                <i class="bi bi-speedometer2 me-2"></i>
+                <span class="nav-text">AdminPro</span>
+            </h4>
+        </div>
+        
+        <ul class="nav flex-column p-2">
+            <li class="nav-item">
+                <a class="nav-link active" href="#" data-section="dashboard" aria-current="page">
+                    <i class="bi bi-house-door"></i>
+                    <span class="nav-text">Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" data-section="users">
+                    <i class="bi bi-people"></i>
+                    <span class="nav-text">Users</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" data-section="products">
+                    <i class="bi bi-box"></i>
+                    <span class="nav-text">Products</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" data-section="orders">
+                    <i class="bi bi-cart"></i>
+                    <span class="nav-text">Orders</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" data-section="analytics">
+                    <i class="bi bi-graph-up"></i>
+                    <span class="nav-text">Analytics</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" data-section="settings">
+                    <i class="bi bi-gear"></i>
+                    <span class="nav-text">Settings</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="main-content" id="main-content">
+        <!-- Top Navbar -->
+        <nav class="navbar navbar-expand-lg top-navbar px-3" role="banner">
+            <div class="d-flex align-items-center">
+                <button class="btn btn-outline-secondary me-3" id="sidebarToggle" type="button" aria-label="Toggle sidebar">
+                    <i class="bi bi-list"></i>
+                </button>
+                <span class="navbar-brand mb-0 h1 d-none d-md-block">Dashboard</span>
+            </div>
+
+            <div class="navbar-nav flex-row align-items-center ms-auto">
+                <!-- Search Bar -->
+                <form class="d-flex me-3" role="search">
+                    <input class="form-control" type="search" placeholder="Search..." aria-label="Search">
+                    <button class="btn btn-outline-secondary ms-1" type="submit" aria-label="Submit search">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </form>
+
+                <!-- Dark Mode Toggle -->
+                <button class="btn btn-outline-secondary me-3" id="darkModeToggle" type="button" aria-label="Toggle dark mode">
+                    <i class="bi bi-moon" id="darkModeIcon"></i>
+                </button>
+
+                <!-- Notifications -->
+                <div class="dropdown me-3">
+                    <button class="btn btn-outline-secondary position-relative" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Notifications">
+                        <i class="bi bi-bell"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            3
+                            <span class="visually-hidden">unread notifications</span>
+                        </span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><h6 class="dropdown-header">Notifications</h6></li>
+                        <li><a class="dropdown-item" href="#">New user registered</a></li>
+                        <li><a class="dropdown-item" href="#">Order #1234 completed</a></li>
+                        <li><a class="dropdown-item" href="#">System update available</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">View all notifications</a></li>
+                    </ul>
+                </div>
+
+                <!-- User Account Dropdown -->
+                <div class="dropdown">
+                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="User account menu">
+                        <i class="bi bi-person-circle me-1"></i>
+                        <span class="d-none d-md-inline">Admin</span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i>Profile</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i>Settings</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Content Sections -->
+        <div class="container-fluid p-4">
+            <!-- Dashboard Section -->
+            <section id="dashboard-section" class="content-section">
+                <h2 class="mb-4">Dashboard Overview</h2>
+                
+                <!-- Statistics Cards -->
+                <div class="row mb-4">
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card stat-card h-100">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6 class="card-title text-muted mb-1">Total Users</h6>
+                                        <h3 class="mb-0 text-primary">1,234</h3>
+                                        <small class="text-success">+12% from last month</small>
+                                    </div>
+                                    <div class="text-primary">
+                                        <i class="bi bi-people fs-2"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card stat-card h-100">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6 class="card-title text-muted mb-1">Total Sales</h6>
+                                        <h3 class="mb-0 text-success">$45,678</h3>
+                                        <small class="text-success">+8% from last month</small>
+                                    </div>
+                                    <div class="text-success">
+                                        <i class="bi bi-currency-dollar fs-2"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card stat-card h-100">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6 class="card-title text-muted mb-1">Active Sessions</h6>
+                                        <h3 class="mb-0 text-warning">89</h3>
+                                        <small class="text-warning">+5% from last hour</small>
+                                    </div>
+                                    <div class="text-warning">
+                                        <i class="bi bi-activity fs-2"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card stat-card h-100">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6 class="card-title text-muted mb-1">Orders</h6>
+                                        <h3 class="mb-0 text-info">567</h3>
+                                        <small class="text-danger">-3% from last week</small>
+                                    </div>
+                                    <div class="text-info">
+                                        <i class="bi bi-cart fs-2"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts Row -->
+                <div class="row mb-4">
+                    <div class="col-lg-8 mb-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0">Sales Trend</h5>
+                            </div>
+                            <div class="card-body">
+                                <canvas id="salesChart" width="400" height="200"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-4 mb-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0">User Distribution</h5>
+                            </div>
+                            <div class="card-body">
+                                <canvas id="userChart" width="400" height="200"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Users Section -->
+            <section id="users-section" class="content-section" style="display: none;">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2>Users Management</h2>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">
+                        <i class="bi bi-plus-lg me-2"></i>Add User
+                    </button>
+                </div>
+
+                <!-- Users Table -->
+                <div class="card table-container">
+                    <div class="card-header">
+                        <div class="row align-items-center">
+                            <div class="col-md-6">
+                                <h5 class="mb-0">User List</h5>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex justify-content-end">
+                                    <input type="text" class="form-control me-2" placeholder="Search users..." id="userSearch" style="max-width: 200px;">
+                                    <button class="btn btn-outline-danger" id="bulkDelete" disabled>
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0" id="usersTable">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>
+                                            <input type="checkbox" id="selectAll" class="form-check-input">
+                                        </th>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Role</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><input type="checkbox" class="form-check-input user-checkbox"></td>
+                                        <td>1</td>
+                                        <td>John Doe</td>
+                                        <td>john@example.com</td>
+                                        <td><span class="badge bg-primary">Admin</span></td>
+                                        <td><span class="badge bg-success">Active</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-primary me-1" data-bs-toggle="modal" data-bs-target="#editUserModal">
+                                                <i class="bi bi-pencil"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-danger" onclick="confirmDelete('John Doe')">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="checkbox" class="form-check-input user-checkbox"></td>
+                                        <td>2</td>
+                                        <td>Jane Smith</td>
+                                        <td>jane@example.com</td>
+                                        <td><span class="badge bg-secondary">User</span></td>
+                                        <td><span class="badge bg-success">Active</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-primary me-1" data-bs-toggle="modal" data-bs-target="#editUserModal">
+                                                <i class="bi bi-pencil"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-danger" onclick="confirmDelete('Jane Smith')">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="checkbox" class="form-check-input user-checkbox"></td>
+                                        <td>3</td>
+                                        <td>Bob Johnson</td>
+                                        <td>bob@example.com</td>
+                                        <td><span class="badge bg-secondary">User</span></td>
+                                        <td><span class="badge bg-warning">Inactive</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-primary me-1" data-bs-toggle="modal" data-bs-target="#editUserModal">
+                                                <i class="bi bi-pencil"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-danger" onclick="confirmDelete('Bob Johnson')">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <nav aria-label="Users pagination">
+                            <ul class="pagination justify-content-center mb-0">
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Other sections (Products, Orders, Analytics, Settings) -->
+            <section id="products-section" class="content-section" style="display: none;">
+                <h2>Products Management</h2>
+                <p>Products management functionality would go here...</p>
+            </section>
+
+            <section id="orders-section" class="content-section" style="display: none;">
+                <h2>Orders Management</h2>
+                <p>Orders management functionality would go here...</p>
+            </section>
+
+            <section id="analytics-section" class="content-section" style="display: none;">
+                <h2>Analytics</h2>
+                <p>Analytics and reporting functionality would go here...</p>
+            </section>
+
+            <section id="settings-section" class="content-section" style="display: none;">
+                <h2>Settings</h2>
+                <p>Application settings would go here...</p>
+            </section>
+        </div>
+    </main>
+
+    <!-- Add User Modal -->
+    <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addUserModalLabel">Add New User</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="addUserForm" novalidate>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="userName" class="form-label">Full Name *</label>
+                            <input type="text" class="form-control" id="userName" required>
+                            <div class="invalid-feedback">Please provide a valid name.</div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="userEmail" class="form-label">Email Address *</label>
+                            <input type="email" class="form-control" id="userEmail" required>
+                            <div class="invalid-feedback">Please provide a valid email address.</div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="userRole" class="form-label">Role</label>
+                            <select class="form-select" id="userRole" required>
+                                <option value="">Select a role</option>
+                                <option value="admin">Admin</option>
+                                <option value="user">User</option>
+                                <option value="moderator">Moderator</option>
+                            </select>
+                            <div class="invalid-feedback">Please select a role.</div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="userPassword" class="form-label">Password *</label>
+                            <input type="password" class="form-control" id="userPassword" required minlength="8">
+                            <div class="invalid-feedback">Password must be at least 8 characters long.</div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="userAvatar" class="form-label">Profile Picture</label>
+                            <input type="file" class="form-control" id="userAvatar" accept="image/*">
+                        </div>
+                        
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="userActive" checked>
+                            <label class="form-check-label" for="userActive">Active User</label>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Permissions</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="permRead" checked>
+                                <label class="form-check-label" for="permRead">Read</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="permWrite">
+                                <label class="form-check-label" for="permWrite">Write</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="permDelete">
+                                <label class="form-check-label" for="permDelete">Delete</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Add User</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit User Modal -->
+    <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editUserModalLabel">Edit User</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Edit user functionality would be implemented here with pre-filled form data.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete <strong id="deleteUserName"></strong>?</p>
+                    <p class="text-muted">This action cannot be undone.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        /**
+         * AdminPro Dashboard JavaScript
+         * Handles all interactive functionality for the admin template
+         */
+
+        // Initialize application when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeApp();
+        });
+
+        /**
+         * Main application initialization
+         */
+        function initializeApp() {
+            setupSidebarToggle();
+            setupNavigationSwitching();
+            setupDarkModeToggle();
+            setupTableFunctionality();
+            setupFormValidation();
+            setupCharts();
+            setupSearchFunctionality();
+            
+            // Load saved theme preference
+            loadThemePreference();
+        }
+
+        /**
+         * Sidebar toggle functionality
+         * Handles collapsing and expanding the sidebar
+         */
+        function setupSidebarToggle() {
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.querySelector('.main-content');
+
+            sidebarToggle.addEventListener('click', function() {
+                // Toggle sidebar collapse state
+                sidebar.classList.toggle('collapsed');
+                mainContent.classList.toggle('expanded');
+                
+                // On mobile, toggle sidebar visibility
+                if (window.innerWidth <= 768) {
+                    sidebar.classList.toggle('show');
+                }
+            });
+        }
+
+        /**
+         * Navigation switching between different sections
+         */
+        function setupNavigationSwitching() {
+            const navLinks = document.querySelectorAll('.sidebar .nav-link');
+            const contentSections = document.querySelectorAll('.content-section');
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remove active class from all links
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    
+                    // Add active class to clicked link

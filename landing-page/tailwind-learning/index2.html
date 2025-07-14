@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EverGreen Estates | Luxury Properties</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2e8b57',
+                        secondary: '#3cb371',
+                        accent: '#20b2aa',
+                        dark: '#006400',
+                        light: '#90ee90'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .hero {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-4.0.3');
+            background-size: cover;
+            background-position: center;
+            height: 80vh;
+        }
+        
+        .property-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .testimonial-card {
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(5px);
+        }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin: 0 auto;
+        }
+        
+        .scroll-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            display: none;
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <span class="text-primary text-2xl font-bold"><i class="fas fa-home mr-2"></i>EverGreen Estates</span>
+                    </div>
+                    <div class="hidden md:block">
+                        <div class="ml-10 flex items-baseline space-x-4">
+                            <a href="#" class="text-primary px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                            <a href="#properties" class="text-gray-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium">Properties</a>
+                            <a href="#services" class="text-gray-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium">Services</a>
+                            <a href="#about" class="text-gray-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium">About</a>
+                            <a href="#contact" class="text-gray-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium">Contact</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="hidden md:block">
+                    <button class="bg-primary hover:bg-dark text-white px-4 py-2 rounded-md text-sm font-medium">
+                        <i class="fas fa-phone-alt mr-2"></i>Schedule Call
+                    </button>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-gray-600 hover:text-primary focus:outline-none">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="md:hidden hidden">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white">
+                <a href="#" class="text-primary block px-3 py-2 rounded-md text-base font-medium">Home</a>
+                <a href="#properties" class="text-gray-600 hover:text-primary block px-3 py-2 rounded-md text-base font-medium">Properties</a>
+                <a href="#services" class="text-gray-600 hover:text-primary block px-3 py-2 rounded-md text-base font-medium">Services</a>
+                <a href="#about" class="text-gray-600 hover:text-primary block px-3 py-2 rounded-md text-base font-medium">About</a>
+                <a href="#contact" class="text-gray-600 hover:text-primary block px-3 py-2 rounded-md text-base font-medium">Contact</a>
+                <button class="bg-primary hover:bg-dark text-white w-full px-3 py-2 rounded-md text-base font-medium mt-2">
+                    <i class="fas fa-phone-alt mr-2"></i>Schedule Call
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero flex items-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6">Find Your Dream Home</h1>
+            <p class="text-xl md:text-2xl mb-8">Discover premium properties in the most sought-after locations</p>
+            <div class="max-w-2xl mx-auto bg-white bg-opacity-90 rounded-lg p-4">
+                <div class="flex flex-col md:flex-row gap-2">
+                    <div class="flex-1">
+                        <select class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary text-gray-700">
+                            <option>Property Type</option>
+                            <option>House</option>
+                            <option>Apartment</option>
+                            <option>Villa</option>
+                            <option>Commercial</option>
+                        </select>
+                    </div>
+                    <div class="flex-1">
+                        <select class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary text-gray-700">
+                            <option>Location</option>
+                            <option>New York</option>
+                            <option>Los Angeles</option>
+                            <option>Chicago</option>
+                            <option>Miami</option>
+                        </select>
+                    </div>
+                    <div class="flex-1">
+                        <select class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary text-gray-700">
+                            <option>Price Range</option>
+                            <option>$100k - $300k</option>
+                            <option>$300k - $500k</option>
+                            <option>$500k - $1M</option>
+                            <option>$1M+</option>
+                        </select>
+                    </div>
+                    <button class="bg-primary hover:bg-dark text-white p-3 rounded-md">
+                        <i class="fas fa-search mr-2"></i>Search
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-12 bg-primary text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div>
+                    <div class="text-4xl font-bold mb-2">1,250+</div>
+                    <div class="text-lg">Properties Sold</div>
+                </div>
+                <div>
+                    <div class="text-4xl font-bold mb-2">25+</div>
+                    <div class="text-lg">Years Experience</div>
+                </div>
+                <div>
+                    <div class="text-4xl font-bold mb-2">98%</div>
+                    <div class="text-lg">Client Satisfaction</div>
+                </div>
+                <div>
+                    <div class="text-4xl font-bold mb-2">50+</div>
+                    <div class="text-lg">Awards Won</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Properties -->
+    <section id="properties" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Featured Properties</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">Explore our handpicked selection of premium properties in prime locations</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Property 1 -->
+                <div class="property-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300 ease-in-out">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?ixlib=rb-4.0.3" alt="Property" class="w-full h-64 object-cover">
+                        <div class="absolute top-4 right-4 bg-primary text-white px-3 py-1 rounded-full text-sm font-medium">For Sale</div>
+                        <div class="absolute bottom-4 left-4 bg-white text-primary px-3 py-1 rounded-full text-sm font-medium">$850,000</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Luxury Villa in Beverly Hills</h3>
+                        <p class="text-gray-600 mb-4"><i class="fas fa-map-marker-alt text-primary mr-2"></i>Beverly Hills, CA</p>
+                        <div class="flex justify-between text-sm text-gray-500 border-b border-gray-200 pb-4 mb-4">
+                            <span><i class="fas fa-bed text-primary mr-1"></i> 5 Beds</span>
+                            <span><i class="fas fa-bath text-primary mr-1"></i> 4 Baths</span>
+                            <span><i class="fas fa-ruler-combined text-primary mr-1"></i> 3,200 sqft</span>
+                        </div>
+                        <button class="w-full bg-primary hover:bg-dark text-white py-2 rounded-md transition duration-300">
+                            View Details
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Property 2 -->
+                <div class="property-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300 ease-in-out">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3" alt="Property" class="w-full h-64 object-cover">
+                        <div class="absolute top-4 right-4 bg-accent text-white px-3 py-1 rounded-full text-sm font-medium">For Rent</div>
+                        <div class="absolute bottom-4 left-4 bg-white text-primary px-3 py-1 rounded-full text-sm font-medium">$3,500/mo</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Modern Apartment in Downtown</h3>
+                        <p class="text-gray-600 mb-4"><i class="fas fa-map-marker-alt text-primary mr-2"></i>New York, NY</p>
+                        <div class="flex justify-between text-sm text-gray-500 border-b border-gray-200 pb-4 mb-4">
+                            <span><i class="fas fa-bed text-primary mr-1"></i> 2 Beds</span>
+                            <span><i class="fas fa-bath text-primary mr-1"></i> 2 Baths</span>
+                            <span><i class="fas fa-ruler-combined text-primary mr-1"></i> 1,200 sqft</span>
+                        </div>
+                        <button class="w-full bg-primary hover:bg-dark text-white py-2 rounded-md transition duration-300">
+                            View Details
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Property 3 -->
+                <div class="property-card bg-white rounded-lg overflow-hidden shadow-md transition duration-300 ease-in-out">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3" alt="Property" class="w-full h-64 object-cover">
+                        <div class="absolute top-4 right-4 bg-primary text-white px-3 py-1 rounded-full text-sm font-medium">For Sale</div>
+                        <div class="absolute bottom-4 left-4 bg-white text-primary px-3 py-1 rounded-full text-sm font-medium">$1,250,000</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Waterfront Mansion in Miami</h3>
+                        <p class="text-gray-600 mb-4"><i class="fas fa-map-marker-alt text-primary mr-2"></i>Miami, FL</p>
+                        <div class="flex justify-between text-sm text-gray-500 border-b border-gray-200 pb-4 mb-4">
+                            <span><i class="fas fa-bed text-primary mr-1"></i> 6 Beds</span>
+                            <span><i class="fas fa-bath text-primary mr-1"></i> 5 Baths</span>
+                            <span><i class="fas fa-ruler-combined text-primary mr-1"></i> 4,500 sqft</span>
+                        </div>
+                        <button class="w-full bg-primary hover:bg-dark text-white py-2 rounded-md transition duration-300">
+                            View Details
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-10">
+                <button class="bg-white border-2 border-primary text-primary hover:bg-primary hover:text-white px-6 py-3 rounded-md font-medium transition duration-300">
+                    View All Properties
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Our Services</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">Comprehensive real estate services tailored to your needs</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-lg shadow-md text-center hover:shadow-xl transition duration-300">
+                    <div class="feature-icon bg-light text-primary mb-4">
+                        <i class="fas fa-home text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Property Sales</h3>
+                    <p class="text-gray-600">We help you buy and sell properties at the best market prices with our extensive network and expertise.</p>
+                </div>
+                
+                <div class="bg-white p-8 rounded-lg shadow-md text-center hover:shadow-xl transition duration-300">
+                    <div class="feature-icon bg-light text-primary mb-4">
+                        <i class="fas fa-key text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Property Rental</h3>
+                    <p class="text-gray-600">Find your perfect rental property or list your property with us to reach quality tenants quickly.</p>
+                </div>
+                
+                <div class="bg-white p-8 rounded-lg shadow-md text-center hover:shadow-xl transition duration-300">
+                    <div class="feature-icon bg-light text-primary mb-4">
+                        <i class="fas fa-building text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Property Management</h3>
+                    <p class="text-gray-600">Professional property management services to maximize your investment returns with minimal hassle.</p>
+                </div>
+                
+                <div class="bg-white p-8 rounded-lg shadow-md text-center hover:shadow-xl transition duration-300">
+                    <div class="feature-icon bg-light text-primary mb-4">
+                        <i class="fas fa-search-dollar text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Property Valuation</h3>
+                    <p class="text-gray-600">Accurate property valuations to help you make informed decisions about buying, selling or refinancing.</p>
+                </div>
+                
+                <div class="bg-white p-8 rounded-lg shadow-md text-center hover:shadow-xl transition duration-300">
+                    <div class="feature-icon bg-light text-primary mb-4">
+                        <i class="fas fa-hand-holding-usd text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Investment Consulting</h3>
+                    <p class="text-gray-600">Expert advice on real estate investments to help you build and manage a profitable property portfolio.</p>
+                </div>
+                
+                <div class="bg-white p-8 rounded-lg shadow-md text-center hover:shadow-xl transition duration-300">
+                    <div class="feature-icon bg-light text-primary mb-4">
+                        <i class="fas fa-file-signature text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Legal Services</h3>
+                    <p class="text-gray-600">Comprehensive legal support for all your real estate transactions and documentation needs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-16 bg-primary text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4">What Our Clients Say</h2>
+                <p class="text-lg max-w-2xl mx-auto">Hear from our satisfied clients about their experience with EverGreen Estates</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="testimonial-card p-6 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Client" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-semibold text-gray-900">Sarah Johnson</h4>
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-700">"EverGreen Estates made the home buying process so smooth. Their team was professional, knowledgeable, and truly cared about finding us the perfect home. Highly recommend!"</p>
+                </div>
+                
+                <div class="testimonial-card p-6 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Client" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-semibold text-gray-900">Michael Chen</h4>
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-700">"As a first-time home buyer, I was nervous about the process. The team at EverGreen Estates guided me every step of the way and negotiated an amazing deal. Couldn't be happier!"</p>
+                </div>
+                
+                <div class="testimonial-card p-6 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Client" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-semibold text-gray-900">Emily Rodriguez</h4>
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-700">"We've used EverGreen Estates for both buying and selling properties. Their market knowledge is exceptional and they always have our best interests at heart. Five-star service!"</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3" alt="About Us" class="w-full rounded-lg shadow-lg">
+                </div>
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">About EverGreen Estates</h2>
+                    <p class="text-gray-600 mb-4">Founded in 1998, EverGreen Estates has been helping clients navigate the real estate market with integrity, expertise, and personalized service. Our team of dedicated professionals brings decades of combined experience to every transaction.</p>
+                    <p class="text-gray-600 mb-6">We believe in building lasting relationships with our clients, understanding their unique needs, and delivering exceptional results. Our commitment to excellence has made us one of the most trusted names in real estate.</p>
+                    
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <div class="flex items-center">
+                            <div class="bg-light text-primary p-2 rounded-full mr-3">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <span class="text-gray-700">25+ Years Experience</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="bg-light text-primary p-2 rounded-full mr-3">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <span class="text-gray-700">1,000+ Happy Clients</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="bg-light text-primary p-2 rounded-full mr-3">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <span class="text-gray-700">Award-Winning Service</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="bg-light text-primary p-2 rounded-full mr-3">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <span class="text-gray-700">Local Market Experts</span>
+                        </div>
+                    </div>
+                    
+                    <button class="bg-primary hover:bg-dark text-white px-6 py-3 rounded-md font-medium transition duration-300">
+                        Learn More About Us
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Contact Us</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">Get in touch with our team for any inquiries or to schedule a consultation</p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div class="bg-white p-8 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-6">Send Us a Message</h3>
+                    <form>
+                        <div class="mb-4">
+                            <label for="name" class="block text-gray-700 mb-2">Your Name</label>
+                            <input type="text" id="name" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
+                        </div>
+                        <div class="mb-4">
+                            <label for="email" class="block text-gray-700 mb-2">Email Address</label>
+                            <input type="email" id="email" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
+                        </div>
+                        <div class="mb-4">
+                            <label for="phone" class="block text-gray-700 mb-2">Phone Number</label>
+                            <input type="tel" id="phone" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
+                        </div>
+                        <div class="mb-4">
+                            <label for="message" class="block text-gray-700 mb-2">Your Message</label>
+                            <textarea id="message" rows="4" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-primary hover:bg-dark text-white py-3 rounded-md font-medium transition duration-300">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+                
+                <div>
+                    <div class="bg-white p-8 rounded-lg shadow-md mb-8">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-6">Contact Information</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <div class="bg-light text-primary p-3 rounded-full mr-4">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-900">Our Office</h4>
+                                    <p class="text-gray-600">123 Greenway Blvd, Suite 400<br>New York, NY 10001</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="bg-light text-primary p-3 rounded-full mr-4">
+                                    <i class="fas fa-phone-alt"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-900">Phone</h4>
+                                    <p class="text-gray-600">+1 (555) 123-4567<br>Mon-Fri, 9am-6pm</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="bg-light text-primary p-3 rounded-full mr-4">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-900">Email</h4>
+                                    <p class="text-gray-600">info@evergreenestates.com<br>support@evergreenestates.com</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white p-8 rounded-lg shadow-md">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-6">Follow Us</h3>
+                        <div class="flex space-x-4">
+                            <a href="#" class="bg-light text-primary hover:bg-primary hover:text-white p-3 rounded-full transition duration-300">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#" class="bg-light text-primary hover:bg-primary hover:text-white p-3 rounded-full transition duration-300">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="bg-light text-primary hover:bg-primary hover:text-white p-3 rounded-full transition duration-300">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" class="bg-light text-primary hover:bg-primary hover:text-white p-3 rounded-full transition duration-300">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="#" class="bg-light text-primary hover:bg-primary hover:text-white p-3 rounded-full transition duration-300">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="py-12 bg-primary text-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-2xl md:text-3xl font-bold mb-4">Subscribe to Our Newsletter</h2>
+            <p class="text-lg mb-6">Stay updated with the latest property listings, market trends, and real estate tips</p>
+            <div class="flex flex-col sm:flex-row gap-2 max-w-md mx-auto">
+                <input type="email" placeholder="Your email address" class="flex-1 p-3 rounded-md focus:outline-none text-gray-900">
+                <button class="bg-dark hover:bg-accent text-white px-6 py-3 rounded-md font-medium transition duration-300">
+                    Subscribe
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4"><i class="fas fa-home mr-2"></i>EverGreen Estates</h3>
+                    <p class="text-gray-300">Your trusted partner in real estate for over 25 years. We're committed to helping you find your dream property.</p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-300 hover:text-white transition duration-300">Home</a></li>
+                        <li><a href="#properties" class="text-gray-300 hover:text-white transition duration-300">Properties</a></li>
+                        <li><a href="#services" class="text-gray-300 hover:text-white transition duration-300">Services</a></li>
+                        <li><a href="#about" class="text-gray-300 hover:text-white transition duration-300">About Us</a></li>
+                        <li><a href="#contact" class="text-gray-300 hover:text-white transition duration-300">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Services</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-300 hover:text-white transition duration-300">Property Sales</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition duration-300">Property Rental</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition duration-300">Property Management</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition duration-300">Investment Consulting</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition duration-300">Legal Services</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Contact</h4>
+                    <address class="not-italic text-gray-300">
+                        123 Greenway Blvd<br>
+                        Suite 400<br>
+                        New York, NY 10001<br><br>
+                        Phone: +1 (555) 123-4567<br>
+                        Email: info@evergreenestates.com
+                    </address>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-300 mb-4 md:mb-0">© 2023 EverGreen Estates. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-300 hover:text-white transition duration-300">Privacy Policy</a>
+                    <a href="#" class="text-gray-300 hover:text-white transition duration-300">Terms of Service</a>
+                    <a href="#" class="text-gray-300 hover:text-white transition duration-300">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button id="scroll-top" class="scroll-top bg-primary text-white p-3 rounded-full shadow-lg transition duration-300">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+        
+        // Scroll to top button
+        const scrollTopButton = document.getElementById('scroll-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollTopButton.style.display = 'block';
+            } else {
+                scrollTopButton.style.display = 'none';
+            }
+        });
+        
+        scrollTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Form submission (just for demo)
+        const contactForm = document.querySelector('form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert('Thank you for your message! We will get back to you soon.');
+                contactForm.reset();
+            });
+        }
+        
+        // Newsletter subscription (just for demo)
+        const newsletterForm = document.querySelector('.bg-primary form');
+        if (newsletterForm) {
+            newsletterForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert('Thank you for subscribing to our newsletter!');
+                newsletterForm.reset();
+            });
+        }
+    </script>
+</body>
+</html>
