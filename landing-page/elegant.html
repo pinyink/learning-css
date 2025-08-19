@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elegant Bootstrap Landing Page</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <style>
+        :root {
+            --primary-color: #6c63ff;
+            --secondary-color: #4d44db;
+            --dark-color: #2a2a72;
+            --light-color: #f8f9fa;
+            --accent-color: #ff6584;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+        }
+        
+        .navbar {
+            transition: all 0.3s ease;
+        }
+        
+        .navbar.scrolled {
+            background-color: rgba(255, 255, 255, 0.95) !important;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .hero-section {
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 1;
+        }
+        
+        .hero-content {
+            z-index: 2;
+            position: relative;
+        }
+        
+        .carousel-item {
+            height: 100vh;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .carousel-item:nth-child(1) {
+            background-image: url('https://source.unsplash.com/random/1920x1080/?business,technology');
+        }
+        
+        .carousel-item:nth-child(2) {
+            background-image: url('https://source.unsplash.com/random/1920x1080/?design,creative');
+        }
+        
+        .carousel-item:nth-child(3) {
+            background-image: url('https://source.unsplash.com/random/1920x1080/?development,code');
+        }
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 60px;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background: var(--primary-color);
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .service-card {
+            transition: all 0.3s ease;
+            border: none;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .service-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        .portfolio-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .portfolio-img {
+            transition: all 0.5s ease;
+        }
+        
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(42, 42, 114, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+        
+        .portfolio-item:hover .portfolio-img {
+            transform: scale(1.1);
+        }
+        
+        .contact-form {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-control {
+            height: 50px;
+            border-radius: 5px;
+            border: 1px solid #eee;
+            padding-left: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            box-shadow: none;
+            border-color: var(--primary-color);
+        }
+        
+        textarea.form-control {
+            height: 150px;
+            padding-top: 15px;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(108, 99, 255, 0.3);
+        }
+        
+        .bg-primary {
+            background-color: var(--primary-color) !important;
+        }
+        
+        .text-primary {
+            color: var(--primary-color) !important;
+        }
+        
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            margin-right: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            background: white;
+            color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            z-index: 99;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            background: var(--secondary-color);
+            color: white;
+        }
+    </style>
+</head>
+<body data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="100">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top py-3">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">Elegant</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#services">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#portfolio">Portfolio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Carousel -->
+    <section id="home" class="hero-section">
+        <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="hero-overlay"></div>
+                </div>
+                <div class="carousel-item">
+                    <div class="hero-overlay"></div>
+                </div>
+                <div class="carousel-item">
+                    <div class="hero-overlay"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-lg-8 mx-auto text-center hero-content">
+                    <h1 class="text-white display-3 fw-bold mb-4 animate__animated animate__fadeInDown">We Create Elegant Solutions</h1>
+                    <p class="text-white lead mb-5 animate__animated animate__fadeInUp animate__delay-1s">Professional digital services with outstanding quality that will take your business to the next level.</p>
+                    <div class="animate__animated animate__fadeInUp animate__delay-2s">
+                        <a href="#services" class="btn btn-primary btn-lg me-3">Our Services</a>
+                        <a href="#contact" class="btn btn-outline-light btn-lg">Contact Us</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <a href="#services" class="scroll-down animate__animated animate__bounce animate__infinite animate__slower">
+            <i class="bi bi-chevron-down text-white fs-1 position-absolute bottom-0 start-50 mb-4"></i>
+        </a>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-5 bg-light">
+        <div class="container py-5">
+            <div class="row justify-content-center mb-5">
+                <div class="col-lg-8 text-center">
+                    <h2 class="section-title fw-bold">Our Services</h2>
+                    <p class="text-muted">We offer a wide range of professional services to help your business grow and succeed in the digital world.</p>
+                </div>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4">
+                    <div class="service-card p-4 text-center bg-white h-100">
+                        <div class="service-icon">
+                            <i class="bi bi-laptop"></i>
+                        </div>
+                        <h3>Web Design</h3>
+                        <p class="text-muted">Beautiful, responsive websites designed to impress your customers and showcase your brand effectively.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4">
+                    <div class="service-card p-4 text-center bg-white h-100">
+                        <div class="service-icon">
+                            <i class="bi bi-phone"></i>
+                        </div>
+                        <h3>Mobile Development</h3>
+                        <p class="text-muted">Custom mobile applications built for iOS and Android platforms to engage your customers on the go.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4">
+                    <div class="service-card p-4 text-center bg-white h-100">
+                        <div class="service-icon">
+                            <i class="bi bi-graph-up"></i>
+                        </div>
+                        <h3>Digital Marketing</h3>
+                        <p class="text-muted">Comprehensive digital marketing strategies to increase your online visibility and attract more customers.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4">
+                    <div class="service-card p-4 text-center bg-white h-100">
+                        <div class="service-icon">
+                            <i class="bi bi-palette"></i>
+                        </div>
+                        <h3>Branding</h3>
+                        <p class="text-muted">Complete branding solutions including logo design, visual identity, and brand guidelines.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4">
+                    <div class="service-card p-4 text-center bg-white h-100">
+                        <div class="service-icon">
+                            <i class="bi bi-search"></i>
+                        </div>
+                        <h3>SEO Optimization</h3>
+                        <p class="text-muted">Improve your search engine rankings and drive more organic traffic to your website.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4">
+                    <div class="service-card p-4 text-center bg-white h-100">
+                        <div class="service-icon">
+                            <i class="bi bi-headset"></i>
+                        </div>
+                        <h3>Support</h3>
+                        <p class="text-muted">Dedicated support and maintenance services to keep your digital assets running smoothly.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="py-5">
+        <div class="container py-5">
+            <div class="row justify-content-center mb-5">
+                <div class="col-lg-8 text-center">
+                    <h2 class="section-title fw-bold">Our Portfolio</h2>
+                    <p class="text-muted">Take a look at some of our recent projects and see the quality of work we deliver to our clients.</p>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6 col-lg-4">
+                    <div class="portfolio-item">
+                        <img src="https://source.unsplash.com/random/600x400/?website" alt="Project 1" class="img-fluid portfolio-img">
+                        <div class="portfolio-overlay">
+                            <div class="text-center text-white">
+                                <h3>Corporate Website</h3>
+                                <p>Web Design</p>
+                                <a href="#" class="btn btn-outline-light mt-3">View Project</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4">
+                    <div class="portfolio-item">
+                        <img src="https://source.unsplash.com/random/600x400/?app" alt="Project 2" class="img-fluid portfolio-img">
+                        <div class="portfolio-overlay">
+                            <div class="text-center text-white">
+                                <h3>Mobile Application</h3>
+                                <p>App Development</p>
+                                <a href="#" class="btn btn-outline-light mt-3">View Project</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4">
+                    <div class="portfolio-item">
+                        <img src="https://source.unsplash.com/random/600x400/?branding" alt="Project 3" class="img-fluid portfolio-img">
+                        <div class="portfolio-overlay">
+                            <div class="text-center text-white">
+                                <h3>Brand Identity</h3>
+                                <p>Branding</p>
+                                <a href="#" class="btn btn-outline-light mt-3">View Project</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4">
+                    <div class="portfolio-item">
+                        <img src="https://source.unsplash.com/random/600x400/?ecommerce" alt="Project 4" class="img-fluid portfolio-img">
+                        <div class="portfolio-overlay">
+                            <div class="text-center text-white">
+                                <h3>E-commerce Store</h3>
+                                <p>Web Development</p>
+                                <a href="#" class="btn btn-outline-light mt-3">View Project</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4">
+                    <div class="portfolio-item">
+                        <img src="https://source.unsplash.com/random/600x400/?marketing" alt="Project 5" class="img-fluid portfolio-img">
+                        <div class="portfolio-overlay">
+                            <div class="text-center text-white">
+                                <h3>Marketing Campaign</h3>
+                                <p>Digital Marketing</p>
+                                <a href="#" class="btn btn-outline-light mt-3">View Project</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4">
+                    <div class="portfolio-item">
+                        <img src="https://source.unsplash.com/random/600x400/?ui" alt="Project 6" class="img-fluid portfolio-img">
+                        <div class="portfolio-overlay">
+                            <div class="text-center text-white">
+                                <h3>UI/UX Design</h3>
+                                <p>Design</p>
+                                <a href="#" class="btn btn-outline-light mt-3">View Project</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-5">
+                <a href="#" class="btn btn-outline-primary">View All Projects</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About & Contact Section -->
+    <section id="about" class="py-5 bg-light">
+        <div class="container py-5">
+            <div class="row">
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <h2 class="section-title fw-bold mb-4">About Us</h2>
+                    <p class="text-muted mb-4">We are a team of passionate designers, developers, and marketers dedicated to creating exceptional digital experiences for our clients.</p>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <div class="d-flex">
+                                <div class="me-4 text-primary">
+                                    <i class="bi bi-check-circle-fill fs-3"></i>
+                                </div>
+                                <div>
+                                    <h4>Our Mission</h4>
+                                    <p class="text-muted mb-0">To deliver innovative solutions that drive business growth.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6 mb-4">
+                            <div class="d-flex">
+                                <div class="me-4 text-primary">
+                                    <i class="bi bi-check-circle-fill fs-3"></i>
+                                </div>
+                                <div>
+                                    <h4>Our Vision</h4>
+                                    <p class="text-muted mb-0">To be the most trusted digital partner for businesses worldwide.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6 mb-4">
+                            <div class="d-flex">
+                                <div class="me-4 text-primary">
+                                    <i class="bi bi-check-circle-fill fs-3"></i>
+                                </div>
+                                <div>
+                                    <h4>Our Values</h4>
+                                    <p class="text-muted mb-0">Integrity, creativity, and excellence in everything we do.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6 mb-4">
+                            <div class="d-flex">
+                                <div class="me-4 text-primary">
+                                    <i class="bi bi-check-circle-fill fs-3"></i>
+                                </div>
+                                <div>
+                                    <h4>Our Approach</h4>
+                                    <p class="text-muted mb-0">Collaborative, transparent, and client-focused.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <a href="#" class="btn btn-primary me-3">Learn More</a>
+                        <a href="#" class="btn btn-outline-primary">Our Team</a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <div class="contact-form">
+                        <h2 class="section-title fw-bold mb-4">Get In Touch</h2>
+                        <p class="text-muted mb-4">Have a project in mind or want to discuss how we can help your business? Send us a message.</p>
+                        
+                        <form id="contactForm">
+                            <div class="mb-4">
+                                <input type="text" class="form-control" placeholder="Your Name" required>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <input type="email" class="form-control" placeholder="Your Email" required>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <input type="text" class="form-control" placeholder="Subject">
+                            </div>
+                            
+                            <div class="mb-4">
+                                <textarea class="form-control" placeholder="Your Message" required></textarea>
+                            </div>
+                            
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary">Send Message</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-5">
+        <div class="container py-4">
+            <div class="row g-4">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <h3 class="h4 mb-4">Elegant</h3>
+                    <p class="text-muted">Creating beautiful digital experiences that help businesses grow and succeed in the modern world.</p>
+                    
+                    <div class="mt-4">
+                        <a href="#" class="social-icon me-2"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="social-icon me-2"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="social-icon me-2"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="social-icon me-2"><i class="bi bi-linkedin"></i></a>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 col-lg-2 mb-4 mb-md-0">
+                    <h4 class="h5 mb-4">Quick Links</h4>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#home" class="text-muted">Home</a></li>
+                        <li class="mb-2"><a href="#services" class="text-muted">Services</a></li>
+                        <li class="mb-2"><a href="#portfolio" class="text-muted">Portfolio</a></li>
+                        <li class="mb-2"><a href="#about" class="text-muted">About</a></li>
+                        <li class="mb-2"><a href="#contact" class="text-muted">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-md-4 col-lg-3 mb-4 mb-md-0">
+                    <h4 class="h5 mb-4">Services</h4>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-muted">Web Design</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted">App Development</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted">Digital Marketing</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted">Branding</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted">SEO</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-md-4 col-lg-3">
+                    <h4 class="h5 mb-4">Contact Info</h4>
+                    <ul class="list-unstyled text-muted">
+                        <li class="mb-3">
+                            <i class="bi bi-geo-alt me-2 text-primary"></i> 123 Business Ave, City, Country
+                        </li>
+                        <li class="mb-3">
+                            <i class="bi bi-envelope me-2 text-primary"></i> info@elegant.com
+                        </li>
+                        <li class="mb-3">
+                            <i class="bi bi-phone me-2 text-primary"></i> +1 (123) 456-7890
+                        </li>
+                        <li class="mb-3">
+                            <i class="bi bi-clock me-2 text-primary"></i> Mon-Fri: 9AM - 5PM
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <hr class="my-4 bg-secondary">
+            
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="small text-muted mb-0">&copy; 2023 Elegant. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <p class="small text-muted mb-0">Designed with <i class="bi bi-heart-fill text-danger"></i> by Elegant Team</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+    <!-- Bootstrap 5 JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+                navbar.classList.remove('navbar-dark');
+                navbar.classList.add('navbar-light');
+            } else {
+                navbar.classList.remove('scrolled');
+                navbar.classList.remove('navbar-light');
+                navbar.classList.add('navbar-dark');
+            }
+        });
+        
+        // Back to top button
+        const backToTopButton = document.querySelector('.back-to-top');
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('active');
+            } else {
+                backToTopButton.classList.remove('active');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Initialize carousel
+        const heroCarousel = new bootstrap.Carousel(document.getElementById('heroCarousel'), {
+            interval: 5000,
+            ride: 'carousel',
+            wrap: true
+        });
+        
+        // Animate elements on scroll
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.service-card, .portfolio-item, .contact-form');
+            
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.2;
+                
+                if (elementPosition < screenPosition) {
+                    element.classList.add('animate__animated', 'animate__fadeInUp');
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
+    </script>
+</body>
+</html>
