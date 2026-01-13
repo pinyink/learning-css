@@ -143,3 +143,37 @@ themeToggle.on('click', function () {
     const current = html.attr('data-theme');
     setTheme(current === 'dark' ? 'light' : 'dark');
 });
+
+function animateCountUp(el) {
+    const target = parseInt(el.dataset.count, 10);
+    const duration = parseInt(el.dataset.duration || 1000, 10);
+
+    let start = 0;
+    const startTime = performance.now();
+
+    function easeOutCubic(t) {
+        return 1 - Math.pow(1 - t, 3);
+    }
+
+    function update(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = easeOutCubic(progress);
+
+        const value = Math.floor(eased * target);
+        el.textContent = value.toLocaleString();
+
+        if (progress < 1) {
+            requestAnimationFrame(update);
+        } else {
+            el.textContent = target.toLocaleString();
+        }
+    }
+
+    requestAnimationFrame(update);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.stat-value[data-count]')
+        .forEach(el => animateCountUp(el));
+});
