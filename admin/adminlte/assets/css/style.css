@@ -22,6 +22,57 @@
 
     /* Shadow (very subtle) */
     --shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.04);
+
+    --bg-btn-hover: #f4f5f7;
+    --color-icon: #6b778c;
+
+    --breadcrumb-text: #172b4d;
+    --breadcrumb-muted: #6b778c;
+
+    --bg-popover: #ffffff;
+    --bg-popover-hover: #f1f5f9;
+    --color-popover-text: #172b4d;
+}
+
+/* =========================
+   DARK MODE VARIABLES
+========================= */
+[data-theme="dark"] {
+    /* Base */
+    --bg-body: #0f172a;
+    --bg-surface: #111827;
+
+    /* Sidebar */
+    --bg-sidebar: #111827;
+    --bg-sidebar-hover: #1f2937;
+    --bg-sidebar-active: rgba(12, 102, 228, 0.18);
+
+    /* Colors */
+    --color-primary: #60a5fa;
+    --color-primary-soft: rgba(96, 165, 250, 0.15);
+    --color-text: #e5e7eb;
+    --color-text-muted: #9ca3af;
+
+    /* Border */
+    --color-border: #1f2937;
+
+    /* Shadow */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .notif-dropdown,
+[data-theme="dark"] .user-dropdown,
+[data-theme="dark"] .treeview-menu {
+    background: #111827;
+    border-color: #1f2937;
+}
+
+[data-theme="dark"] .menu-item > a:hover {
+    background: #1f2937;
+}
+
+[data-theme="dark"] .sidebar {
+    border-right-color: #1f2937;
 }
 
 body {
@@ -29,6 +80,36 @@ body {
     color: var(--color-text);
     font-family: Inter, Segoe UI, Roboto, system-ui, sans-serif;
     font-size: 14px;
+}
+
+/* =========================
+   THEME TRANSITION (SMOOTH)
+========================= */
+html.theme-transition *,
+html.theme-transition *::before,
+html.theme-transition *::after {
+    transition:
+        background-color 0.25s ease,
+        color 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        fill 0.25s ease,
+        stroke 0.25s ease;
+}
+
+/* Prevent transition on first load */
+html:not(.theme-transition) * {
+    transition: none !important;
+}
+
+html[data-theme="dark"] {
+    --bg-btn-hover: #2c333a;
+    --color-icon: #9aa4b2;
+    --breadcrumb-text: #e5e7eb;
+    --breadcrumb-muted: #9aa4b2;
+    --bg-popover: #1f2937;
+    --bg-popover-hover: #273449;
+    --color-popover-text: #e5e7eb;
 }
 
 
@@ -48,6 +129,7 @@ body {
 
 /* Header */
 .sidebar-header {
+    position: relative;
     height: 56px;
     padding: 0 20px;
     display: flex;
@@ -64,7 +146,12 @@ body {
     margin: 0;
 }
 
-.menu-item>a {
+.menu-item {
+    overflow: visible;
+}
+
+/* ACTIVE INDICATOR */
+.menu-item > a {
     height: 40px;
     margin: 2px 8px;
     padding: 0 12px;
@@ -76,6 +163,7 @@ body {
     border-radius: var(--radius-sm);
     text-decoration: none;
     transition: background-color 0.15s ease;
+    overflow: visible;
 }
 
 /* Icon */
@@ -108,8 +196,7 @@ body {
 }
 
 /* Logo base */
-.logo-full,
-.logo-mini {
+.logo-full {
     display: flex;
     align-items: center;
     transition: opacity 0.15s ease, transform 0.15s ease;
@@ -191,13 +278,17 @@ body {
 
 /* Tampilkan logo mini */
 .sidebar.collapsed .logo-mini {
+    position: absolute;
+    inset: 0;
     display: flex;
     align-items: center;
     justify-content: center;
+
     font-size: 15px;
     font-weight: 700;
     color: var(--color-primary);
     letter-spacing: 0.5px;
+
     opacity: 1;
     transform: scale(1);
     pointer-events: auto;
@@ -303,12 +394,31 @@ body {
 }
 
 .breadcrumb-item {
-    color: #172b4d;
+    color: var(--breadcrumb-muted);
 }
 
 .breadcrumb-separator {
     margin: 0 6px;
-    color: #6b778c;
+    color: var(--breadcrumb-muted);
+}
+
+.breadcrumb-item.active {
+    color: var(--breadcrumb-text);
+    font-weight: 500;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+    color: var(--breadcrumb-muted);
+}
+
+.breadcrumb-item a {
+    color: var(--breadcrumb-muted);
+    text-decoration: none;
+}
+
+.breadcrumb-item a:hover {
+    color: var(--breadcrumb-text);
+    text-decoration: underline;
 }
 
 /* Right */
@@ -362,6 +472,22 @@ body {
 .notif-trigger:hover {
     background: #f4f5f7;
 }
+
+.btn-icon,
+.notif-trigger {
+    color: var(--color-icon);
+}
+
+.btn-icon:hover,
+.notif-trigger:hover {
+    background: var(--bg-btn-hover);
+}
+
+.btn-icon i,
+.notif-trigger i {
+    color: var(--color-icon);
+}
+
 
 /* Badge */
 .notif-badge {
@@ -588,3 +714,124 @@ body {
         display: none;
     }
 }
+
+/* ==============================
+   TREEVIEW – COLLAPSED FIX
+============================== */
+
+.sidebar.collapsed .treeview {
+    position: relative;
+}
+
+/* Floating submenu */
+.sidebar.collapsed .treeview-menu {
+    position: absolute;
+    top: 0;
+    left: 72px; /* lebar sidebar collapsed */
+    min-width: 200px;
+
+    padding: 6px;
+    background: var(--bg-popover);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(16, 24, 40, 0.08);
+
+    display: none;
+    z-index: 1050;
+
+    opacity: 0;
+    transform: translateX(-6px);
+    transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+/* Show on hover */
+.sidebar.collapsed .treeview:hover .treeview-menu {
+    display: block;
+    opacity: 1;
+    transform: translateX(0)
+}
+
+/* Submenu item full hover */
+.sidebar.collapsed .treeview-menu li a {
+    padding: 8px 12px;
+    border-radius: 6px;
+    width: 100%;
+    color: var(--color-popover-text);
+    background: transparent;
+}
+
+.sidebar.collapsed .treeview-menu li a:hover {
+    background: var(--bg-popover-hover);
+    color: var(--color-popover-text);
+}
+
+.sidebar.collapsed .treeview-menu li a.active {
+    background: var(--color-primary-soft);
+    color: var(--color-primary);
+}
+
+.menu-item > a {
+    position: relative;
+    overflow: visible;
+}
+
+/* Indicator bar */
+.menu-item > a::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 8px;
+    bottom: 8px;
+    width: 3px;
+
+    background: var(--color-primary);
+    border-radius: 2px;
+
+    opacity: 0;
+    transform: scaleY(0);
+    transform-origin: center;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+/* Active state */
+.menu-item.active > a::before {
+    opacity: 1;
+    transform: scaleY(1);
+}
+
+.sidebar.collapsed .menu-item > a::before {
+    transition-delay: 0.05s;
+    top: 10px;
+    bottom: 10px;
+}
+
+.menu-item.treeview.active > a {
+    background: var(--bg-sidebar-active);
+    color: var(--color-primary);
+}
+
+.menu-item.treeview.active i {
+    color: var(--color-primary);
+}
+
+.menu-item > a:hover::before {
+    opacity: 0.4;
+    transform: scaleY(1);
+}
+
+.sidebar.collapsed .sidebar-menu {
+    overflow: visible;
+}
+
+.sidebar.collapsed .treeview {
+    overflow: visible;
+}
+
+#themeToggle i {
+    transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+html.theme-transition #themeToggle i {
+    transform: rotate(180deg);
+}
+

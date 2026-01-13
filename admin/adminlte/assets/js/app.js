@@ -110,3 +110,36 @@ $(document).ready(function () {
     });
 
 });
+
+// =======================
+// DARK MODE TOGGLE
+// =======================
+const themeToggle = $('#themeToggle');
+const html = $('html');
+
+function setTheme(theme) {
+    html.addClass('theme-transition');
+
+    html.attr('data-theme', theme);
+    localStorage.setItem('theme', theme);
+
+    themeToggle.find('i')
+        .toggleClass('bi-moon', theme === 'light')
+        .toggleClass('bi-sun', theme === 'dark');
+
+    // Remove class after animation
+    setTimeout(() => {
+        html.removeClass('theme-transition');
+    }, 300);
+}
+
+
+// Load theme
+const savedTheme = localStorage.getItem('theme') || 'light';
+setTheme(savedTheme);
+
+// Toggle
+themeToggle.on('click', function () {
+    const current = html.attr('data-theme');
+    setTheme(current === 'dark' ? 'light' : 'dark');
+});
