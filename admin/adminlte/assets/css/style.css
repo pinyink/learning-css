@@ -995,3 +995,10 @@ html.theme-transition #themeToggle i {
         align-items: flex-start;
     }
 }
+
+.stat-card h6 {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-text);
+}
+
