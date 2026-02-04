@@ -1,0 +1,170 @@
+Oke 👍
+Sekarang kita **masuk fase redesign UI** supaya admin template kita **dominan putih, clean, modern**, mirip **Jira / Atlassian style** seperti gambar.
+
+Di bawah ini adalah **TODO LIST TERSTRUKTUR** (roadmap kerja) supaya rapi dan realistis dikerjakan bertahap.
+
+---
+
+## 🧩 PHASE 1 — Foundation (Wajib)
+
+**Tujuan:** menghilangkan kesan “sidebar-heavy”, fokus ke konten
+
+### ✅ 1. Color System
+
+* [ ] Ubah background global → `#f5f6f8` / `#f7f8fa`
+* [ ] Sidebar background → **putih**
+* [ ] Hilangkan gradient biru
+* [ ] Warna primary → biru lembut (Atlassian-like)
+* [ ] Definisikan CSS variables:
+
+  ```css
+  --bg-body
+  --bg-sidebar
+  --color-primary
+  --color-border
+  --color-text
+  ```
+
+---
+
+### ✅ 2. Typography
+
+* [ ] Ganti font ke:
+
+  * `Inter` / `Segoe UI` / `Roboto`
+* [ ] Kurangi font-weight bold berlebihan
+* [ ] Heading lebih kecil (no “dashboard besar”)
+* [ ] Line-height lebih longgar
+
+---
+
+## 🧭 PHASE 2 — Sidebar Redesign (Mirip Jira)
+
+### ✅ 3. Sidebar Layout
+
+* [ ] Sidebar **lebih tipis** (±240px)
+* [ ] Background putih
+* [ ] Border kanan halus (`1px solid #e5e7eb`)
+* [ ] Icon + text kecil
+* [ ] Hover background abu muda
+* [ ] Active menu → background biru muda + text biru
+
+### ✅ 4. Sidebar Behavior
+
+* [ ] Mobile → overlay
+* [ ] Desktop → static
+* [ ] Treeview:
+
+  * Tanpa animasi berat
+  * Indent ringan
+* [ ] Fokus ke **navigasi**, bukan visual berat
+
+---
+
+## 🧱 PHASE 3 — Top Navbar (Clean & Flat)
+
+### ✅ 5. Navbar
+
+* [ ] Background putih
+* [ ] Border bawah tipis (bukan shadow)
+* [ ] Tinggi ±56px
+* [ ] Search bar (optional)
+* [ ] User avatar kanan
+* [ ] Button create (biru)
+
+---
+
+## 📋 PHASE 4 — Content & Layout
+
+### ✅ 6. Page Layout
+
+* [ ] Gunakan **container-fluid** dengan padding konsisten
+* [ ] Tidak full-width ekstrem
+* [ ] Fokus ke readability
+
+### ✅ 7. Card Design
+
+* [ ] Card putih
+* [ ] Border tipis
+* [ ] Shadow sangat halus / none
+* [ ] Radius kecil (6–8px)
+
+---
+
+## ✅ PHASE 5 — TODO / BOARD UI (Seperti Jira)
+
+### ✅ 8. Board / Todo UI
+
+* [ ] Column background abu muda
+* [ ] Card todo putih
+* [ ] Hover card → shadow tipis
+* [ ] Label kecil (badge)
+* [ ] Avatar kecil di pojok
+* [ ] Status warna lembut:
+
+  * To Do → abu
+  * In Progress → biru
+  * Review → kuning
+  * Done → hijau
+
+---
+
+## 🎯 PHASE 6 — Interaction & UX Polish
+
+### ✅ 9. Interaction
+
+* [ ] Hover effect halus (no animation keras)
+* [ ] Transition 0.15–0.2s
+* [ ] Fokus keyboard
+* [ ] Cursor feedback
+
+### ✅ 10. Mobile UX
+
+* [ ] Sidebar overlay
+* [ ] Scroll lock saat sidebar terbuka
+* [ ] Card stack rapi
+* [ ] Touch-friendly spacing
+
+---
+
+## 🧠 PHASE 7 — Cleanup & Consistency
+
+### ✅ 11. Cleanup
+
+* [ ] Hapus shadow berlebihan
+* [ ] Konsisten spacing (8px system)
+* [ ] Konsisten border-radius
+* [ ] Konsisten warna teks
+
+---
+
+## 📦 PHASE 8 — Optional (Advanced)
+
+* [ ] Dark mode (Jira-style, bukan hitam pekat)
+* [ ] Simpan preference ke localStorage
+* [ ] Drag & drop todo (SortableJS)
+* [ ] Keyboard shortcut (G → D, dll)
+
+---
+
+## 🔥 Rekomendasi Urutan Eksekusi
+
+**JANGAN langsung semuanya**
+
+👉 Urutan terbaik:
+
+1. 🎨 Color system + sidebar putih
+2. 🧭 Sidebar redesign
+3. 🧱 Card & content
+4. 📋 Todo board
+5. ✨ UX polish
+
+---
+
+Kalau kamu mau, langkah berikutnya aku bisa:
+
+* 🎨 **Buatkan color palette & CSS variables**
+* 🧭 **Redesign sidebar putih (kode langsung)**
+* 📋 **Buat board Todo ala Jira (HTML + CSS)**
+
+👉 Mau mulai dari **yang mana dulu**?
