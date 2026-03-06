@@ -1,0 +1,51 @@
+body {
+    font-family: 'Georgia', serif;
+}
+
+.cover {
+    height: 100vh;
+    background: linear-gradient(rgba(0,0,0,.6), rgba(0,0,0,.6)),
+                url('https://images.unsplash.com/photo-1523438885200-e635ba2c371e');
+    background-size: cover;
+    color: white;
+}
+
+#content {
+    min-height: 100vh;
+}
+
+.section {
+    padding: 80px 20px;
+}
+
+#countdown {
+    font-size: 40px;
+    color: #0d6efd;
+}
+
+.fade-out {
+    animation: fadeOut 0.8s forwards;
+}
+
+.fade-in {
+    animation: fadeIn 0.8s forwards;
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+        transform: scale(1.05);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
