@@ -1,0 +1,1426 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RTLH - Dinas PKPLH Kabupaten Kudus</title>
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ===== VARIABEL & RESET ===== */
+    :root {
+      --navy: #0F172A;
+      --navy-light: #1E3A8A;
+      --teal: #0D9488;
+      --teal-dark: #0F766E;
+      --light-bg: #F8FAFC;
+      --gray-100: #F1F5F9;
+      --gray-200: #E2E8F0;
+      --gray-400: #94A3B8;
+      --gray-500: #64748B;
+      --gray-600: #475569;
+      --white: #FFFFFF;
+      --red-badge: #EF4444;
+      --green-badge: #22C55E;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: var(--navy);
+      overflow-x: hidden;
+    }
+
+    /* ===== NAVBAR ===== */
+    .navbar-custom {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition: box-shadow 0.3s ease, background 0.3s ease;
+    }
+
+    .navbar-custom.scrolled {
+      background: rgba(255, 255, 255, 0.98);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .navbar-brand-text {
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: var(--navy);
+      line-height: 1.2;
+    }
+
+    .navbar-brand-text small {
+      display: block;
+      font-weight: 400;
+      font-size: 0.7rem;
+      color: var(--gray-500);
+      letter-spacing: 0.02em;
+    }
+
+    .nav-link {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--gray-600) !important;
+      padding: 0.5rem 1rem !important;
+      transition: color 0.2s ease;
+      position: relative;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--navy-light) !important;
+    }
+
+    .nav-link.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 1rem;
+      right: 1rem;
+      height: 2px;
+      background: var(--teal);
+      border-radius: 2px;
+    }
+
+    .btn-cta-nav {
+      background: transparent;
+      border: 2px solid var(--navy-light);
+      color: var(--navy-light);
+      font-weight: 600;
+      font-size: 0.8rem;
+      border-radius: 50px;
+      padding: 0.45rem 1.25rem;
+      transition: all 0.25s ease;
+      letter-spacing: 0.01em;
+    }
+
+    .btn-cta-nav:hover {
+      background: var(--navy-light);
+      color: var(--white);
+      border-color: var(--navy-light);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(30, 58, 138, 0.3);
+    }
+
+    /* ===== HERO SECTION ===== */
+    .hero-section {
+      min-height: 100vh;
+      background: linear-gradient(160deg, #F8FAFC 0%, #E0F2FE 40%, #CCFBF1 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: -20%;
+      right: -10%;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(13, 148, 136, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-section::after {
+      content: '';
+      position: absolute;
+      bottom: -15%;
+      left: -5%;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(30, 58, 138, 0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-badge {
+      background: var(--teal);
+      color: var(--white);
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 0.4rem 1rem;
+      border-radius: 50px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      display: inline-block;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-title {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      line-height: 1.1;
+      color: var(--navy);
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-title span {
+      color: var(--teal);
+    }
+
+    .hero-subtitle {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--gray-500);
+      margin-bottom: 2rem;
+      max-width: 520px;
+    }
+
+    .btn-primary-custom {
+      background: var(--navy);
+      border: none;
+      color: var(--white);
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding: 0.75rem 1.75rem;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(15, 23, 42, 0.25);
+    }
+
+    .btn-primary-custom:hover {
+      background: var(--navy-light);
+      color: var(--white);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(15, 23, 42, 0.35);
+    }
+
+    .btn-outline-custom {
+      background: transparent;
+      border: 2px solid var(--gray-400);
+      color: var(--navy);
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding: 0.7rem 1.75rem;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-outline-custom:hover {
+      border-color: var(--teal);
+      color: var(--teal);
+      background: rgba(13, 148, 136, 0.05);
+    }
+
+    .hero-image-wrapper {
+      position: relative;
+    }
+
+    .hero-image-wrapper img {
+      border-radius: 1rem;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.12);
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+
+    .hero-float-card {
+      position: absolute;
+      bottom: -20px;
+      left: -30px;
+      background: var(--white);
+      border-radius: 1rem;
+      padding: 1rem 1.25rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      animation: floatUp 3s ease-in-out infinite;
+    }
+
+    .hero-float-card .icon-circle {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-size: 1.1rem;
+    }
+
+    .hero-float-card .card-text strong {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--navy);
+    }
+
+    .hero-float-card .card-text span {
+      font-size: 0.7rem;
+      color: var(--gray-500);
+    }
+
+    @keyframes floatUp {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    /* ===== STATISTIK SECTION ===== */
+    .stat-section {
+      background: var(--light-bg);
+      padding: 5rem 0;
+    }
+
+    .stat-card {
+      background: var(--white);
+      border: none;
+      border-radius: 1.25rem;
+      padding: 2.5rem 2rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+      transition: all 0.35s ease;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--teal), var(--navy-light));
+      opacity: 0;
+      transition: opacity 0.35s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+    }
+
+    .stat-card:hover::before {
+      opacity: 1;
+    }
+
+    .stat-icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 1.25rem;
+      border-radius: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.75rem;
+    }
+
+    .stat-icon.icon-navy {
+      background: rgba(30, 58, 138, 0.08);
+      color: var(--navy-light);
+    }
+
+    .stat-icon.icon-teal {
+      background: rgba(13, 148, 136, 0.08);
+      color: var(--teal);
+    }
+
+    .stat-icon.icon-green {
+      background: rgba(34, 197, 94, 0.08);
+      color: var(--green-badge);
+    }
+
+    .stat-number {
+      font-size: 2.75rem;
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      color: var(--gray-500);
+      font-weight: 500;
+    }
+
+    /* ===== ALUR SECTION ===== */
+    .alur-section {
+      padding: 5rem 0;
+      background: var(--white);
+    }
+
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 1rem;
+    }
+
+    .section-desc {
+      font-size: 1rem;
+      color: var(--gray-500);
+      max-width: 560px;
+      margin: 0 auto 3rem;
+      line-height: 1.7;
+    }
+
+    .step-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: 1.25rem;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      transition: all 0.35s ease;
+      position: relative;
+      height: 100%;
+    }
+
+    .step-card:hover {
+      border-color: var(--teal);
+      box-shadow: 0 8px 30px rgba(13, 148, 136, 0.1);
+      transform: translateY(-5px);
+    }
+
+    .step-number {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 28px;
+      height: 28px;
+      background: var(--teal);
+      color: var(--white);
+      border-radius: 50%;
+      font-size: 0.75rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .step-icon-wrap {
+      width: 72px;
+      height: 72px;
+      margin: 0.75rem auto 1.25rem;
+      background: linear-gradient(135deg, rgba(30, 58, 138, 0.06), rgba(13, 148, 136, 0.06));
+      border-radius: 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: var(--navy-light);
+      transition: all 0.35s ease;
+    }
+
+    .step-card:hover .step-icon-wrap {
+      background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+      color: var(--white);
+      transform: scale(1.05);
+    }
+
+    .step-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 0.6rem;
+    }
+
+    .step-desc {
+      font-size: 0.85rem;
+      color: var(--gray-500);
+      line-height: 1.6;
+    }
+
+    .step-connector {
+      display: none;
+    }
+
+    @media (min-width: 992px) {
+      .step-connector {
+        display: block;
+        position: absolute;
+        top: 50%;
+        right: -16px;
+        z-index: 2;
+        color: var(--gray-400);
+        font-size: 1.25rem;
+      }
+    }
+
+    /* ===== GALERI TRANSFORMASI ===== */
+    .galeri-section {
+      padding: 5rem 0;
+      background: var(--light-bg);
+    }
+
+    .transform-card {
+      background: var(--white);
+      border-radius: 1.25rem;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      transition: all 0.35s ease;
+    }
+
+    .transform-card:hover {
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+      transform: translateY(-4px);
+    }
+
+    .transform-img-wrapper {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .transform-img-wrapper img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .transform-card:hover .transform-img-wrapper img {
+      transform: scale(1.05);
+    }
+
+    .img-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 0.3rem 0.75rem;
+      border-radius: 50px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .img-badge.before {
+      background: var(--red-badge);
+      color: var(--white);
+    }
+
+    .img-badge.after {
+      background: var(--green-badge);
+      color: var(--white);
+    }
+
+    .transform-caption {
+      padding: 1rem 1.25rem;
+      text-align: center;
+    }
+
+    .transform-caption p {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--navy);
+      margin: 0;
+    }
+
+    .transform-caption small {
+      font-size: 0.75rem;
+      color: var(--gray-500);
+    }
+
+    .vs-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      color: var(--gray-400);
+      font-size: 0.85rem;
+    }
+
+    /* ===== FOOTER ===== */
+    .footer-section {
+      background: var(--navy);
+      color: var(--white);
+      padding: 4rem 0 0;
+    }
+
+    .footer-brand {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .footer-brand i {
+      color: var(--teal);
+    }
+
+    .footer-desc {
+      font-size: 0.875rem;
+      color: rgba(255, 255, 255, 0.6);
+      line-height: 1.8;
+    }
+
+    .footer-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 1.25rem;
+      color: var(--white);
+    }
+
+    .footer-links {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.65rem;
+    }
+
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.55);
+      text-decoration: none;
+      font-size: 0.875rem;
+      transition: all 0.2s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--teal);
+      padding-left: 4px;
+    }
+
+    .footer-social a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      margin-right: 0.5rem;
+    }
+
+    .footer-social a:hover {
+      background: var(--teal);
+      color: var(--white);
+      transform: translateY(-3px);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      margin-top: 3rem;
+      padding: 1.5rem 0;
+    }
+
+    .footer-bottom p {
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.4);
+      margin: 0;
+    }
+
+    /* ===== ANIMATIONS ===== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .delay-1 { transition-delay: 100ms; }
+    .delay-2 { transition-delay: 200ms; }
+    .delay-3 { transition-delay: 300ms; }
+    .delay-4 { transition-delay: 400ms; }
+
+    /* ===== SCROLL TO TOP ===== */
+    .scroll-top-btn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--navy);
+      color: var(--white);
+      border: none;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 999;
+      cursor: pointer;
+    }
+
+    .scroll-top-btn.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .scroll-top-btn:hover {
+      background: var(--teal);
+      transform: translateY(-3px);
+    }
+
+    /* ===== TOAST ===== */
+    .toast-custom {
+      position: fixed;
+      top: 90px;
+      right: 20px;
+      z-index: 9999;
+      min-width: 300px;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 767.98px) {
+      .hero-section {
+        padding: 120px 0 60px;
+        text-align: center;
+      }
+
+      .hero-subtitle {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .hero-btns {
+        justify-content: center;
+      }
+
+      .hero-float-card {
+        left: 10px;
+        bottom: -10px;
+      }
+
+      .stat-card {
+        margin-bottom: 1rem;
+      }
+
+      .step-card {
+        margin-bottom: 1.5rem;
+      }
+
+      .transform-row {
+        margin-bottom: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================== -->
+  <!-- NAVBAR                         -->
+  <!-- ============================== -->
+  <nav class="navbar navbar-expand-lg navbar-custom sticky-top shadow-sm" id="mainNavbar">
+    <div class="container">
+      <!-- Logo & Brand -->
+      <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+        <div style="width:40px;height:40px;background:linear-gradient(135deg,var(--navy-light),var(--teal));border-radius:10px;display:flex;align-items:center;justify-content:center;">
+          <i class="bi bi-house-check-fill text-white" style="font-size:1.2rem;"></i>
+        </div>
+        <span class="navbar-brand-text">
+          Dinas PKPLH Kudus
+          <small>Kabupaten Kudus</small>
+        </span>
+      </a>
+
+      <!-- Toggler Mobile -->
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="bi bi-list" style="font-size:1.5rem;color:var(--navy);"></i>
+      </button>
+
+      <!-- Menu Navigasi -->
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item">
+            <a class="nav-link active" href="#beranda">Beranda</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#tentang">Tentang Program</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#alur">Alur Pengajuan</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#sebaran">Data Sebaran</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#galeri">Galeri</a>
+          </li>
+        </ul>
+        <a href="#" class="btn btn-cta-nav" id="btnCekNIK">
+          <i class="bi bi-search me-1"></i> Cek Status NIK
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ============================== -->
+  <!-- HERO SECTION                   -->
+  <!-- ============================== -->
+  <section class="hero-section d-flex align-items-center" id="beranda">
+    <div class="container position-relative" style="z-index:2;">
+      <div class="row align-items-center g-5">
+        <!-- Kolom Kiri: Teks -->
+        <div class="col-lg-6">
+          <div class="reveal">
+            <span class="hero-badge">
+              <i class="bi bi-shield-check me-1"></i> Program Pemerintah Kabupaten Kudus
+            </span>
+          </div>
+          <h1 class="hero-title reveal delay-1">
+            Satu Data RTLH:<br><span>Transparan, Tepat Sasaran,</span> Tepat Manfaat
+          </h1>
+          <p class="hero-subtitle reveal delay-2">
+            Bersama Dinas PKPLH Kabupaten Kudus, kita wujudkan hunian yang layak, sehat, dan aman bagi seluruh masyarakat Kota Kretek.
+          </p>
+          <div class="d-flex flex-wrap gap-3 hero-btns reveal delay-3">
+            <a href="#alur" class="btn btn-primary-custom">
+              <i class="bi bi-book me-2"></i>Panduan Pengajuan
+            </a>
+            <a href="#sebaran" class="btn btn-outline-custom">
+              <i class="bi bi-geo-alt me-2"></i>Lihat Peta Sebaran
+            </a>
+          </div>
+        </div>
+
+        <!-- Kolom Kanan: Gambar -->
+        <div class="col-lg-6">
+          <div class="hero-image-wrapper reveal delay-3">
+            <img src="https://picsum.photos/seed/rtlh-hero-kudus/600/400.jpg" alt="Visual Program RTLH Kudus" width="600" height="400">
+            <!-- Floating Card -->
+            <div class="hero-float-card">
+              <div class="icon-circle">
+                <i class="bi bi-house-heart"></i>
+              </div>
+              <div class="card-text">
+                <strong>1.210 Rumah</strong>
+                <span>Telah Direhabilitasi</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== -->
+  <!-- STATISTIK SECTION (COUNTER)    -->
+  <!-- ============================== -->
+  <section class="stat-section" id="tentang">
+    <div class="container">
+      <div class="text-center mb-5">
+        <p class="section-label reveal">Data & Statistik</p>
+        <h2 class="section-title reveal delay-1">Dampak Nyata Program RTLH</h2>
+        <p class="section-desc reveal delay-2">Data terkini dari seluruh kecamatan di Kabupaten Kudus yang telah terverifikasi oleh tim Dinas PKPLH.</p>
+      </div>
+
+      <div class="row g-4">
+        <!-- Kartu 1 -->
+        <div class="col-md-4 reveal delay-1">
+          <div class="stat-card">
+            <div class="stat-icon icon-navy">
+              <i class="bi bi-house-add"></i>
+            </div>
+            <div class="stat-number text-primary" data-target="2450">0</div>
+            <p class="stat-label">Total Usulan Terdata</p>
+          </div>
+        </div>
+        <!-- Kartu 2 -->
+        <div class="col-md-4 reveal delay-2">
+          <div class="stat-card">
+            <div class="stat-icon icon-teal">
+              <i class="bi bi-check2-square"></i>
+            </div>
+            <div class="stat-number text-primary" data-target="1210">0</div>
+            <p class="stat-label">Rumah Terehabilitasi</p>
+          </div>
+        </div>
+        <!-- Kartu 3 -->
+        <div class="col-md-4 reveal delay-3">
+          <div class="stat-card">
+            <div class="stat-icon icon-green">
+              <i class="bi bi-bullseye"></i>
+            </div>
+            <div class="stat-number text-primary" data-target="450">0</div>
+            <p class="stat-label">Target Tahun Ini</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== -->
+  <!-- ALUR PENGAJUAN SECTION         -->
+  <!-- ============================== -->
+  <section class="alur-section" id="alur">
+    <div class="container">
+      <div class="text-center mb-5">
+        <p class="section-label reveal">Proses Resmi</p>
+        <h2 class="section-title reveal delay-1">Alur Pengajuan Bantuan RTLH</h2>
+        <p class="section-desc reveal delay-2">Empat langkah resmi yang harus dilalui agar bantuan RTLH dapat tersalurkan dengan tepat sasaran sesuai regulasi yang berlaku.</p>
+      </div>
+
+      <div class="row g-4 justify-content-center">
+        <!-- Langkah 1 -->
+        <div class="col-lg-3 col-md-6 reveal delay-1">
+          <div class="step-card">
+            <div class="step-number">1</div>
+            <div class="step-icon-wrap">
+              <i class="bi bi-file-earmark-text"></i>
+            </div>
+            <h5 class="step-title">Musdes / Usulan Desa</h5>
+            <p class="step-desc">Masyarakat mengajukan usulan melalui musyawarah desa dengan melampirkan data dan dokumen pendukung.</p>
+            <span class="step-connector"><i class="bi bi-arrow-right"></i></span>
+          </div>
+        </div>
+        <!-- Langkah 2 -->
+        <div class="col-lg-3 col-md-6 reveal delay-2">
+          <div class="step-card">
+            <div class="step-number">2</div>
+            <div class="step-icon-wrap">
+              <i class="bi bi-person-check"></i>
+            </div>
+            <h5 class="step-title">Verifikasi Lapangan</h5>
+            <p class="step-desc">Tim PKPLH melakukan peninjauan langsung ke lokasi untuk memverifikasi kondisi rumah dan kelayakan calon penerima.</p>
+            <span class="step-connector"><i class="bi bi-arrow-right"></i></span>
+          </div>
+        </div>
+        <!-- Langkah 3 -->
+        <div class="col-lg-3 col-md-6 reveal delay-3">
+          <div class="step-card">
+            <div class="step-number">3</div>
+            <div class="step-icon-wrap">
+              <i class="bi bi-award"></i>
+            </div>
+            <h5 class="step-title">Penetapan SK</h5>
+            <p class="step-desc">Bupati menetapkan Surat Keputusan resmi daftar penerima bantuan RTLH yang telah memenuhi seluruh persyaratan.</p>
+            <span class="step-connector"><i class="bi bi-arrow-right"></i></span>
+          </div>
+        </div>
+        <!-- Langkah 4 -->
+        <div class="col-lg-3 col-md-6 reveal delay-4">
+          <div class="step-card">
+            <div class="step-number">4</div>
+            <div class="step-icon-wrap">
+              <i class="bi bi-hammer"></i>
+            </div>
+            <h5 class="step-title">Pelaksanaan Renovasi</h5>
+            <p class="step-desc">Proses pembangunan dan rehabilitasi rumah dilaksanakan oleh kontraktor dengan pengawasan tim Dinas PKPLH.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== -->
+  <!-- SEBELUM & SESUDAH SECTION      -->
+  <!-- ============================== -->
+  <section class="galeri-section" id="galeri">
+    <div class="container">
+      <div class="text-center mb-5">
+        <p class="section-label reveal">Galeri Transformasi</p>
+        <h2 class="section-title reveal delay-1">Bukti Nyata Transformasi Hunian</h2>
+        <p class="section-desc reveal delay-2">Dokumentasi kondisi rumah sebelum dan sesudah rehabilitasi yang telah dilaksanakan di berbagai kecamatan.</p>
+      </div>
+
+      <!-- Baris 1 -->
+      <div class="row g-4 justify-content-center mb-4">
+        <div class="col-lg-4 col-md-6 reveal delay-1 transform-row">
+          <div class="transform-card">
+            <div class="row g-0">
+              <div class="col-6">
+                <div class="transform-img-wrapper">
+                  <img src="https://picsum.photos/seed/rumah-sebelum-1/400/300.jpg" alt="Kondisi Awal">
+                  <span class="img-badge before">Sebelum</span>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="transform-img-wrapper">
+                  <img src="https://picsum.photos/seed/rumah-sesudah-1/400/300.jpg" alt="Hasil Renovasi">
+                  <span class="img-badge after">Sesudah</span>
+                </div>
+              </div>
+            </div>
+            <div class="transform-caption">
+              <p>Keluarga Bapak Suparno</p>
+              <small><i class="bi bi-geo-alt-fill me-1"></i>Kecamatan Jati</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 reveal delay-2 transform-row">
+          <div class="transform-card">
+            <div class="row g-0">
+              <div class="col-6">
+                <div class="transform-img-wrapper">
+                  <img src="https://picsum.photos/seed/rumah-sebelum-2/400/300.jpg" alt="Kondisi Awal">
+                  <span class="img-badge before">Sebelum</span>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="transform-img-wrapper">
+                  <img src="https://picsum.photos/seed/rumah-sesudah-2/400/300.jpg" alt="Hasil Renovasi">
+                  <span class="img-badge after">Sesudah</span>
+                </div>
+              </div>
+            </div>
+            <div class="transform-caption">
+              <p>Keluarga Ibu Sariyem</p>
+              <small><i class="bi bi-geo-alt-fill me-1"></i>Kecamatan Kudus Kota</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 reveal delay-3 transform-row">
+          <div class="transform-card">
+            <div class="row g-0">
+              <div class="col-6">
+                <div class="transform-img-wrapper">
+                  <img src="https://picsum.photos/seed/rumah-sebelum-3/400/300.jpg" alt="Kondisi Awal">
+                  <span class="img-badge before">Sebelum</span>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="transform-img-wrapper">
+                  <img src="https://picsum.photos/seed/rumah-sesudah-3/400/300.jpg" alt="Hasil Renovasi">
+                  <span class="img-badge after">Sesudah</span>
+                </div>
+              </div>
+            </div>
+            <div class="transform-caption">
+              <p>Keluarga Bapak Hadi</p>
+              <small><i class="bi bi-geo-alt-fill me-1"></i>Kecamatan Mejobo</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Baris 2 -->
+      <div class="row g-4 justify-content-center">
+        <div class="col-lg-4 col-md-6 reveal delay-1 transform-row">
+          <div class="transform-card">
+            <div class="row g-0">
+              <div class="col-6">
+                <div class="transform-img-wrapper">
+                  <img src="https://picsum.photos/seed/rumah-sebelum-4/400/300.jpg" alt="Kondisi Awal">
+                  <span class="img-badge before">Sebelum</span>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="transform-img-wrapper">
+                  <img src="https://picsum.photos/seed/rumah-sesudah-4/400/300.jpg" alt="Hasil Renovasi">
+                  <span class="img-badge after">Sesudah</span>
+                </div>
+              </div>
+            </div>
+            <div class="transform-caption">
+              <p>Keluarga Bapak Wagimin</p>
+              <small><i class="bi bi-geo-alt-fill me-1"></i>Kecamatan Undaan</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 reveal delay-2 transform-row">
+          <div class="transform-card">
+            <div class="row g-0">
+              <div class="col-6">
+                <div class="transform-img-wrapper">
+                  <img src="https://picsum.photos/seed/rumah-sebelum-5/400/300.jpg" alt="Kondisi Awal">
+                  <span class="img-badge before">Sebelum</span>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="transform-img-wrapper">
+                  <img src="https://picsum.photos/seed/rumah-sesudah-5/400/300.jpg" alt="Hasil Renovasi">
+                  <span class="img-badge after">Sesudah</span>
+                </div>
+              </div>
+            </div>
+            <div class="transform-caption">
+              <p>Keluarga Ibu Nursiti</p>
+              <small><i class="bi bi-geo-alt-fill me-1"></i>Kecamatan Jekulo</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 reveal delay-3 transform-row">
+          <div class="transform-card">
+            <div class="row g-0">
+              <div class="col-6">
+                <div class="transform-img-wrapper">
+                  <img src="https://picsum.photos/seed/rumah-sebelum-6/400/300.jpg" alt="Kondisi Awal">
+                  <span class="img-badge before">Sebelum</span>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="transform-img-wrapper">
+                  <img src="https://picsum.photos/seed/rumah-sesudah-6/400/300.jpg" alt="Hasil Renovasi">
+                  <span class="img-badge after">Sesudah</span>
+                </div>
+              </div>
+            </div>
+            <div class="transform-caption">
+              <p>Keluarga Bapak Tarjo</p>
+              <small><i class="bi bi-geo-alt-fill me-1"></i>Kecamatan Dawe</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== -->
+  <!-- DATA SEBARAN SECTION           -->
+  <!-- ============================== -->
+  <section class="alur-section" id="sebaran">
+    <div class="container">
+      <div class="text-center mb-5">
+        <p class="section-label reveal">Peta & Data</p>
+        <h2 class="section-title reveal delay-1">Data Sebaran RTLH</h2>
+        <p class="section-desc reveal delay-2">Visualisasi penyebaran penerima bantuan RTLH di seluruh kecamatan Kabupaten Kudus.</p>
+      </div>
+      <div class="reveal delay-3">
+        <div style="background:var(--light-bg);border-radius:1.25rem;padding:3rem;text-align:center;border:2px dashed var(--gray-200);">
+          <i class="bi bi-geo-alt" style="font-size:3rem;color:var(--gray-400);"></i>
+          <h5 class="mt-3 mb-2" style="color:var(--gray-500);font-weight:600;">Peta Interaktif Sebaran RTLH</h5>
+          <p style="color:var(--gray-400);font-size:0.9rem;margin-bottom:1.5rem;">Fitur peta interaktif akan tersedia segera. Data sebaran per kecamatan sedang dalam proses validasi.</p>
+          <a href="#" class="btn btn-primary-custom btn-sm" style="padding:0.5rem 1.5rem;">
+            <i class="bi bi-download me-1"></i> Unduh Data Excel
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== -->
+  <!-- FOOTER                         -->
+  <!-- ============================== -->
+  <footer class="footer-section">
+    <div class="container">
+      <div class="row g-5">
+        <!-- Kolom 1: Info Dinas -->
+        <div class="col-lg-4">
+          <div class="footer-brand">
+            <i class="bi bi-house-check-fill me-2"></i>Dinas PKPLH Kudus
+          </div>
+          <p class="footer-desc">
+            Dinas Perumahan, Kawasan Permukiman, dan Lingkungan Hidup Kabupaten Kudus. Mewujudkan hunian layak dan lingkungan sehat bagi masyarakat.
+          </p>
+          <div class="mt-3">
+            <p class="footer-desc mb-1">
+              <i class="bi bi-geo-alt me-2" style="color:var(--teal);"></i>
+              Jl. Soekarno-Hatta No. 1, Kudus, Jawa Tengah
+            </p>
+            <p class="footer-desc mb-1">
+              <i class="bi bi-envelope me-2" style="color:var(--teal);"></i>
+              pkplh@kuduskab.go.id
+            </p>
+            <p class="footer-desc mb-0">
+              <i class="bi bi-telephone me-2" style="color:var(--teal);"></i>
+              (0291) 438110
+            </p>
+          </div>
+        </div>
+
+        <!-- Kolom 2: Tautan Cepat -->
+        <div class="col-lg-4">
+          <h6 class="footer-title">Tautan Cepat</h6>
+          <ul class="footer-links">
+            <li><a href="#beranda"><i class="bi bi-chevron-right me-1" style="font-size:0.7rem;"></i>Beranda</a></li>
+            <li><a href="#tentang"><i class="bi bi-chevron-right me-1" style="font-size:0.7rem;"></i>Tentang Program</a></li>
+            <li><a href="#"><i class="bi bi-chevron-right me-1" style="font-size:0.7rem;"></i>Regulasi</a></li>
+            <li><a href="#"><i class="bi bi-chevron-right me-1" style="font-size:0.7rem;"></i>Pengumuman</a></li>
+            <li><a href="#alur"><i class="bi bi-chevron-right me-1" style="font-size:0.7rem;"></i>Alur Pengajuan</a></li>
+            <li><a href="#"><i class="bi bi-chevron-right me-1" style="font-size:0.7rem;"></i>Kontak</a></li>
+          </ul>
+        </div>
+
+        <!-- Kolom 3: Media Sosial -->
+        <div class="col-lg-4">
+          <h6 class="footer-title">Media Sosial</h6>
+          <p class="footer-desc mb-3">Ikuti kami di media sosial untuk informasi terkini seputar program RTLH dan kegiatan Dinas PKPLH Kabupaten Kudus.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+            <a href="#" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+            <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+            <a href="#" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Copyright -->
+      <div class="footer-bottom text-center">
+        <p>&copy; 2026 Dinas PKPLH Kabupaten Kudus. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Tombol Scroll ke Atas -->
+  <button class="scroll-top-btn" id="scrollTopBtn" aria-label="Scroll ke atas">
+    <i class="bi bi-chevron-up"></i>
+  </button>
+
+  <!-- Toast Notification -->
+  <div class="toast-custom">
+    <div class="toast align-items-center border-0" id="toastNIK" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body" id="toastMessage" style="font-size:0.9rem;"></div>
+        <button type="button" class="btn-close btn-close-dark me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Cek NIK -->
+  <div class="modal fade" id="modalNIK" tabindex="-1" aria-labelledby="modalNILKLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content" style="border-radius:1.25rem;border:none;">
+        <div class="modal-header border-0 pb-0">
+          <h5 class="modal-title" id="modalNILKLabel" style="font-weight:700;color:var(--navy);">
+            <i class="bi bi-search me-2" style="color:var(--teal);"></i>Cek Status NIK
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body px-4">
+          <p style="color:var(--gray-500);font-size:0.9rem;">Masukkan 16 digit NIK untuk memeriksa status pengajuan bantuan RTLH Anda.</p>
+          <div class="mb-3">
+            <label for="inputNIK" class="form-label" style="font-weight:600;font-size:0.85rem;color:var(--navy);">Nomor Induk Kependudukan</label>
+            <input type="text" class="form-control" id="inputNIK" maxlength="16" placeholder="Contoh: 341906xxxxxxxxxx" style="border-radius:0.75rem;padding:0.75rem 1rem;font-size:0.95rem;border:2px solid var(--gray-200);" onfocus="this.style.borderColor='var(--teal)'" onblur="this.style.borderColor='var(--gray-200)'">
+          </div>
+          <div id="nikResult" class="d-none" style="background:var(--light-bg);border-radius:0.75rem;padding:1rem;margin-top:0.5rem;">
+          </div>
+        </div>
+        <div class="modal-footer border-0 pt-0 px-4 pb-4">
+          <button type="button" class="btn btn-outline-custom btn-sm" data-bs-dismiss="modal">Tutup</button>
+          <button type="button" class="btn btn-primary-custom btn-sm" id="btnCariNIK">
+            <i class="bi bi-search me-1"></i>Cari
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap 5 JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // ===== NAVBAR SCROLL EFFECT =====
+    const navbar = document.getElementById('mainNavbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // ===== SCROLL TO TOP BUTTON =====
+    const scrollTopBtn = document.getElementById('scrollTopBtn');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 400) {
+        scrollTopBtn.classList.add('show');
+      } else {
+        scrollTopBtn.classList.remove('show');
+      }
+    });
+    scrollTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // ===== SCROLL REVEAL ANIMATION =====
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    });
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    // ===== COUNTER ANIMATION =====
+    const counterElements = document.querySelectorAll('.stat-number[data-target]');
+    let counterStarted = false;
+
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !counterStarted) {
+          counterStarted = true;
+          counterElements.forEach(counter => {
+            const target = parseInt(counter.getAttribute('data-target'));
+            const duration = 2000;
+            const startTime = performance.now();
+
+            function updateCounter(currentTime) {
+              const elapsed = currentTime - startTime;
+              const progress = Math.min(elapsed / duration, 1);
+              // Ease-out cubic
+              const eased = 1 - Math.pow(1 - progress, 3);
+              const current = Math.floor(eased * target);
+              counter.textContent = current.toLocaleString('id-ID');
+              if (progress < 1) {
+                requestAnimationFrame(updateCounter);
+              } else {
+                counter.textContent = target.toLocaleString('id-ID');
+              }
+            }
+            requestAnimationFrame(updateCounter);
+          });
+        }
+      });
+    }, { threshold: 0.3 });
+
+    counterElements.forEach(el => counterObserver.observe(el));
+
+    // ===== SMOOTH SCROLL FOR NAV LINKS =====
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        e.preventDefault();
+        const targetEl = document.querySelector(targetId);
+        if (targetEl) {
+          const offset = 80;
+          const top = targetEl.getBoundingClientRect().top + window.pageYOffset - offset;
+          window.scrollTo({ top: top, behavior: 'smooth' });
+        }
+        // Tutup mobile navbar
+        const navbarCollapse = document.getElementById('navbarNav');
+        const bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse);
+        if (bsCollapse) bsCollapse.hide();
+      });
+    });
+
+    // ===== ACTIVE NAV LINK ON SCROLL =====
+    const sections = document.querySelectorAll('section[id]');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop - 100;
+        if (window.scrollY >= sectionTop) {
+          current = section.getAttribute('id');
+        }
+      });
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + current) {
+          link.classList.add('active');
+        }
+      });
+    });
+
+    // ===== CEK STATUS NIK MODAL =====
+    const btnCekNIK = document.getElementById('btnCekNIK');
+    const modalNIK = new bootstrap.Modal(document.getElementById('modalNIK'));
+    const btnCariNIK = document.getElementById('btnCariNIK');
+    const inputNIK = document.getElementById('inputNIK');
+    const nikResult = document.getElementById('nikResult');
+
+    btnCekNIK.addEventListener('click', (e) => {
+      e.preventDefault();
+      modalNIK.show();
+    });
+
+    btnCariNIK.addEventListener('click', () => {
+      const nik = inputNIK.value.trim();
+      if (nik.length !== 16 || !/^\d+$/.test(nik)) {
+        nikResult.classList.remove('d-none');
+        nikResult.innerHTML = `
+          <div class="d-flex align-items-start gap-2">
+            <i class="bi bi-exclamation-triangle-fill" style="color:var(--red-badge);font-size:1.2rem;margin-top:2px;"></i>
+            <div>
+              <strong style="color:var(--red-badge);font-size:0.9rem;">NIK Tidak Valid</strong>
+              <p style="font-size:0.85rem;color:var(--gray-500);margin:0;">Pastikan NIK terdiri dari 16 digit angka.</p>
+            </div>
+          </div>`;
+        return;
+      }
+
+      // Simulasi pencarian
+      nikResult.classList.remove('d-none');
+      nikResult.innerHTML = `
+        <div class="d-flex align-items-center gap-2">
+          <div class="spinner-border spinner-border-sm" role="status" style="color:var(--teal);">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <span style="font-size:0.9rem;color:var(--gray-500);">Mencari data...</span>
+        </div>`;
+
+      setTimeout(() => {
+        // Simulasi hasil acak
+        const results = [
+          {
+            status: 'Diterima',
+            color: 'var(--green-badge)',
+            icon: 'bi-check-circle-fill',
+            desc: 'Pengajuan RTLH Anda telah diverifikasi dan dinyatakan layak menerima bantuan.',
+            detail: 'Tahap: Pelaksanaan Renovasi | Kecamatan: Jati'
+          },
+          {
+            status: 'Dalam Proses Verifikasi',
+            color: 'var(--teal)',
+            icon: 'bi-clock-history',
+            desc: 'Pengajuan Anda sedang dalam proses verifikasi lapangan oleh tim PKPLH.',
+            detail: 'Tahap: Verifikasi Lapangan | Kecamatan: Kudus Kota'
+          },
+          {
+            status: 'Belum Terdaftar',
+            color: 'var(--gray-500)',
+            icon: 'bi-info-circle-fill',
+            desc: 'NIK belum tercatat dalam database usulan RTLH. Silakan ajukan melalui Musdes di desa Anda.',
+            detail: ''
+          }
+        ];
+        const result = results[Math.floor(Math.random() * results.length)];
+        nikResult.innerHTML = `
+          <div class="d-flex align-items-start gap-2">
+            <i class="bi ${result.icon}" style="color:${result.color};font-size:1.2rem;margin-top:2px;"></i>
+            <div>
+              <strong style="color:${result.color};font-size:0.9rem;">${result.status}</strong>
+              <p style="font-size:0.85rem;color:var(--gray-500);margin:0.25rem 0 0;">${result.desc}</p>
+              ${result.detail ? `<small style="color:var(--gray-400);font-size:0.78rem;">${result.detail}</small>` : ''}
+            </div>
+          </div>`;
+      }, 1500);
+    });
+
+    // Submit on Enter key
+    inputNIK.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') btnCariNIK.click();
+    });
+
+    // Only allow numbers in NIK input
+    inputNIK.addEventListener('input', () => {
+      inputNIK.value = inputNIK.value.replace(/\D/g, '');
+    });
+
+    // ===== CLEAN MODAL STATE ON CLOSE =====
+    document.getElementById('modalNIK').addEventListener('hidden.bs.modal', () => {
+      inputNIK.value = '';
+      nikResult.classList.add('d-none');
+    });
+  </script>
+</body>
+</html>
