@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wedding Invitation</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+
+  h1,h2,h3 {
+    font-family: 'Playfair Display', serif;
+  }
+
+  /* Loading */
+  #loader {
+    position: fixed;
+    inset: 0;
+    background: #111;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 1s ease;
+  }
+
+  /* Parallax */
+  .parallax {
+    background-image: url('https://images.unsplash.com/photo-1522673607200-164d1b6ce486?q=80');
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+  }
+
+  /* Reveal animation */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 1s ease;
+  }
+
+  .reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+
+<body class="bg-[#F5F0E6] text-gray-800">
+
+<!-- LOADING -->
+<div id="loader">
+  <h1 class="text-xl tracking-widest animate-pulse">Loading...</h1>
+</div>
+
+<!-- COVER -->
+<section id="cover" class="h-screen flex flex-col justify-center items-center text-center p-6 parallax text-white">
+  <div class="bg-black/50 p-8 rounded-xl backdrop-blur">
+    <h2 class="text-sm tracking-widest mb-2">UNDANGAN PERNIKAHAN</h2>
+    <h1 class="text-4xl mb-4">Andi & Sari</h1>
+    <p class="mb-6">10 Januari 2027</p>
+    <button onclick="openInvitation()" class="border px-6 py-2 rounded hover:bg-white hover:text-black transition">
+      Buka Undangan
+    </button>
+  </div>
+</section>
+
+<!-- MAIN -->
+<div id="main" class="hidden">
+
+<section class="p-10 text-center reveal">
+  <p>Assalamu’alaikum Warahmatullahi Wabarakatuh</p>
+</section>
+
+<section class="p-10 text-center reveal">
+  <h2 class="text-2xl mb-6">Mempelai</h2>
+  <div class="flex flex-col md:flex-row justify-center gap-10">
+    <div>
+      <img src="https://via.placeholder.com/150" class="rounded-full mx-auto mb-3 shadow-lg">
+      <h3 class="text-xl">Andi</h3>
+      <p>Putra dari Bapak A & Ibu B</p>
+    </div>
+    <div>
+      <img src="https://via.placeholder.com/150" class="rounded-full mx-auto mb-3 shadow-lg">
+      <h3 class="text-xl">Sari</h3>
+      <p>Putri dari Bapak C & Ibu D</p>
+    </div>
+  </div>
+</section>
+
+<section class="p-10 text-center reveal">
+  <h2 class="text-2xl mb-4">Countdown</h2>
+  <div id="countdown" class="text-xl"></div>
+</section>
+
+<section class="p-10 text-center parallax text-white reveal">
+  <div class="bg-black/50 p-6 rounded-xl inline-block">
+    <h2 class="text-2xl mb-4">Detail Acara</h2>
+    <p>Akad: 08:00 WIB</p>
+    <p>Resepsi: 11:00 WIB</p>
+  </div>
+</section>
+
+<section class="p-10 text-center reveal">
+  <h2 class="text-2xl mb-4">Lokasi</h2>
+  <iframe class="w-full h-64 rounded shadow"
+    src="https://maps.google.com/maps?q=jakarta&t=&z=13&ie=UTF8&iwloc=&output=embed">
+  </iframe>
+</section>
+
+<section class="p-10 reveal">
+  <h2 class="text-center text-2xl mb-6">Galeri</h2>
+  <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+    <img src="https://via.placeholder.com/300" class="rounded shadow hover:scale-105 transition">
+    <img src="https://via.placeholder.com/300" class="rounded shadow hover:scale-105 transition">
+    <img src="https://via.placeholder.com/300" class="rounded shadow hover:scale-105 transition">
+  </div>
+</section>
+
+<section class="p-10 text-center reveal">
+  <h2 class="text-2xl mb-4">RSVP</h2>
+  <form class="max-w-md mx-auto space-y-4">
+    <input type="text" placeholder="Nama" class="w-full border p-2 rounded">
+    <input type="number" placeholder="Jumlah tamu" class="w-full border p-2 rounded">
+    <select class="w-full border p-2 rounded">
+      <option>Hadir</option>
+      <option>Tidak Hadir</option>
+    </select>
+    <button class="border px-4 py-2 rounded hover:bg-black hover:text-white">Kirim</button>
+  </form>
+</section>
+
+<section class="p-10 text-center reveal">
+  <h2 class="text-2xl mb-4">Amplop Digital</h2>
+  <p>BCA: 123456789</p>
+  <p>DANA: 08123456789</p>
+</section>
+
+</div>
+
+<!-- MUSIC -->
+<audio id="music" loop>
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
+</audio>
+
+<div class="fixed bottom-5 right-5">
+  <button onclick="toggleMusic()" class="bg-black text-white px-4 py-2 rounded shadow">
+    🎵
+  </button>
+</div>
+
+<script>
+  // Loading
+  window.addEventListener("load", () => {
+    setTimeout(() => {
+      document.getElementById("loader").style.opacity = 0;
+      setTimeout(() => document.getElementById("loader").style.display = "none", 1000);
+    }, 1000);
+  });
+
+  function openInvitation() {
+    document.getElementById("cover").style.display = "none";
+    document.getElementById("main").classList.remove("hidden");
+    document.getElementById("music").play();
+    revealOnScroll();
+  }
+
+  function toggleMusic() {
+    const music = document.getElementById("music");
+    music.paused ? music.play() : music.pause();
+  }
+
+  // Countdown
+  const target = new Date("Jan 10, 2027 08:00:00").getTime();
+  setInterval(() => {
+    const now = new Date().getTime();
+    const d = target - now;
+
+    const days = Math.floor(d / (1000*60*60*24));
+    const hours = Math.floor((d/(1000*60*60))%24);
+    const minutes = Math.floor((d/(1000*60))%60);
+
+    document.getElementById("countdown").innerHTML =
+      `${days} hari ${hours} jam ${minutes} menit`;
+  }, 1000);
+
+  // Reveal on scroll
+  function revealOnScroll() {
+    const reveals = document.querySelectorAll(".reveal");
+
+    function check() {
+      reveals.forEach(el => {
+        const top = el.getBoundingClientRect().top;
+        if (top < window.innerHeight - 100) {
+          el.classList.add("active");
+        }
+      });
+    }
+
+    window.addEventListener("scroll", check);
+    check();
+  }
+</script>
+
+</body>
+</html>

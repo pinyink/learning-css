@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <title>Undangan Pernikahan - Findi & Anggita</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- AOS (Animate On Scroll) -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+    <style>
+        :root {
+            --bg-cream: #fcf8f2;
+            --sage-green: #8c9c82;
+            --dark-sage: #6b7a66;
+            --terracotta: #e2725b;
+            --text-dark: #2c3e50;
+            --font-accent: 'Great Vibes', cursive;
+            --font-body: 'Montserrat', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-cream);
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
+                        url('https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 20px;
+        }
+
+        .hero h1 {
+            font-family: var(--font-accent);
+            font-size: 5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .btn-open {
+            background-color: var(--sage-green);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            margin-top: 2rem;
+            transition: 0.3s;
+            text-decoration: none;
+        }
+
+        .btn-open:hover {
+            background-color: var(--dark-sage);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        /* Typography */
+        .section-title {
+            font-family: var(--font-accent);
+            font-size: 3.5rem;
+            color: var(--sage-green);
+        }
+
+        /* Sections */
+        section {
+            padding: 80px 0;
+        }
+
+        /* Quote */
+        .quote-container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border-left: 5px solid var(--sage-green);
+        }
+
+        /* Couple */
+        .couple-name {
+            font-family: var(--font-accent);
+            font-size: 3rem;
+            color: var(--sage-green);
+            margin: 15px 0;
+        }
+
+        .parent-name {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        /* Countdown */
+        .timer-box {
+            background: var(--sage-green);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            min-width: 80px;
+            margin: 5px;
+        }
+
+        .timer-box span {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        /* Event Card */
+        .event-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            height: 100%;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-bottom: 4px solid var(--sage-green);
+        }
+
+        /* Gallery */
+        .gallery-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .gallery-img:hover {
+            transform: scale(1.03);
+        }
+
+        /* RSVP Form */
+        .form-control, .form-select {
+            border-radius: 10px;
+            padding: 12px;
+            border: 1px solid #ddd;
+        }
+
+        .btn-submit {
+            background-color: var(--sage-green);
+            color: white;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        /* Bottom Nav */
+        .bottom-nav {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 10px 25px;
+            border-radius: 50px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+            display: flex;
+            gap: 25px;
+            z-index: 1000;
+        }
+
+        .bottom-nav a {
+            color: var(--sage-green);
+            font-size: 1.2rem;
+            transition: 0.3s;
+        }
+
+        .bottom-nav a:hover {
+            color: var(--terracotta);
+        }
+
+        /* Music Control */
+        .music-control {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--sage-green);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 3.5rem; }
+            .section-title { font-size: 2.8rem; }
+        }
+    </style>
+</head>
+<body>
+    
+<body id="home">
+
+    <!-- Background Music -->
+    <div class="music-control" onclick="toggleMusic()">
+        <i id="musicIcon" class="fas fa-pause"></i>
+    </div>
+    <audio id="bgMusic" loop>
+        <source src="https://www.bensound.com/bensound-music/bensound-memories.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <p data-aos="fade-up">The Wedding of</p>
+        <h1 data-aos="zoom-in" data-aos-delay="200">Findi & Anggita</h1>
+        <p data-aos="fade-up" data-aos-delay="400">01 . 06 . 2026</p>
+        <a href="#quote" class="btn-open" onclick="playMusic()">
+            <i class="fas fa-envelope-open-text me-2"></i> Buka Undangan
+        </a>
+    </div>
+
+    <!-- Quote Section -->
+    <section id="quote" class="container text-center">
+        <div class="row justify-content-center">
+            <div class="col-md-8" data-aos="fade-up">
+                <div class="quote-container">
+                    <h2 class="mb-4"><i class="fas fa-quote-left text-muted"></i></h2>
+                    <p class="fst-italic mb-4">
+                        "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang."
+                    </p>
+                    <h5 class="fw-bold">- QS. Ar-Rum: 21 -</h5>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Couple Section -->
+    <section id="couple" class="container text-center bg-white py-5 shadow-sm rounded-4">
+        <h2 class="section-title mb-5" data-aos="fade-up">Mempelai</h2>
+        <div class="row align-items-center">
+            <div class="col-md-5" data-aos="fade-right">
+                <img src="https://i.pravatar.cc/300?img=12" class="rounded-circle mb-3 border border-5 border-sage" width="200" height="200" alt="Groom">
+                <h3 class="couple-name">Nur Khafindi</h3>
+                <p class="parent-name">Putra dari Bapak Kasduri <br> & (Alm) Ibu Junaikhah</p>
+            </div>
+            <div class="col-md-2" data-aos="zoom-in">
+                <h1 class="couple-name" style="font-size: 4rem;">&</h1>
+            </div>
+            <div class="col-md-5" data-aos="fade-left">
+                <img src="https://i.pravatar.cc/300?img=32" class="rounded-circle mb-3 border border-5 border-sage" width="200" height="200" alt="Bride">
+                <h3 class="couple-name">Anggita Adelina</h3>
+                <p class="parent-name">Putri dari Bapak Heriyanto <br> & Ibu Sul Amila</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Countdown & Event -->
+    <section id="event" class="container text-center">
+        <h2 class="section-title mb-4" data-aos="fade-up">Waktu Bahagia</h2>
+        
+        <!-- Timer -->
+        <div class="d-flex justify-content-center mb-5" data-aos="zoom-in">
+            <div class="timer-box"><span id="days">00</span> Hari</div>
+            <div class="timer-box"><span id="hours">00</span> Jam</div>
+            <div class="timer-box"><span id="minutes">00</span> Menit</div>
+            <div class="timer-box"><span id="seconds">00</span> Detik</div>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-6" data-aos="fade-up">
+                <div class="event-card">
+                    <i class="fas fa-ring fa-3x mb-3 text-sage"></i>
+                    <h3>Akad Nikah</h3>
+                    <p><i class="far fa-calendar-alt me-2"></i> Senin, 1 Juni 2026</p>
+                    <p><i class="far fa-clock me-2"></i> Pagi Hari</p>
+                    <p><i class="fas fa-map-marker-alt me-2"></i> Masjid Agung Baitul Makmur, Jakarta</p>
+                </div>
+            </div>
+            <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
+                <div class="event-card">
+                    <i class="fas fa-utensils fa-3x mb-3 text-sage"></i>
+                    <h3>Resepsi</h3>
+                    <p><i class="far fa-calendar-alt me-2"></i> Senin, 1 Juni 2026</p>
+                    <p><i class="far fa-clock me-2"></i> 11.00 WIB - Selesai</p>
+                    <p><i class="fas fa-map-marker-alt me-2"></i> Ballroom Grand Mulia, Jakarta</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title" data-aos="fade-up">Galeri Foto</h2>
+        </div>
+        <div class="row g-3">
+            <div class="col-6 col-md-3" data-aos="zoom-in"><img src="https://picsum.photos/400/600?random=1" class="gallery-img" alt="Gallery"></div>
+            <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="100"><img src="https://picsum.photos/400/600?random=2" class="gallery-img" alt="Gallery"></div>
+            <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="200"><img src="https://picsum.photos/400/600?random=3" class="gallery-img" alt="Gallery"></div>
+            <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="300"><img src="https://picsum.photos/400/600?random=4" class="gallery-img" alt="Gallery"></div>
+        </div>
+    </section>
+
+    <!-- RSVP Section -->
+    <section id="rsvp" class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6" data-aos="fade-up">
+                <div class="bg-white p-5 rounded-4 shadow-sm">
+                    <h2 class="section-title text-center mb-4">Konfirmasi Kehadiran</h2>
+                    <form>
+                        <div class="mb-3">
+                            <label class="form-label">Nama Lengkap</label>
+                            <input type="text" class="form-control" placeholder="Masukkan nama Anda">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Kehadiran</label>
+                            <select class="form-select">
+                                <option selected>Pilih Status Kehadiran</option>
+                                <option value="1">Hadir</option>
+                                <option value="2">Tidak Hadir</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Ucapan & Doa</label>
+                            <textarea class="form-control" rows="4" placeholder="Tuliskan ucapan Anda"></textarea>
+                        </div>
+                        <button type="submit" class="btn-submit">Kirim Konfirmasi</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <a href="#home" title="Home"><i class="fas fa-home"></i></a>
+        <a href="#couple" title="Couple"><i class="fas fa-heart"></i></a>
+        <a href="#event" title="Event"><i class="fas fa-calendar-check"></i></a>
+        <a href="#gallery" title="Gallery"><i class="fas fa-images"></i></a>
+        <a href="#rsvp" title="RSVP"><i class="fas fa-user-check"></i></a>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({ duration: 1000, once: true });
+
+        // Music Control
+        const music = document.getElementById('bgMusic');
+        const icon = document.getElementById('musicIcon');
+
+        function playMusic() {
+            music.play();
+        }
+
+        function toggleMusic() {
+            if (music.paused) {
+                music.play();
+                icon.classList.replace('fa-play', 'fa-pause');
+            } else {
+                music.pause();
+                icon.classList.replace('fa-pause', 'fa-play');
+            }
+        }
+
+        // Countdown Timer
+        const targetDate = new Date("June 1, 2026 08:00:00").getTime();
+
+        setInterval(function() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            document.getElementById("days").innerText = Math.floor(distance / (1000 * 60 * 60 * 24));
+            document.getElementById("hours").innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            document.getElementById("minutes").innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            document.getElementById("seconds").innerText = Math.floor((distance % (1000 * 60)) / 1000);
+        }, 1000);
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
