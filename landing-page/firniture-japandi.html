@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Muku — Japandi Furniture</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=Noto+Serif+JP:wght@300;400;500&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream: '#F5F0E8',
+            sand: '#E8DFD0',
+            warmgray: '#A89F91',
+            driftwood: '#8B7E6A',
+            bark: '#5C4F3D',
+            charcoal: '#2C2824',
+            sage: '#8B9D77',
+            sageLight: '#B5C4A8',
+            moss: '#6B7F58',
+            linen: '#FAF7F2',
+            parchment: '#EFEBE3',
+          },
+          fontFamily: {
+            serif: ['DM Serif Display', 'Noto Serif JP', 'serif'],
+            sans: ['Inter', 'sans-serif'],
+            jp: ['Noto Serif JP', 'serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background-color: #FAF7F2; color: #2C2824; }
+
+    .hero-gradient {
+      background: linear-gradient(135deg, #FAF7F2 0%, #F5F0E8 30%, #E8DFD0 70%, #D4C9B5 100%);
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .product-card:hover .product-img {
+      transform: scale(1.05);
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background-color: #2C2824;
+      transition: width 0.3s ease;
+    }
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #FAF7F2; }
+    ::-webkit-scrollbar-thumb { background: #A89F91; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #8B7E6A; }
+
+    .marquee-track {
+      display: flex;
+      animation: marquee 30s linear infinite;
+    }
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .cart-count {
+      animation: popIn 0.3s ease-out;
+    }
+    @keyframes popIn {
+      0% { transform: scale(0); }
+      80% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+
+    .mobile-menu {
+      transform: translateX(100%);
+      transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .mobile-menu.open {
+      transform: translateX(0);
+    }
+  </style>
+</head>
+<body class="bg-linen text-charcoal">
+
+  <!-- Announcement Bar -->
+  <div class="bg-charcoal text-cream text-center py-2.5 text-xs tracking-[0.2em] uppercase font-light overflow-hidden">
+    <div class="marquee-track whitespace-nowrap">
+      <span class="mx-12">Free shipping on orders over $500</span>
+      <span class="mx-12">✦</span>
+      <span class="mx-12">Handcrafted with intention</span>
+      <span class="mx-12">✦</span>
+      <span class="mx-12">Sustainably sourced materials</span>
+      <span class="mx-12">✦</span>
+      <span class="mx-12">Free shipping on orders over $500</span>
+      <span class="mx-12">✦</span>
+      <span class="mx-12">Handcrafted with intention</span>
+      <span class="mx-12">✦</span>
+      <span class="mx-12">Sustainably sourced materials</span>
+      <span class="mx-12">✦</span>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <nav id="navbar" class="sticky top-0 z-50 bg-linen/80 backdrop-blur-xl border-b border-warmgray/10 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 lg:h-20">
+        <!-- Mobile Menu Button -->
+        <button id="menuBtn" class="lg:hidden p-2 -ml-2 text-charcoal hover:text-driftwood transition-colors">
+          <i data-lucide="menu" class="w-5 h-5"></i>
+        </button>
+
+        <!-- Logo -->
+        <a href="#" class="flex items-center gap-2">
+          <span class="font-serif text-2xl lg:text-3xl tracking-tight">Muku</span>
+          <span class="hidden sm:inline font-jp text-lg text-warmgray mt-1">木工</span>
+        </a>
+
+        <!-- Desktop Nav Links -->
+        <div class="hidden lg:flex items-center gap-10 text-sm tracking-wide">
+          <a href="#collections" class="nav-link relative text-charcoal/70 hover:text-charcoal transition-colors duration-300 font-light">Collections</a>
+          <a href="#products" class="nav-link relative text-charcoal/70 hover:text-charcoal transition-colors duration-300 font-light">Shop</a>
+          <a href="#philosophy" class="nav-link relative text-charcoal/70 hover:text-charcoal transition-colors duration-300 font-light">Philosophy</a>
+          <a href="#journal" class="nav-link relative text-charcoal/70 hover:text-charcoal transition-colors duration-300 font-light">Journal</a>
+        </div>
+
+        <!-- Right Actions -->
+        <div class="flex items-center gap-4">
+          <button class="p-2 text-charcoal/70 hover:text-charcoal transition-colors hidden sm:block">
+            <i data-lucide="search" class="w-[18px] h-[18px]"></i>
+          </button>
+          <button class="p-2 text-charcoal/70 hover:text-charcoal transition-colors hidden sm:block">
+            <i data-lucide="user" class="w-[18px] h-[18px]"></i>
+          </button>
+          <button id="cartBtn" class="p-2 text-charcoal/70 hover:text-charcoal transition-colors relative">
+            <i data-lucide="shopping-bag" class="w-[18px] h-[18px]"></i>
+            <span id="cartCount" class="hidden cart-count absolute -top-0.5 -right-0.5 bg-charcoal text-cream text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-medium">0</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div id="mobileMenu" class="mobile-menu fixed inset-0 z-[60] bg-linen">
+    <div class="flex items-center justify-between px-6 h-16 border-b border-warmgray/10">
+      <span class="font-serif text-2xl tracking-tight">Muku</span>
+      <button id="closeMenu" class="p-2 text-charcoal">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+    </div>
+    <div class="flex flex-col px-8 py-12 gap-8 text-2xl font-serif">
+      <a href="#collections" class="mobile-link hover:text-driftwood transition-colors">Collections</a>
+      <a href="#products" class="mobile-link hover:text-driftwood transition-colors">Shop</a>
+      <a href="#philosophy" class="mobile-link hover:text-driftwood transition-colors">Philosophy</a>
+      <a href="#journal" class="mobile-link hover:text-driftwood transition-colors">Journal</a>
+    </div>
+    <div class="absolute bottom-12 left-8 text-sm text-warmgray font-light tracking-wide">
+      <p>hello@muku.design</p>
+      <p class="mt-2">Kyoto, Japan</p>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero-gradient relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center min-h-[85vh] py-16 lg:py-0">
+        <!-- Text Content -->
+        <div class="order-2 lg:order-1 max-w-xl fade-in">
+          <p class="text-warmgray text-xs tracking-[0.3em] uppercase mb-6 font-light">New Collection 2025</p>
+          <h1 class="font-serif text-5xl sm:text-6xl lg:text-7xl leading-[1.05] mb-6 tracking-tight">
+            Where<br>
+            <span class="text-driftwood">stillness</span><br>
+            meets form
+          </h1>
+          <p class="text-warmgray text-base lg:text-lg leading-relaxed mb-10 font-light max-w-md">
+            Furniture crafted at the intersection of Japanese wabi-sabi and Scandinavian simplicity. Each piece honors the natural beauty of solid wood.
+          </p>
+          <div class="flex flex-wrap items-center gap-4">
+            <a href="#products" class="inline-flex items-center gap-3 bg-charcoal text-cream px-8 py-4 text-sm tracking-[0.15em] uppercase font-medium hover:bg-bark transition-colors duration-300">
+              Explore Collection
+              <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </a>
+            <a href="#philosophy" class="inline-flex items-center gap-2 text-charcoal/70 hover:text-charcoal text-sm tracking-wide font-light transition-colors">
+              Our Philosophy
+              <i data-lucide="arrow-down-right" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+          <div class="flex items-center gap-8 mt-14 pt-8 border-t border-warmgray/20">
+            <div>
+              <p class="font-serif text-3xl text-charcoal">150+</p>
+              <p class="text-xs text-warmgray tracking-wide mt-1 font-light">Artisan Pieces</p>
+            </div>
+            <div class="w-px h-10 bg-warmgray/20"></div>
+            <div>
+              <p class="font-serif text-3xl text-charcoal">12</p>
+              <p class="text-xs text-warmgray tracking-wide mt-1 font-light">Wood Species</p>
+            </div>
+            <div class="w-px h-10 bg-warmgray/20"></div>
+            <div>
+              <p class="font-serif text-3xl text-charcoal">25yr</p>
+              <p class="text-xs text-warmgray tracking-wide mt-1 font-light">Craftsmanship</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero Image -->
+        <div class="order-1 lg:order-2 relative fade-in" style="transition-delay: 0.2s">
+          <div class="relative rounded-2xl overflow-hidden shadow-2xl shadow-bark/10">
+            <img src="http://static.photos/nature/1200x630/42" alt="Minimalist solid wood sofa with beige cushions in bright living room" class="w-full h-[50vh] lg:h-[70vh] object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-charcoal/20 to-transparent"></div>
+          </div>
+          <!-- Floating Badge -->
+          <div class="absolute -bottom-4 -left-4 lg:-bottom-6 lg:-left-8 bg-white/90 backdrop-blur-sm rounded-xl p-5 shadow-lg shadow-bark/5">
+            <p class="text-[10px] tracking-[0.2em] uppercase text-warmgray mb-1">Featured</p>
+            <p class="font-serif text-lg">Kumo Sofa</p>
+            <p class="text-sm text-driftwood font-light mt-0.5">$3,200</p>
+          </div>
+          <!-- Floating Tag -->
+          <div class="absolute top-6 right-6 bg-sage text-white text-[10px] tracking-[0.2em] uppercase px-4 py-2 rounded-full font-medium">
+            New Arrival
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Decorative Circle -->
+    <div class="absolute -bottom-32 -right-32 w-64 h-64 rounded-full border border-warmgray/10"></div>
+    <div class="absolute -bottom-40 -right-40 w-80 h-80 rounded-full border border-warmgray/5"></div>
+  </section>
+
+  <!-- Trusted By / As Seen In -->
+  <section class="bg-linen border-b border-warmgray/10 py-10">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <p class="text-center text-xs tracking-[0.25em] uppercase text-warmgray/50 mb-8 font-light">As featured in</p>
+      <div class="flex flex-wrap items-center justify-center gap-x-12 gap-y-4 text-warmgray/40 text-lg font-serif">
+        <span>Kinfolk</span>
+        <span>Monocle</span>
+        <span>Cereal</span>
+        <span>Dwell</span>
+        <span>Dezeen</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Collections Section -->
+  <section id="collections" class="py-24 lg:py-32 bg-linen">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="text-center mb-16 fade-in">
+        <p class="text-xs tracking-[0.3em] uppercase text-warmgray mb-4 font-light">Curated Spaces</p>
+        <h2 class="font-serif text-4xl lg:text-5xl tracking-tight">Our Collections</h2>
+        <p class="text-warmgray font-light mt-4 max-w-lg mx-auto">Thoughtfully designed environments that bring warmth, simplicity, and intentional living into your home.</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-4 lg:gap-6 fade-in" style="transition-delay: 0.15s">
+        <!-- Collection 1 -->
+        <a href="#" class="group relative rounded-2xl overflow-hidden h-[420px] lg:h-[520px]">
+          <img src="http://static.photos/nature/640x360/15" alt="Living Room Collection" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+          <div class="absolute inset-0 bg-gradient-to-t from-charcoal/60 via-charcoal/10 to-transparent"></div>
+          <div class="absolute bottom-0 left-0 right-0 p-8">
+            <p class="text-cream/70 text-xs tracking-[0.2em] uppercase font-light">24 pieces</p>
+            <h3 class="font-serif text-2xl text-cream mt-2">Living Room</h3>
+            <div class="flex items-center gap-2 mt-3 text-cream/70 text-sm font-light group-hover:text-cream transition-colors">
+              <span>Explore</span>
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5 transition-transform group-hover:translate-x-1"></i>
+            </div>
+          </div>
+        </a>
+        <!-- Collection 2 -->
+        <a href="#" class="group relative rounded-2xl overflow-hidden h-[420px] lg:h-[520px]">
+          <img src="http://static.photos/minimal/640x360/88" alt="Bedroom Collection" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+          <div class="absolute inset-0 bg-gradient-to-t from-charcoal/60 via-charcoal/10 to-transparent"></div>
+          <div class="absolute bottom-0 left-0 right-0 p-8">
+            <p class="text-cream/70 text-xs tracking-[0.2em] uppercase font-light">18 pieces</p>
+            <h3 class="font-serif text-2xl text-cream mt-2">Bedroom</h3>
+            <div class="flex items-center gap-2 mt-3 text-cream/70 text-sm font-light group-hover:text-cream transition-colors">
+              <span>Explore</span>
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5 transition-transform group-hover:translate-x-1"></i>
+            </div>
+          </div>
+        </a>
+        <!-- Collection 3 -->
+        <a href="#" class="group relative rounded-2xl overflow-hidden h-[420px] lg:h-[520px]">
+          <img src="http://static.photos/technology/640x360/33" alt="Study Collection" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+          <div class="absolute inset-0 bg-gradient-to-t from-charcoal/60 via-charcoal/10 to-transparent"></div>
+          <div class="absolute bottom-0 left-0 right-0 p-8">
+            <p class="text-cream/70 text-xs tracking-[0.2em] uppercase font-light">12 pieces</p>
+            <h3 class="font-serif text-2xl text-cream mt-2">Study</h3>
+            <div class="flex items-center gap-2 mt-3 text-cream/70 text-sm font-light group-hover:text-cream transition-colors">
+              <span>Explore</span>
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5 transition-transform group-hover:translate-x-1"></i>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Products Section -->
+  <section id="products" class="py-24 lg:py-32 bg-parchment">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-14 fade-in">
+        <div>
+          <p class="text-xs tracking-[0.3em] uppercase text-warmgray mb-4 font-light">Handpicked</p>
+          <h2 class="font-serif text-4xl lg:text-5xl tracking-tight">Best Sellers</h2>
+        </div>
+        <!-- Filter Tabs -->
+        <div class="flex items-center gap-1 mt-6 sm:mt-0 bg-sand/40 rounded-full p-1" id="filterTabs">
+          <button class="filter-tab active px-5 py-2 text-xs tracking-[0.15em] uppercase rounded-full transition-all duration-300 bg-charcoal text-cream" data-filter="all">All</button>
+          <button class="filter-tab px-5 py-2 text-xs tracking-[0.15em] uppercase rounded-full transition-all duration-300 text-warmgray hover:text-charcoal" data-filter="seating">Seating</button>
+          <button class="filter-tab px-5 py-2 text-xs tracking-[0.15em] uppercase rounded-full transition-all duration-300 text-warmgray hover:text-charcoal" data-filter="tables">Tables</button>
+          <button class="filter-tab px-5 py-2 text-xs tracking-[0.15em] uppercase rounded-full transition-all duration-300 text-warmgray hover:text-charcoal" data-filter="storage">Storage</button>
+        </div>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6" id="productGrid">
+        <!-- Products will be injected via JS -->
+      </div>
+
+      <div class="text-center mt-14 fade-in">
+        <a href="#" class="inline-flex items-center gap-3 border border-charcoal text-charcoal px-10 py-4 text-sm tracking-[0.15em] uppercase font-medium hover:bg-charcoal hover:text-cream transition-all duration-300">
+          View All Products
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Philosophy / Split Section -->
+  <section id="philosophy" class="py-24 lg:py-32 bg-linen">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <!-- Image -->
+        <div class="relative fade-in">
+          <div class="rounded-2xl overflow-hidden">
+            <img src="http://static.photos/nature/1200x630/77" alt="Artisan craftsmanship detail" class="w-full h-[400px] lg:h-[560px] object-cover">
+          </div>
+          <!-- Decorative frame -->
+          <div class="absolute -top-4 -left-4 w-full h-full border-2 border-sageLight/40 rounded-2xl -z-10"></div>
+        </div>
+
+        <!-- Content -->
+        <div class="fade-in" style="transition-delay: 0.2s">
+          <p class="text-xs tracking-[0.3em] uppercase text-warmgray mb-6 font-light">Our Philosophy</p>
+          <h2 class="font-serif text-4xl lg:text-5xl tracking-tight leading-tight mb-8">
+            Less, but<br><span class="text-driftwood">better</span>
+          </h2>
+          <p class="text-warmgray leading-relaxed font-light mb-6">
+            Inspired by the Japanese concept of <em class="font-serif text-charcoal not-italic">shibui</em> — quiet beauty that emerges from simplicity — and the Scandinavian belief that good design should be accessible to all.
+          </p>
+          <p class="text-warmgray leading-relaxed font-light mb-10">
+            Every piece in our collection is designed to endure, both in construction and in character. We work with sustainably harvested hardwoods, traditional joinery techniques, and finishes that age gracefully over decades.
+          </p>
+
+          <div class="space-y-6">
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-full bg-sage/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <i data-lucide="leaf" class="w-4 h-4 text-sage"></i>
+              </div>
+              <div>
+                <h4 class="font-medium text-sm tracking-wide mb-1">Sustainable Sourcing</h4>
+                <p class="text-warmgray text-sm font-light leading-relaxed">FSC-certified hardwoods from responsibly managed forests across Japan and Northern Europe.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-full bg-sage/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <i data-lucide="hammer" class="w-4 h-4 text-sage"></i>
+              </div>
+              <div>
+                <h4 class="font-medium text-sm tracking-wide mb-1">Traditional Joinery</h4>
+                <p class="text-warmgray text-sm font-light leading-relaxed">No screws, no metal. Our furniture uses interlocking Japanese joinery that strengthen over time.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-full bg-sage/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <i data-lucide="heart" class="w-4 h-4 text-sage"></i>
+              </div>
+              <div>
+                <h4 class="font-medium text-sm tracking-wide mb-1">Made to Last Generations</h4>
+                <p class="text-warmgray text-sm font-light leading-relaxed">Each piece carries a 25-year warranty and is designed to become more beautiful with use.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Material Palette Section -->
+  <section class="py-16 lg:py-24 bg-charcoal text-cream">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="text-center mb-14 fade-in">
+        <p class="text-xs tracking-[0.3em] uppercase text-warmgray mb-4 font-light">Natural Materials</p>
+        <h2 class="font-serif text-4xl lg:text-5xl tracking-tight">Our Wood Species</h2>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-5 fade-in" style="transition-delay: 0.15s">
+        <div class="text-center group">
+          <div class="w-full aspect-square rounded-xl mb-4 overflow-hidden">
+            <img src="http://static.photos/textures/200x200/1" alt="Hinoki" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+          </div>
+          <h4 class="font-serif text-sm">Hinoki</h4>
+          <p class="text-warmgray text-xs mt-1 font-light">Japanese Cypress</p>
+        </div>
+        <div class="text-center group">
+          <div class="w-full aspect-square rounded-xl mb-4 overflow-hidden">
+            <img src="http://static.photos/textures/200x200/2" alt="Oak" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+          </div>
+          <h4 class="font-serif text-sm">White Oak</h4>
+          <p class="text-warmgray text-xs mt-1 font-light">Northern Europe</p>
+        </div>
+        <div class="text-center group">
+          <div class="w-full aspect-square rounded-xl mb-4 overflow-hidden">
+            <img src="http://static.photos/textures/200x200/3" alt="Ash" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+          </div>
+          <h4 class="font-serif text-sm">Ash</h4>
+          <p class="text-warmgray text-xs mt-1 font-light">Scandinavian</p>
+        </div>
+        <div class="text-center group">
+          <div class="w-full aspect-square rounded-xl mb-4 overflow-hidden">
+            <img src="http://static.photos/textures/200x200/4" alt="Walnut" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+          </div>
+          <h4 class="font-serif text-sm">Walnut</h4>
+          <p class="text-warmgray text-xs mt-1 font-light">North America</p>
+        </div>
+        <div class="text-center group">
+          <div class="w-full aspect-square rounded-xl mb-4 overflow-hidden">
+            <img src="http://static.photos/textures/200x200/5" alt="Cherry" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+          </div>
+          <h4 class="font-serif text-sm">Cherry</h4>
+          <p class="text-warmgray text-xs mt-1 font-light">Japan</p>
+        </div>
+        <div class="text-center group">
+          <div class="w-full aspect-square rounded-xl mb-4 overflow-hidden">
+            <img src="http://static.photos/textures/200x200/6" alt="Maple" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+          </div>
+          <h4 class="font-serif text-sm">Maple</h4>
+          <p class="text-warmgray text-xs mt-1 font-light">Hokkaido</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="py-24 lg:py-32 bg-linen">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="text-center mb-16 fade-in">
+        <p class="text-xs tracking-[0.3em] uppercase text-warmgray mb-4 font-light">Kind Words</p>
+        <h2 class="font-serif text-4xl lg:text-5xl tracking-tight">What Our Clients Say</h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6 lg:gap-8 fade-in" style="transition-delay: 0.15s">
+        <div class="bg-white rounded-2xl p-8 lg:p-10 shadow-sm hover:shadow-md transition-shadow duration-300">
+          <div class="flex items-center gap-1 text-sage mb-6">
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+          </div>
+          <p class="text-warmgray font-light leading-relaxed mb-8">"The Kumo sofa completely transformed our living room. The craftsmanship is extraordinary — every joint, every grain of wood tells a story of patience and intention."</p>
+          <div class="flex items-center gap-3">
+            <img src="http://static.photos/people/200x200/10" alt="Yuki Tanaka" class="w-10 h-10 rounded-full object-cover">
+            <div>
+              <p class="text-sm font-medium">Yuki Tanaka</p>
+              <p class="text-xs text-warmgray font-light">Interior Designer, Tokyo</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 lg:p-10 shadow-sm hover:shadow-md transition-shadow duration-300">
+          <div class="flex items-center gap-1 text-sage mb-6">
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+          </div>
+          <p class="text-warmgray font-light leading-relaxed mb-8">"Finally, furniture that balances beauty and function. Our Susumu dining table has become the heart of every gathering. It's where life happens."</p>
+          <div class="flex items-center gap-3">
+            <img src="http://static.photos/people/200x200/22" alt="Erik Lindqvist" class="w-10 h-10 rounded-full object-cover">
+            <div>
+              <p class="text-sm font-medium">Erik Lindqvist</p>
+              <p class="text-xs text-warmgray font-light">Architect, Stockholm</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 lg:p-10 shadow-sm hover:shadow-md transition-shadow duration-300">
+          <div class="flex items-center gap-1 text-sage mb-6">
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+            <i data-lucide="star" class="w-4 h-4 fill-current"></i>
+          </div>
+          <p class="text-warmgray font-light leading-relaxed mb-8">"We furnished our entire holiday retreat with Muku pieces. The Zen bookshelf and Seishin chair combo is pure meditation. Absolute quiet luxury."</p>
+          <div class="flex items-center gap-3">
+            <img src="http://static.photos/people/200x200/33" alt="Clara Moore" class="w-10 h-10 rounded-full object-cover">
+            <div>
+              <p class="text-sm font-medium">Clara Moore</p>
+              <p class="text-xs text-warmgray font-light">Creative Director, London</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Journal / Blog Section -->
+  <section id="journal" class="py-24 lg:py-32 bg-parchment">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-14 fade-in">
+        <div>
+          <p class="text-xs tracking-[0.3em] uppercase text-warmgray mb-4 font-light">Stories & Ideas</p>
+          <h2 class="font-serif text-4xl lg:text-5xl tracking-tight">The Journal</h2>
+        </div>
+        <a href="#" class="inline-flex items-center gap-2 text-sm text-driftwood hover:text-charcoal font-light mt-4 sm:mt-0 transition-colors">
+          Read All
+          <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+        </a>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6 lg:gap-8 fade-in" style="transition-delay: 0.15s">
+        <article class="group">
+          <div class="rounded-2xl overflow-hidden mb-5">
+            <img src="http://static.photos/indoor/640x360/7" alt="Journal article" class="w-full h-56 lg:h-64 object-cover transition-transform duration-700 group-hover:scale-105">
+          </div>
+          <p class="text-xs tracking-[0.2em] uppercase text-warmgray font-light mb-2">Design Philosophy</p>
+          <h3 class="font-serif text-xl mb-3 group-hover:text-driftwood transition-colors">The Art of Japanese Joinery: Why No Screws Makes Better Furniture</h3>
+          <p class="text-warmgray text-sm font-light leading-relaxed">How centuries-old woodcraft techniques create furniture that lasts generations…</p>
+        </article>
+
+        <article class="group">
+          <div class="rounded-2xl overflow-hidden mb-5">
+            <img src="http://static.photos/indoor/640x360/12" alt="Journal article" class="w-full h-56 lg:h-64 object-cover transition-transform duration-700 group-hover:scale-105">
+          </div>
+          <p class="text-xs tracking-[0.2em] uppercase text-warmgray font-light mb-2">Interior Guide</p>
+          <h3 class="font-serif text-xl mb-3 group-hover:text-driftwood transition-colors">Japandi 101: Bringing Quiet Luxury Into Your Home</h3>
+          <p class="text-warmgray text-sm font-light leading-relaxed">A beginner's guide to the design movement that's reshaping modern interiors…</p>
+        </article>
+
+        <article class="group">
+          <div class="rounded-2xl overflow-hidden mb-5">
+            <img src="http://static.photos/indoor/640x360/20" alt="Journal article" class="w-full h-56 lg:h-64 object-cover transition-transform duration-700 group-hover:scale-105">
+          </div>
+          <p class="text-xs tracking-[0.2em] uppercase text-warmgray font-light mb-2">Sustainability</p>
+          <h3 class="font-serif text-xl mb-3 group-hover:text-driftwood transition-colors">From Forest to Home: Our Sustainable Supply Chain</h3>
+          <p class="text-warmgray text-sm font-light leading-relaxed">Tracing a single piece of Hinoki wood from a Japanese forest to your living room…</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter Section -->
+  <section class="py-24 lg:py-32 bg-charcoal text-cream relative overflow-hidden">
+    <div class="absolute top-0 right-0 w-96 h-96 rounded-full bg-sage/5 -translate-y-1/2 translate-x-1/2"></div>
+    <div class="absolute bottom-0 left-0 w-64 h-64 rounded-full bg-sage/5 translate-y-1/2 -translate-x-1/2"></div>
+    <div class="max-w-2xl mx-auto px-6 lg:px-8 text-center relative z-10 fade-in">
+      <p class="text-xs tracking-[0.3em] uppercase text-warmgray mb-6 font-light">Stay Connected</p>
+      <h2 class="font-serif text-4xl lg:text-5xl tracking-tight mb-4">Join the Muku Circle</h2>
+      <p class="text-warmgray font-light mb-10">Receive early access to new collections, artisan stories, and exclusive invitations to our workshops.</p>
+      <form id="newsletterForm" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+        <input type="email" id="emailInput" placeholder="Your email address" class="flex-1 bg-white/5 border border-white/10 rounded-full px-6 py-3.5 text-sm text-cream placeholder-warmgray focus:outline-none focus:border-sage/50 transition-colors font-light" required>
+        <button type="submit" class="bg-sage hover:bg-moss text-white px-8 py-3.5 rounded-full text-sm tracking-[0.1em] uppercase font-medium transition-colors duration-300">
+          Subscribe
+        </button>
+      </form>
+      <p id="subscribeMsg" class="text-sage text-sm mt-4 hidden">Welcome to the circle ✦</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-charcoal text-cream/70 border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 py-16 lg:py-20">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-10 lg:gap-16 mb-16">
+        <!-- Brand -->
+        <div class="col-span-2 md:col-span-1">
+          <div class="flex items-center gap-2 mb-5">
+            <span class="font-serif text-2xl text-cream tracking-tight">Muku</span>
+            <span class="font-jp text-lg text-warmgray mt-1">木工</span>
+          </div>
+          <p class="text-sm font-light leading-relaxed text-warmgray">Where stillness meets form.<br>Furniture for intentional living.</p>
+          <div class="flex items-center gap-4 mt-6">
+            <a href="#" class="hover:text-cream transition-colors"><i data-lucide="instagram" class="w-4 h-4"></i></a>
+            <a href="#" class="hover:text-cream transition-colors"><i data-lucide="twitter" class="w-4 h-4"></i></a>
+            <a href="#" class="hover:text-cream transition-colors"><i data-lucide="youtube" class="w-4 h-4"></i></a>
+            <a href="#" class="hover:text-cream transition-colors"><i data-lucide="linkedin" class="w-4 h-4"></i></a>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="text-cream text-xs tracking-[0.2em] uppercase font-medium mb-5">Shop</h4>
+          <ul class="space-y-3 text-sm font-light">
+            <li><a href="#" class="hover:text-cream transition-colors">Living Room</a></li>
+            <li><a href="#" class="hover:text-cream transition-colors">Bedroom</a></li>
+            <li><a href="#" class="hover:text-cream transition-colors">Study</a></li>
+            <li><a href="#" class="hover:text-cream transition-colors">Dining</a></li>
+            <li><a href="#" class="hover:text-cream transition-colors">Outdoor</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-cream text-xs tracking-[0.2em] uppercase font-medium mb-5">Company</h4>
+          <ul class="space-y-3 text-sm font-light">
+            <li><a href="#" class="hover:text-cream transition-colors">About Us</a></li>
+            <li><a href="#" class="hover:text-cream transition-colors">Our Artisans</a></li>
+            <li><a href="#" class="hover:text-cream transition-colors">Sustainability</a></li>
+            <li><a href="#" class="hover:text-cream transition-colors">Press</a></li>
+            <li><a href="#" class="hover:text-cream transition-colors">Careers</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-cream text-xs tracking-[0.2em] uppercase font-medium mb-5">Support</h4>
+          <ul class="space-y-3 text-sm font-light">
+            <li><a href="#" class="hover:text-cream transition-colors">Shipping & Returns</a></li>
+            <li><a href="#" class="hover:text-cream transition-colors">Care Guide</a></li>
+            <li><a href="#" class="hover:text-cream transition-colors">Warranty</a></li>
+            <li><a href="#" class="hover:text-cream transition-colors">FAQ</a></li>
+            <li><a href="#" class="hover:text-cream transition-colors">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="border-t border-white/5 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p class="text-xs text-warmgray font-light">© 2025 Muku. All rights reserved.</p>
+        <div class="flex items-center gap-6 text-xs text-warmgray font-light">
+          <a href="#" class="hover:text-cream transition-colors">Privacy</a>
+          <a href="#" class="hover:text-cream transition-colors">Terms</a>
+          <a href="#" class="hover:text-cream transition-colors">Cookies</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed bottom-6 right-6 bg-charcoal text-cream px-6 py-4 rounded-xl shadow-2xl flex items-center gap-3 translate-y-20 opacity-0 transition-all duration-400 z-50">
+    <i data-lucide="check-circle" class="w-5 h-5 text-sage"></i>
+    <span id="toastMsg" class="text-sm font-light">Item added to cart</span>
+  </div>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // ===== Product Data =====
+    const products = [
+      { id: 1, name: 'Kumo Sofa', price: 3200, category: 'seating', image: 'http://static.photos/indoor/640x360/1', tag: 'Best Seller', wood: 'Hinoki' },
+      { id: 2, name: 'Susumu Dining Table', price: 2800, category: 'tables', image: 'http://static.photos/indoor/640x360/2', tag: null, wood: 'White Oak' },
+      { id: 3, name: 'Seishin Chair', price: 1450, category: 'seating', image: 'http://static.photos/indoor/640x360/3', tag: 'New', wood: 'Ash' },
+      { id: 4, name: 'Zen Bookshelf', price: 2100, category: 'storage', image: 'http://static.photos/indoor/640x360/4', tag: null, wood: 'Walnut' },
+      { id: 5, name: 'Yuki Lounge Chair', price: 1680, category: 'seating', image: 'http://static.photos/indoor/640x360/5', tag: null, wood: 'Cherry' },
+      { id: 6, name: 'Kanso Side Table', price: 680, category: 'tables', image: 'http://static.photos/indoor/640x360/6', tag: 'New', wood: 'Hinoki' },
+      { id: 7, name: 'Moyō Cabinet', price: 2450, category: 'storage', image: 'http://static.photos/indoor/640x360/8', tag: null, wood: 'White Oak' },
+      { id: 8, name: 'Wa Console Table', price: 1850, category: 'tables', image: 'http://static.photos/indoor/640x360/9', tag: 'Limited', wood: 'Maple' },
+    ];
+
+    let cart = [];
+    let currentFilter = 'all';
+
+    // ===== Render Products =====
+    function renderProducts(filter = 'all') {
+      const grid = document.getElementById('productGrid');
+      const filtered = filter === 'all' ? products : products.filter(p => p.category === filter);
+
+      grid.innerHTML = filtered.map(p => `
+        <div class="product-card group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 fade-in visible" data-category="${p.category}">
+          <div class="relative overflow-hidden">
+            <img src="${p.image}" alt="${p.name}" class="product-img w-full h-64 lg:h-72 object-cover transition-transform duration-700">
+            ${p.tag ? `<span class="absolute top-4 left-4 bg-charcoal/80 backdrop-blur-sm text-cream text-[10px] tracking-[0.15em] uppercase px-3 py-1.5 rounded-full font-medium">${p.tag}</span>` : ''}
+            <button onclick="addToCart(${p.id})" class="absolute bottom-4 right-4 bg-white/90 backdrop-blur-sm text-charcoal w-10 h-10 rounded-full flex items-center justify-center shadow-md opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 hover:bg-charcoal hover:text-cream">
+              <i data-lucide="plus" class="w-4 h-4"></i>
+            </button>
+            <button class="absolute top-4 right-4 text-warmgray hover:text-red-400 transition-colors opacity-0 group-hover:opacity-100 duration-300">
+              <i data-lucide="heart" class="w-5 h-5"></i>
+            </button>
+          </div>
+          <div class="p-5 lg:p-6">
+            <p class="text-[10px] tracking-[0.2em] uppercase text-warmgray font-light mb-1.5">${p.wood}</p>
+            <h3 class="font-serif text-lg group-hover:text-driftwood transition-colors">${p.name}</h3>
+            <p class="text-driftwood font-light mt-2">$${p.price.toLocaleString()}</p>
+          </div>
+        </div>
+      `).join('');
+
+      lucide.createIcons();
+    }
+
+    // ===== Filter Tabs =====
+    document.getElementById('filterTabs').addEventListener('click', (e) => {
+      const btn = e.target.closest('.filter-tab');
+      if (!btn) return;
+      
+      document.querySelectorAll('.filter-tab').forEach(t => {
+        t.classList.remove('bg-charcoal', 'text-cream');
+        t.classList.add('text-warmgray');
+      });
+      btn.classList.add('bg-charcoal', 'text-cream');
+      btn.classList.remove('text-warmgray');
+
+      currentFilter = btn.dataset.filter;
+      renderProducts(currentFilter);
+    });
+
+    // ===== Add to Cart =====
+    function addToCart(id) {
+      const product = products.find(p => p.id === id);
+      if (!product) return;
+
+      const existing = cart.find(item => item.id === id);
+      if (existing) {
+        existing.qty++;
+      } else {
+        cart.push({ ...product, qty: 1 });
+      }
+
+      updateCartBadge();
+      showToast(`${product.name} added to cart`);
+    }
+
+    function updateCartBadge() {
+      const countEl = document.getElementById('cartCount');
+      const total = cart.reduce((sum, item) => sum + item.qty, 0);
+      if (total > 0) {
+        countEl.textContent = total;
+        countEl.classList.remove('hidden');
+        countEl.classList.add('cart-count');
+      } else {
+        countEl.classList.add('hidden');
+      }
+    }
+
+    // ===== Toast =====
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      const msg = document.getElementById('toastMsg');
+      msg.textContent = message;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0');
+        toast.classList.remove('translate-y-0', 'opacity-100');
+      }, 2500);
+    }
+
+    // ===== Mobile Menu =====
+    const mobileMenu = document.getElementById('mobileMenu');
+    document.getElementById('menuBtn').addEventListener('click', () => {
+      mobileMenu.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+    document.getElementById('closeMenu').addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    });
+
+    // ===== Newsletter =====
+    document.getElementById('newsletterForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const msg = document.getElementById('subscribeMsg');
+      msg.classList.remove('hidden');
+      document.getElementById('emailInput').value = '';
+      setTimeout(() => msg.classList.add('hidden'), 3000);
+    });
+
+    // ===== Fade-in on Scroll =====
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // ===== Navbar Scroll Effect =====
+    let lastScroll = 0;
+    window.addEventListener('scroll', () => {
+      const navbar = document.getElementById('navbar');
+      const scroll = window.scrollY;
+      
+      if (scroll > 100) {
+        navbar.classList.add('shadow-sm');
+      } else {
+        navbar.classList.remove('shadow-sm');
+      }
+      lastScroll = scroll;
+    });
+
+    // ===== Init =====
+    renderProducts();
+  </script>
+</body>
+</html>
