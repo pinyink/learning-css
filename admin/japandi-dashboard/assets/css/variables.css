@@ -1,0 +1,49 @@
+/* variables.css */
+:root {
+    /* Japandi Color Palette */
+    --primary: #5B7F72;
+    --secondary: #8FA89A;
+    --background: #F5F4F1;
+    --surface: #FFFFFF;
+    --border: #E6E3DE;
+    --text: #3D3D3D;
+    --text-muted: #8A8A8A;
+    
+    --success: #7DA27E;
+    --danger: #C97A73;
+    --warning: #D4A65A;
+    --info: #7C9BA6;
+
+    /* Typography */
+    --font-family: 'Inter', 'Poppins', sans-serif;
+    
+    /* Spacing & Radius (Japandi: Spacious & Rounded) */
+    --border-radius: 12px;
+    --border-radius-sm: 8px;
+    --sidebar-width: 260px;
+    --sidebar-mini-width: 80px;
+    --navbar-height: 70px;
+    
+    /* Shadows (Soft Shadow) */
+    --shadow-sm: 0 2px 8px rgba(61, 61, 61, 0.04);
+    --shadow-md: 0 4px 12px rgba(61, 61, 61, 0.06);
+    
+    /* Bootstrap Overrides */
+    --bs-primary: var(--primary);
+    --bs-body-bg: var(--background);
+    --bs-body-color: var(--text);
+    --bs-border-color: var(--border);
+    --bs-font-sans-serif: var(--font-family);
+}
+
+/* Dark Mode Variables */
+[data-bs-theme="dark"] {
+    --primary: #7C9BA6; /* Sedikit lebih cerah di dark mode agar kontras */
+    --background: #1E1E1E;
+    --surface: #2A2A2A;
+    --border: #3D3D3D;
+    --text: #E6E3DE;
+    --text-muted: #A0A0A0;
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.3);
+}

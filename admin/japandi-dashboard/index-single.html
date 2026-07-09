@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="id" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Japandi Dashboard | Premium Admin</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+    <style>
+        /* ===== VARIABLES.CSS ===== */
+        :root {
+            --primary: #5B7F72;
+            --secondary: #8FA89A;
+            --background: #F5F4F1;
+            --surface: #FFFFFF;
+            --border: #E6E3DE;
+            --text: #3D3D3D;
+            --text-muted: #8A8A8A;
+            
+            --success: #7DA27E;
+            --danger: #C97A73;
+            --warning: #D4A65A;
+            --info: #7C9BA6;
+
+            --font-family: 'Inter', sans-serif;
+            --border-radius: 12px;
+            --border-radius-sm: 8px;
+            --sidebar-width: 260px;
+            --sidebar-mini-width: 80px;
+            --navbar-height: 70px;
+            --shadow-sm: 0 2px 8px rgba(61, 61, 61, 0.04);
+            --shadow-md: 0 4px 12px rgba(61, 61, 61, 0.08);
+            
+            --bs-primary: var(--primary);
+            --bs-body-bg: var(--background);
+            --bs-body-color: var(--text);
+            --bs-border-color: var(--border);
+            --bs-font-sans-serif: var(--font-family);
+        }
+
+        [data-bs-theme="dark"] {
+            --primary: #7C9BA6;
+            --background: #1A1A1A;
+            --surface: #252525;
+            --border: #333333;
+            --text: #E6E3DE;
+            --text-muted: #A0A0A0;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        /* ===== BASE.CSS ===== */
+        * { box-sizing: border-box; }
+        body {
+            font-family: var(--font-family);
+            background-color: var(--background);
+            color: var(--text);
+            margin: 0;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            letter-spacing: -0.2px;
+        }
+        a { text-decoration: none; color: var(--primary); }
+        h1, h2, h3, h4, h5, h6 { font-weight: 600; }
+        
+        /* ===== LAYOUT & SIDEBAR ===== */
+        .app-wrapper { display: flex; min-height: 100vh; }
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--surface);
+            border-right: 1px solid var(--border);
+            position: fixed; height: 100vh; z-index: 1045;
+            display: flex; flex-direction: column;
+            transition: width 0.3s ease, transform 0.3s ease;
+        }
+        .sidebar-header {
+            height: var(--navbar-height);
+            display: flex; align-items: center; padding: 0 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .sidebar-logo { font-size: 1.25rem; font-weight: 700; color: var(--primary); white-space: nowrap; overflow: hidden; display: flex; align-items: center;}
+        .sidebar-menu { flex-grow: 1; overflow-y: auto; overflow-x: hidden; padding: 1rem 0; }
+        
+        .menu-section { padding: 0.5rem 1.5rem; font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; transition: opacity 0.2s; }
+        .menu-item, .menu-toggle {
+            display: flex; align-items: center; padding: 0.85rem 1.5rem;
+            color: var(--text-muted); font-size: 0.95rem; white-space: nowrap;
+            transition: all 0.2s; border-left: 3px solid transparent; cursor: pointer;
+            background: transparent; border-top: 0; border-right: 0; border-bottom: 0; width: 100%; text-align: left;
+        }
+        .menu-item:hover, .menu-toggle:hover {
+            background-color: var(--background); color: var(--primary);
+        }
+        .menu-item.active, .menu-item[aria-expanded="true"] {
+            background-color: rgba(91, 127, 114, 0.08); color: var(--primary);
+            border-left-color: var(--primary); font-weight: 500;
+        }
+        .menu-item i, .menu-toggle i { font-size: 1.1rem; margin-right: 1rem; width: 20px; text-align: center; }
+        .menu-toggle .arrow { margin-left: auto; transition: transform 0.2s; }
+        .menu-toggle[aria-expanded="true"] .arrow { transform: rotate(90deg); }
+        
+        .submenu { background-color: var(--background); padding: 0; }
+        .submenu .menu-item { padding-left: 3.5rem; font-size: 0.9rem; }
+        .submenu .menu-item::before { content: ''; width: 6px; height: 6px; background: var(--border); border-radius: 50%; margin-right: 1rem; margin-left: -1rem; }
+        .submenu .menu-item.active::before { background: var(--primary); }
+
+        /* Main Content */
+        .main-content { margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); display: flex; flex-direction: column; min-height: 100vh; transition: margin-left 0.3s ease, width 0.3s ease; }
+        .top-navbar { height: var(--navbar-height); background-color: var(--surface); border-bottom: 1px solid var(--border); display: flex; align-items: center; padding: 0 1.5rem; position: sticky; top: 0; z-index: 1000; }
+        .navbar-search { flex-grow: 1; max-width: 400px; }
+        .navbar-actions { display: flex; align-items: center; gap: 0.5rem; margin-left: auto; }
+        .icon-btn { width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; border-radius: 50%; color: var(--text-muted); background: transparent; border: none; position: relative; transition: all 0.2s; }
+        .icon-btn:hover { background-color: var(--background); color: var(--primary); }
+        .content-area { padding: 2rem; flex-grow: 1; }
+
+        /* Sidebar Mini State */
+        .sidebar.mini { width: var(--sidebar-mini-width); }
+
+        .sidebar.mini .sidebar-logo span, 
+        .sidebar.mini .menu-item span, 
+        .sidebar.mini .menu-toggle span, 
+        .sidebar.mini .menu-section, 
+        .sidebar.mini .arrow { 
+            opacity: 0; 
+            max-width: 0;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+            pointer-events: none; 
+            display: inline-block; /* Memastikan max-width bekerja untuk menyembunyikan space teks */
+            transition: opacity 0.2s ease, max-width 0.2s ease;
+        }
+
+        /* Mengatur posisi icon agar presisi di tengah saat mode mini */
+        .sidebar.mini .menu-item, .sidebar.mini .menu-toggle { 
+            justify-content: center; 
+            padding: 1rem 0; 
+        }
+
+        .sidebar.mini .menu-item i, .sidebar.mini .menu-toggle i {
+            margin-right: 0 !important; /* Hilangkan margin kanan icon agar seimbang di tengah */
+            font-size: 1.25rem;
+        }
+
+        /* Sembunyikan sub-menu secara rapi dalam keadaan mini jika tidak di-hover */
+        .sidebar.mini:not(:hover) .collapse {
+            display: none !important;
+        }
+
+        .main-content.expanded { margin-left: var(--sidebar-mini-width); width: calc(100% - var(--sidebar-mini-width)); }
+
+        /* ===== HOVER EXPAND (MINI MODE) ===== */
+        .sidebar.mini:hover {
+            width: var(--sidebar-width);
+            box-shadow: var(--shadow-md);
+        }
+        .sidebar.mini:hover .sidebar-logo span, 
+        .sidebar.mini:hover .menu-item span, 
+        .sidebar.mini:hover .menu-toggle span, 
+        .sidebar.mini:hover .menu-section, 
+        .sidebar.mini:hover .arrow { 
+            opacity: 1; 
+            max-width: 200px;
+            pointer-events: auto; 
+        }
+        .sidebar.mini:hover .menu-item, 
+        .sidebar.mini:hover .menu-toggle { 
+            justify-content: flex-start; 
+            padding: 0.85rem 1.5rem; 
+        }
+        .sidebar.mini:hover .menu-item i, .sidebar.mini:hover .menu-toggle i {
+            margin-right: 1rem !important; /* Kembalikan margin icon saat hover */
+        }
+        /* Tampilkan kembali collapse sub-menu dengan benar saat sidebar mini di-hover */
+        .sidebar.mini:hover .collapse.show {
+            display: block !important;
+        }
+
+        /* ===== COMPONENTS ===== */
+        .card { background-color: var(--surface); border: 1px solid var(--border); border-radius: var(--border-radius); box-shadow: var(--shadow-sm); }
+        .card-header { background-color: transparent; border-bottom: 1px solid var(--border); padding: 1.25rem 1.5rem; font-weight: 600; display: flex; justify-content: space-between; align-items: center; }
+        .card-body { padding: 1.5rem; }
+        
+        .btn { border-radius: var(--border-radius-sm); font-weight: 500; padding: 0.5rem 1.25rem; transition: all 0.2s; border: 1px solid transparent; }
+        .btn-primary { background-color: var(--primary); border-color: var(--primary); color: #fff; }
+        .btn-primary:hover { background-color: #4a6b60; border-color: #4a6b60; transform: translateY(-1px); }
+        .btn-light { background-color: var(--background); border-color: var(--border); color: var(--text); }
+        .btn-light:hover { background-color: var(--border); }
+
+        .stat-card { height: 100%; }
+        .stat-icon { width: 50px; height: 50px; border-radius: var(--border-radius-sm); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
+        
+        .table { margin-bottom: 0; color: var(--text); }
+        .table thead th { background-color: var(--background); border-bottom: 1px solid var(--border); color: var(--text-muted); font-weight: 500; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; padding: 1rem; }
+        .table tbody td { padding: 1rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
+        .table tbody tr:last-child td { border-bottom: none; }
+        .table-hover tbody tr:hover { background-color: var(--background); }
+
+        .badge { padding: 0.5em 0.8em; font-weight: 500; border-radius: 6px; font-size: 0.75rem; }
+        .bg-soft-success { background-color: rgba(125, 162, 126, 0.15); color: var(--success); }
+        .bg-soft-danger { background-color: rgba(201, 122, 115, 0.15); color: var(--danger); }
+        .bg-soft-warning { background-color: rgba(212, 166, 90, 0.15); color: var(--warning); }
+        .bg-soft-info { background-color: rgba(124, 155, 166, 0.15); color: var(--info); }
+
+        .timeline { position: relative; padding-left: 30px; }
+        .timeline::before { content: ''; position: absolute; left: 10px; top: 0; bottom: 0; width: 2px; background: var(--border); }
+        .timeline-item { position: relative; margin-bottom: 1.5rem; }
+        .timeline-item::before { content: ''; position: absolute; left: -26px; top: 5px; width: 12px; height: 12px; border-radius: 50%; background: var(--surface); border: 2px solid var(--primary); }
+        
+        .form-control, .form-select { background-color: var(--surface); border: 1px solid var(--border); color: var(--text); border-radius: var(--border-radius-sm); padding: 0.6rem 1rem; }
+        .form-control:focus, .form-select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(91, 127, 114, 0.1); }
+        .input-group-text { background-color: var(--background); border: 1px solid var(--border); color: var(--text-muted); }
+
+        .back-to-top { position: fixed; bottom: 30px; right: 30px; width: 45px; height: 45px; background: var(--primary); color: #fff; border: none; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; opacity: 0; visibility: hidden; transition: all 0.3s; z-index: 999; box-shadow: var(--shadow-md); }
+        .back-to-top.show { opacity: 1; visibility: visible; }
+
+        /* ===== NOTIFICATION DROPDOWN ===== */
+        .notif-dropdown { width: 360px; padding: 0; border: 1px solid var(--border); border-radius: var(--border-radius); box-shadow: var(--shadow-md); overflow: hidden; background: var(--surface); }
+        .notif-header { padding: 1rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+        .notif-body { max-height: 320px; overflow-y: auto; }
+        .notif-item { padding: 1rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; gap: 0.75rem; align-items: flex-start; transition: background 0.2s; }
+        .notif-item:hover { background: var(--background); }
+        .notif-item:last-child { border-bottom: none; }
+        .notif-footer { padding: 0.75rem; text-align: center; border-top: 1px solid var(--border); }
+        
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 991.98px) {
+            .sidebar { transform: translateX(-100%); }
+            .sidebar.show { transform: translateX(0); box-shadow: var(--shadow-md); }
+            .main-content, .main-content.expanded { margin-left: 0; width: 100%; }
+            .navbar-search { display: none; } 
+        }
+        
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: var(--background); }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+    </style>
+</head>
+<body>
+
+<div class="app-wrapper">
+    <!-- ===== SIDEBAR ===== -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="#" class="sidebar-logo">
+                <i class="bi bi-circle-fill text-primary me-2" style="font-size: 1rem;"></i>
+                <span>Japandi UI</span>
+            </a>
+        </div>
+        <nav class="sidebar-menu">
+            <div class="menu-section">Menu</div>
+            <a href="index.html" class="menu-item active">
+                <i class="bi bi-grid-1x2-fill"></i><span>Dashboard</span>
+            </a>
+
+            <div class="menu-section">Master Data</div>
+            <button class="menu-toggle" data-bs-toggle="collapse" data-bs-target="#menuMaster" aria-expanded="true">
+                <i class="bi bi-database-fill"></i><span>Master</span> <i class="bi bi-chevron-right arrow"></i>
+            </button>
+            <div class="collapse show" id="menuMaster">
+                <nav class="submenu">
+                    <a href="#" class="menu-item active"><span>User</span></a>
+                    <a href="#" class="menu-item"><span>Role</span></a>
+                    <a href="#" class="menu-item"><span>Permission</span></a>
+                    <a href="#" class="menu-item"><span>Instansi</span></a>
+                </nav>
+            </div>
+
+            <div class="menu-section">Transaksi</div>
+            <button class="menu-toggle" data-bs-toggle="collapse" data-bs-target="#menuTransaksi" aria-expanded="false">
+                <i class="bi bi-arrow-left-right"></i><span>Transaksi</span> <i class="bi bi-chevron-right arrow"></i>
+            </button>
+            <div class="collapse" id="menuTransaksi">
+                <nav class="submenu">
+                    <a href="#" class="menu-item"><span>Approval</span></a>
+                    <a href="#" class="menu-item"><span>Monitoring</span></a>
+                </nav>
+            </div>
+
+            <div class="menu-section">System</div>
+            <a href="#" class="menu-item">
+                <i class="bi bi-gear-fill"></i><span>Settings</span>
+            </a>
+            <a href="#" class="menu-item">
+                <i class="bi bi-clock-history"></i><span>Log Activity</span>
+            </a>
+        </nav>
+    </aside>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <div class="main-content" id="mainContent">
+        
+        <!-- ===== TOP NAVBAR ===== -->
+        <nav class="top-navbar">
+            <button class="icon-btn" id="sidebarToggle">
+                <i class="bi bi-list" style="font-size: 1.5rem;"></i>
+            </button>
+            
+            <div class="navbar-search ms-3 d-none d-md-block">
+                <div class="input-group">
+                    <span class="input-group-text bg-transparent border-end-0 ps-3">
+                        <i class="bi bi-search text-muted"></i>
+                    </span>
+                    <input type="text" class="form-control border-start-0 ps-0" placeholder="Cari menu, file, atau user...">
+                </div>
+            </div>
+
+            <div class="navbar-actions">
+                <button class="icon-btn d-none d-sm-flex" title="Fullscreen" id="fullscreenBtn">
+                    <i class="bi bi-arrows-fullscreen"></i>
+                </button>
+                <button class="icon-btn" title="Toggle Theme" id="themeToggle">
+                    <i class="bi bi-moon-stars-fill"></i>
+                </button>
+
+                <!-- Messages Dropdown -->
+                <div class="dropdown">
+                    <button class="icon-btn" title="Messages" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-chat-dots"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.6rem;">2</span>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-end notif-dropdown">
+                        <div class="notif-header">
+                            <h6 class="mb-0">Pesan Masuk</h6>
+                            <span class="badge bg-soft-info">2 Baru</span>
+                        </div>
+                        <div class="notif-body">
+                            <div class="notif-item">
+                                <img src="https://i.pravatar.cc/40?img=1" class="rounded-circle" width="40" height="40">
+                                <div class="flex-grow-1">
+                                    <p class="mb-0"><strong>Andi Wijaya</strong></p>
+                                    <small class="text-muted">Halo, apakah dokumen ini sudah disetujui?</small>
+                                    <div class="text-muted mt-1" style="font-size: 0.75rem;">10 menit lalu</div>
+                                </div>
+                            </div>
+                            <div class="notif-item">
+                                <img src="https://i.pravatar.cc/40?img=5" class="rounded-circle" width="40" height="40">
+                                <div class="flex-grow-1">
+                                    <p class="mb-0"><strong>Siti Aminah</strong></p>
+                                    <small class="text-muted">Tolong cek email saya ya.</small>
+                                    <div class="text-muted mt-1" style="font-size: 0.75rem;">1 jam lalu</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="notif-footer">
+                            <a href="#" class="text-decoration-none text-primary fw-medium">Lihat Semua Pesan</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Notifications Dropdown -->
+                <div class="dropdown">
+                    <button class="icon-btn" title="Notifications" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-bell"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill" style="font-size: 0.6rem; background: var(--warning) !important; color: #fff;">5</span>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-end notif-dropdown">
+                        <div class="notif-header">
+                            <h6 class="mb-0">Notifikasi</h6>
+                            <span class="badge bg-soft-warning">5 Baru</span>
+                        </div>
+                        <div class="notif-body">
+                            <div class="notif-item">
+                                <div class="stat-icon" style="width:35px;height:35px;background:rgba(91,127,114,0.1);color:var(--primary);"><i class="bi bi-person-check"></i></div>
+                                <div class="flex-grow-1">
+                                    <p class="mb-0"><strong>User Baru Terdaftar</strong></p>
+                                    <small class="text-muted">Seseorang baru saja mendaftar sebagai member.</small>
+                                    <div class="text-muted mt-1" style="font-size: 0.75rem;">5 menit lalu</div>
+                                </div>
+                            </div>
+                            <div class="notif-item">
+                                <div class="stat-icon" style="width:35px;height:35px;background:rgba(201,122,115,0.1);color:var(--danger);"><i class="bi bi-exclamation-triangle"></i></div>
+                                <div class="flex-grow-1">
+                                    <p class="mb-0"><strong>Server Overload</strong></p>
+                                    <small class="text-muted">Penggunaan CPU mencapai 90%.</small>
+                                    <div class="text-muted mt-1" style="font-size: 0.75rem;">30 menit lalu</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="notif-footer">
+                            <a href="#" class="text-decoration-none text-primary fw-medium">Lihat Semua Notifikasi</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dropdown ms-2">
+                    <button class="btn btn-light rounded-circle p-0 overflow-hidden border" style="width:42px;height:42px;" data-bs-toggle="dropdown">
+                        <img src="https://i.pravatar.cc/100?img=12" alt="User" class="img-fluid w-100 h-100">
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end shadow border-0" style="border-radius: var(--border-radius-sm);">
+                        <li class="px-3 py-2 border-bottom mb-1">
+                            <strong>Budi Santoso</strong><br>
+                            <small class="text-muted">Administrator</small>
+                        </li>
+                        <li><a class="dropdown-item rounded-2 py-2" href="#"><i class="bi bi-person me-2"></i> Profile</a></li>
+                        <li><a class="dropdown-item rounded-2 py-2" href="#"><i class="bi bi-gear me-2"></i> Settings</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item rounded-2 py-2 text-danger" href="#"><i class="bi bi-box-arrow-right me-2"></i> Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- ===== CONTENT AREA ===== -->
+        <main class="content-area">
+            <!-- Breadcrumb -->
+            <nav aria-label="breadcrumb" class="mb-3">
+                <ol class="breadcrumb mb-2">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+                </ol>
+                <div class="d-flex justify-content-between align-items-center flex-wrap">
+                    <h1 class="h3 mb-0">Dashboard Overview</h1>
+                    <div class="d-flex gap-2 mt-2 mt-md-0">
+                        <button class="btn btn-light"><i class="bi bi-download me-1"></i> Export</button>
+                        <button class="btn btn-primary"><i class="bi bi-plus-lg me-1"></i> Add New</button>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- ===== WIDGETS ===== -->
+            <div class="row g-4 mb-4">
+                <div class="col-xl-3 col-md-6">
+                    <div class="card stat-card">
+                        <div class="card-body d-flex align-items-center">
+                            <div class="stat-icon me-3" style="background: rgba(91,127,114,0.1); color: var(--primary);">
+                                <i class="bi bi-people-fill"></i>
+                            </div>
+                            <div>
+                                <p class="text-muted mb-0 fs-6">Total User</p>
+                                <h4 class="mb-0">1,254</h4>
+                                <small class="text-success"><i class="bi bi-arrow-up-short"></i> 12% Bulan ini</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card stat-card">
+                        <div class="card-body d-flex align-items-center">
+                            <div class="stat-icon me-3" style="background: rgba(124,155,166,0.1); color: var(--info);">
+                                <i class="bi bi-eye-fill"></i>
+                            </div>
+                            <div>
+                                <p class="text-muted mb-0 fs-6">Visitor</p>
+                                <h4 class="mb-0">8,432</h4>
+                                <small class="text-success"><i class="bi bi-arrow-up-short"></i> 5.2% Hari ini</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card stat-card">
+                        <div class="card-body d-flex align-items-center">
+                            <div class="stat-icon me-3" style="background: rgba(212,166,90,0.1); color: var(--warning);">
+                                <i class="bi bi-cash-stack"></i>
+                            </div>
+                            <div>
+                                <p class="text-muted mb-0 fs-6">Revenue</p>
+                                <h4 class="mb-0">Rp 45.2M</h4>
+                                <small class="text-danger"><i class="bi bi-arrow-down-short"></i> 1.5% Bulan ini</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card stat-card">
+                        <div class="card-body d-flex align-items-center">
+                            <div class="stat-icon me-3" style="background: rgba(125,162,126,0.1); color: var(--success);">
+                                <i class="bi bi-check2-circle"></i>
+                            </div>
+                            <div>
+                                <p class="text-muted mb-0 fs-6">Approval</p>
+                                <h4 class="mb-0">42</h4>
+                                <small class="text-muted">Menunggu Persetujuan</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== CHARTS ===== -->
+            <div class="row g-4 mb-4">
+                <div class="col-xl-8 col-lg-7">
+                    <div class="card h-100">
+                        <div class="card-header">
+                            <h5 class="mb-0">Statistik Kunjungan & Transaksi</h5>
+                            <div class="dropdown">
+                                <button class="btn btn-light btn-sm dropdown-toggle" data-bs-toggle="dropdown">Bulanan</button>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><a class="dropdown-item" href="#">Harian</a></li>
+                                    <li><a class="dropdown-item" href="#">Mingguan</a></li>
+                                    <li><a class="dropdown-item" href="#">Tahunan</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="lineChart" height="120"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-5">
+                    <div class="card h-100">
+                        <div class="card-header">
+                            <h5 class="mb-0">Tipe Pengguna</h5>
+                        </div>
+                        <div class="card-body d-flex align-items-center justify-content-center">
+                            <canvas id="doughnutChart" height="200"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-4 mb-4">
+                <div class="col-lg-6">
+                    <div class="card h-100">
+                        <div class="card-header"><h5 class="mb-0">Pendapatan per Kategori</h5></div>
+                        <div class="card-body"><canvas id="barChart" height="150"></canvas></div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card h-100">
+                        <div class="card-header"><h5 class="mb-0">Performa Server</h5></div>
+                        <div class="card-body"><canvas id="radarChart" height="150"></canvas></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== TABLE & TIMELINE ===== -->
+            <div class="row g-4">
+                <div class="col-xl-8">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">Transaksi Terbaru</h5>
+                            <button class="btn btn-light btn-sm"><i class="bi bi-funnel me-1"></i> Filter</button>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle">
+                                    <thead>
+                                        <tr>
+                                            <th><input class="form-check-input" type="checkbox"></th>
+                                            <th>Invoice</th>
+                                            <th>Pelanggan</th>
+                                            <th>Status</th>
+                                            <th class="text-end">Total</th>
+                                            <th class="text-center">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input class="form-check-input" type="checkbox"></td>
+                                            <td>#INV-0012</td>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <img src="https://i.pravatar.cc/30?img=1" class="rounded-circle me-2" width="30" height="30">
+                                                    <span>Budi Santoso</span>
+                                                </div>
+                                            </td>
+                                            <td><span class="badge bg-soft-success">Success</span></td>
+                                            <td class="text-end">Rp 1.500.000</td>
+                                            <td class="text-center">
+                                                <div class="dropdown">
+                                                    <button class="btn btn-light btn-sm p-1 px-2" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></button>
+                                                    <ul class="dropdown-menu dropdown-menu-end">
+                                                        <li><a class="dropdown-item" href="#"><i class="bi bi-eye me-2"></i> View</a></li>
+                                                        <li><a class="dropdown-item" href="#"><i class="bi bi-printer me-2"></i> Print</a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><input class="form-check-input" type="checkbox"></td>
+                                            <td>#INV-0011</td>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <img src="https://i.pravatar.cc/30?img=5" class="rounded-circle me-2" width="30" height="30">
+                                                    <span>Siti Aminah</span>
+                                                </div>
+                                            </td>
+                                            <td><span class="badge bg-soft-warning">Pending</span></td>
+                                            <td class="text-end">Rp 850.000</td>
+                                            <td class="text-center">
+                                                <div class="dropdown">
+                                                    <button class="btn btn-light btn-sm p-1 px-2" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></button>
+                                                    <ul class="dropdown-menu dropdown-menu-end">
+                                                        <li><a class="dropdown-item" href="#"><i class="bi bi-eye me-2"></i> View</a></li>
+                                                        <li><a class="dropdown-item" href="#"><i class="bi bi-printer me-2"></i> Print</a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><input class="form-check-input" type="checkbox"></td>
+                                            <td>#INV-0010</td>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <img src="https://i.pravatar.cc/30?img=33" class="rounded-circle me-2" width="30" height="30">
+                                                    <span>Andi Wijaya</span>
+                                                </div>
+                                            </td>
+                                            <td><span class="badge bg-soft-danger">Failed</span></td>
+                                            <td class="text-end">Rp 2.100.000</td>
+                                            <td class="text-center">
+                                                <div class="dropdown">
+                                                    <button class="btn btn-light btn-sm p-1 px-2" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></button>
+                                                    <ul class="dropdown-menu dropdown-menu-end">
+                                                        <li><a class="dropdown-item" href="#"><i class="bi bi-eye me-2"></i> View</a></li>
+                                                        <li><a class="dropdown-item" href="#"><i class="bi bi-printer me-2"></i> Print</a></li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-transparent border-top d-flex justify-content-between align-items-center">
+                            <small class="text-muted">Menampilkan 3 dari 50 data</small>
+                            <nav>
+                                <ul class="pagination pagination-sm mb-0">
+                                    <li class="page-item disabled"><a class="page-link" href="#"><i class="bi bi-chevron-left"></i></a></li>
+                                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item"><a class="page-link" href="#"><i class="bi bi-chevron-right"></i></a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4">
+                    <div class="card h-100">
+                        <div class="card-header"><h5 class="mb-0">Aktivitas Terbaru</h5></div>
+                        <div class="card-body">
+                            <div class="timeline">
+                                <div class="timeline-item">
+                                    <h6 class="mb-1">Pengguna Baru Terdaftar</h6>
+                                    <p class="text-muted mb-1 fs-6">Siti Aminah mendaftar sebagai Editor.</p>
+                                    <small class="text-muted"><i class="bi bi-clock me-1"></i> 5 menit lalu</small>
+                                </div>
+                                <div class="timeline-item">
+                                    <h6 class="mb-1">Artikel Dipublikasikan</h6>
+                                    <p class="text-muted mb-1 fs-6">Andi menerbitkan artikel "Tren Desain 2024".</p>
+                                    <small class="text-muted"><i class="bi bi-clock me-1"></i> 1 jam lalu</small>
+                                </div>
+                                <div class="timeline-item">
+                                    <h6 class="mb-1">Backup Database</h6>
+                                    <p class="text-muted mb-1 fs-6">Sistem otomatis berhasil melakukan backup data.</p>
+                                    <small class="text-muted"><i class="bi bi-clock me-1"></i> 3 jam lalu</small>
+                                </div>
+                                <div class="timeline-item">
+                                    <h6 class="mb-1">Konfigurasi API Diperbarui</h6>
+                                    <p class="text-muted mb-1 fs-6">Admin memperbarui rate limit API.</p>
+                                    <small class="text-muted"><i class="bi bi-clock me-1"></i> Kemarin</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- ===== FOOTER ===== -->
+        <footer class="text-center py-4 border-top mt-auto" style="background: var(--surface);">
+            <small class="text-muted">&copy; 2024 Japandi Dashboard. Dibuat dengan Bootstrap 5 & Chart.js.</small>
+        </footer>
+    </div>
+</div>
+
+<!-- Back to Top -->
+<button class="back-to-top" id="backToTop"><i class="bi bi-arrow-up"></i></button>
+
+<!-- Scripts -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    // ===== THEME.JS =====
+    const htmlElement = document.documentElement;
+    const themeToggleBtn = document.getElementById('themeToggle');
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    htmlElement.setAttribute('data-bs-theme', savedTheme);
+    updateThemeIcon(savedTheme);
+
+    themeToggleBtn.addEventListener('click', () => {
+        const currentTheme = htmlElement.getAttribute('data-bs-theme');
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        htmlElement.setAttribute('data-bs-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        updateThemeIcon(newTheme);
+        renderCharts(newTheme);
+    });
+
+    function updateThemeIcon(theme) {
+        const icon = themeToggleBtn.querySelector('i');
+        if (theme === 'dark') {
+            icon.classList.replace('bi-moon-stars-fill', 'bi-sun-fill');
+        } else {
+            icon.classList.replace('bi-sun-fill', 'bi-moon-stars-fill');
+        }
+    }
+
+    // ===== SIDEBAR.JS (VANILLA ES6 - FIXED WITH COLLAPSE HANDLE) =====
+    const sidebar = document.getElementById('sidebar');
+    const mainContent = document.getElementById('mainContent');
+    const sidebarToggle = document.getElementById('sidebarToggle');
+
+    sidebarToggle.addEventListener('click', function() {
+        if (window.innerWidth < 992) {
+            // Mobile behavior (Offcanvas toggle)
+            sidebar.classList.toggle('show');
+        } else {
+            // Desktop behavior (Mini sidebar toggle)
+            sidebar.classList.toggle('mini');
+            mainContent.classList.toggle('expanded');
+
+            // Jika sidebar berubah menjadi mini, tutup semua sub-menu bergaya collapse yang sedang terbuka
+            if (sidebar.classList.contains('mini')) {
+                const activeCollapses = sidebar.querySelectorAll('.collapse.show');
+                activeCollapses.forEach(collapse => {
+                    const bsCollapse = bootstrap.Collapse.getInstance(collapse);
+                    if (bsCollapse) {
+                        bsCollapse.hide();
+                    } else {
+                        collapse.classList.remove('show');
+                    }
+                    // Ubah attribute aria-expanded pada tombol pasangannya menjadi false
+                    const toggleBtn = sidebar.querySelector(`[data-bs-target="#${collapse.id}"]`);
+                    if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'false');
+                });
+            }
+        }
+    });
+
+    // Close mobile sidebar when clicking outside
+    document.addEventListener('click', function(e) {
+        if (window.innerWidth < 992) {
+            if (!sidebar.contains(e.target) && !sidebarToggle.contains(e.target)) {
+                sidebar.classList.remove('show');
+            }
+        }
+    });
+
+    // ===== FULLSCREEN.JS =====
+    document.getElementById('fullscreenBtn').addEventListener('click', function() {
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen();
+        } else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            }
+        }
+    });
+
+    // ===== BACK TO TOP =====
+    const backToTop = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 200) backToTop.classList.add('show');
+        else backToTop.classList.remove('show');
+    });
+    backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    // ===== CHART.JS =====
+    let lineChart, doughnutChart, barChart, radarChart;
+
+    function renderCharts(theme) {
+        const isDark = theme === 'dark';
+        const textColor = isDark ? '#A0A0A0' : '#8A8A8A';
+        const gridColor = isDark ? 'rgba(255,255,255,0.05)' : 'rgba(230, 227, 222, 0.6)';
+        
+        if(lineChart) lineChart.destroy();
+        if(doughnutChart) doughnutChart.destroy();
+        if(barChart) barChart.destroy();
+        if(radarChart) radarChart.destroy();
+
+        // Line Chart
+        const lineCtx = document.getElementById('lineChart').getContext('2d');
+        lineChart = new Chart(lineCtx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul'],
+                datasets: [
+                    {
+                        label: 'Visitor',
+                        data: [300, 450, 400, 600, 800, 750, 900],
+                        borderColor: '#5B7F72', backgroundColor: 'rgba(91, 127, 114, 0.1)',
+                        fill: true, tension: 0.4, borderWidth: 3
+                    },
+                    {
+                        label: 'Transaksi',
+                        data: [100, 200, 150, 300, 400, 350, 500],
+                        borderColor: '#D4A65A', backgroundColor: 'rgba(212, 166, 90, 0.1)',
+                        fill: true, tension: 0.4, borderWidth: 3
+                    }
+                ]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                plugins: { legend: { labels: { color: textColor, usePointStyle: true } } },
+                scales: {
+                    y: { beginAtZero: true, grid: { color: gridColor }, ticks: { color: textColor } },
+                    x: { grid: { display: false }, ticks: { color: textColor } }
+                }
+            }
+        });
+
+        // Doughnut Chart
+        const doughnutCtx = document.getElementById('doughnutChart').getContext('2d');
+        doughnutChart = new Chart(doughnutCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Admin', 'Editor', 'User Biasa'],
+                datasets: [{
+                    data: [12, 19, 69],
+                    backgroundColor: ['#5B7F72', '#D4A65A', '#8FA89A'],
+                    borderWidth: 0, hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false, cutout: '70%',
+                plugins: { legend: { position: 'bottom', labels: { color: textColor, padding: 20 } } }
+            }
+        });
+
+        // Bar Chart
+        const barCtx = document.getElementById('barChart').getContext('2d');
+        barChart = new Chart(barCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min'],
+                datasets: [{
+                    label: 'Pendapatan',
+                    data: [120, 190, 150, 200, 250, 180, 220],
+                    backgroundColor: '#7C9BA6', borderRadius: 8, barThickness: 20
+                }]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { beginAtZero: true, grid: { color: gridColor }, ticks: { color: textColor } },
+                    x: { grid: { display: false }, ticks: { color: textColor } }
+                }
+            }
+        });
+
+        // Radar Chart
+        const radarCtx = document.getElementById('radarChart').getContext('2d');
+        radarChart = new Chart(radarCtx, {
+            type: 'radar',
+            data: {
+                labels: ['CPU', 'Memory', 'Network', 'Disk', 'Uptime'],
+                datasets: [{
+                    label: 'Performa',
+                    data: [85, 70, 90, 65, 95],
+                    backgroundColor: 'rgba(125, 162, 126, 0.2)',
+                    borderColor: '#7DA27E', pointBackgroundColor: '#7DA27E',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true, maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    r: { angleLines: { color: gridColor }, grid: { color: gridColor }, 
+                         pointLabels: { color: textColor }, ticks: { display: false } }
+                }
+            }
+        });
+    }
+
+    renderCharts(savedTheme);
+</script>
+</body>
+</html>
