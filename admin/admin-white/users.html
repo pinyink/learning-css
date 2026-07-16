@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users - Veselty Inc.</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .breadcrumb-custom {
+            font-size: 12px;
+            color: var(--text-light);
+            margin-bottom: 4px;
+        }
+        .breadcrumb-custom a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        .breadcrumb-custom a:hover {
+            text-decoration: underline;
+        }
+        .breadcrumb-custom span {
+            color: var(--text-muted);
+        }
+        .users-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        .search-sm {
+            max-width: 260px;
+        }
+        .user-cell {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .user-cell img {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .user-cell .user-name {
+            font-weight: 600;
+            font-size: 13px;
+        }
+        .user-cell .user-email {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+        .table-users {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .table-users th {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: .3px;
+            padding: 10px 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        .table-users td {
+            font-size: 13px;
+            padding: 12px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: middle;
+        }
+        .table-users tr:last-child td {
+            border-bottom: none;
+        }
+        .status-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 6px;
+        }
+        .status-dot.active { background: var(--green); }
+        .status-dot.inactive { background: var(--text-light); }
+        .status-dot.suspended { background: var(--red); }
+        .role-badge {
+            font-size: 11px;
+            font-weight: 500;
+            padding: 3px 10px;
+            border-radius: 6px;
+        }
+        .role-badge.admin {
+            background: var(--accent-light);
+            color: var(--accent);
+        }
+        .role-badge.editor {
+            background: #f3e8ff;
+            color: #7c3aed;
+        }
+        .role-badge.viewer {
+            background: #e6f9ee;
+            color: var(--green);
+        }
+        .action-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            border: none;
+            background: var(--bg-page);
+            color: var(--text-muted);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all .15s;
+            font-size: 14px;
+        }
+        .action-btn:hover {
+            background: var(--accent-light);
+            color: var(--accent);
+        }
+        .pagination-custom {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            justify-content: flex-end;
+            margin-top: 16px;
+        }
+        .pagination-custom .page-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            color: var(--text-muted);
+            font-size: 12px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all .15s;
+        }
+        .pagination-custom .page-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        .pagination-custom .page-btn.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+        }
+        .pagination-custom .page-btn.disabled {
+            opacity: .4;
+            cursor: default;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Sidebar Overlay -->
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+<!-- Sidebar -->
+<aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <div class="sidebar-logo">V</div>
+        <span class="sidebar-brand">Veselty Inc.</span>
+        <span class="sidebar-badge">Free Plan</span>
+    </div>
+    <nav class="sidebar-nav">
+        <div class="nav-label">Main Menu</div>
+        <a class="nav-item" href="index.html"><i class="bi bi-grid-1x2-fill"></i> Dashboard</a>
+        <a class="nav-item" href="#"><i class="bi bi-box-seam"></i> Products</a>
+        <a class="nav-item" href="#"><i class="bi bi-receipt"></i> Order</a>
+        <a class="nav-item active" href="#"><i class="bi bi-people"></i> Customers</a>
+        <a class="nav-item" href="#"><i class="bi bi-chat-dots"></i> Chat <span class="nav-badge">22</span></a>
+
+        <div class="nav-label">Other</div>
+        <a class="nav-item" href="#"><i class="bi bi-envelope"></i> Email</a>
+        <a class="nav-item" href="#"><i class="bi bi-bar-chart-line"></i> Analytics</a>
+        <a class="nav-item" href="#"><i class="bi bi-plug"></i> Integration</a>
+        <a class="nav-item" href="#"><i class="bi bi-speedometer2"></i> Performance</a>
+
+        <div class="nav-label">Account</div>
+        <a class="nav-item" href="profile.html"><i class="bi bi-person-gear"></i> Account</a>
+        <a class="nav-item" href="users.html"><i class="bi bi-people-fill"></i> Users</a>
+    </nav>
+    <div class="sidebar-footer">
+        <a class="nav-item" href="#"><i class="bi bi-gear"></i> Settings</a>
+        <a class="nav-item" href="#"><i class="bi bi-question-circle"></i> Feedback</a>
+        <div class="sidebar-user">
+            <img src="https://i.pravatar.cc/64?img=47" alt="avatar">
+            <div class="sidebar-user-info">
+                <div class="sidebar-user-name">Jevline Kief</div>
+                <div class="sidebar-user-role">Admin</div>
+            </div>
+            <i class="bi bi-box-arrow-right" style="color:var(--text-light);font-size:16px;"></i>
+        </div>
+    </div>
+</aside>
+
+<!-- Main Content -->
+<div class="main">
+    <!-- Topbar -->
+    <div class="topbar">
+        <button class="sidebar-toggle" onclick="toggleSidebar()"><i class="bi bi-list"></i></button>
+        <div class="search-box">
+            <i class="bi bi-search"></i>
+            <input type="text" placeholder="Search anything here...">
+        </div>
+        <div class="topbar-right">
+            <div class="topbar-icon-btn" onclick="toggleDropdown(event, 'inboxDropdown')" title="Inbox">
+                <i class="bi bi-envelope"></i>
+                <span class="icon-badge">3</span>
+                <div class="dropdown-panel" id="inboxDropdown" onclick="event.stopPropagation()">
+                    <div class="dropdown-panel-header">
+                        <strong><i class="bi bi-envelope me-1"></i>Inbox</strong>
+                        <a href="#">Mark all as read</a>
+                    </div>
+                    <div class="dropdown-panel-body">
+                        <div class="dropdown-item unread">
+                            <img src="https://i.pravatar.cc/64?img=1" alt="">
+                            <div class="dropdown-item-content">
+                                <div class="dropdown-item-title">Alice Johnson</div>
+                                <div class="dropdown-item-text">Hey, can you review the latest campaign mockups? Need feedback ASAP.</div>
+                            </div>
+                            <span class="dropdown-item-time">5m</span>
+                        </div>
+                        <div class="dropdown-item unread">
+                            <img src="https://i.pravatar.cc/64?img=5" alt="">
+                            <div class="dropdown-item-content">
+                                <div class="dropdown-item-title">Mike Chen</div>
+                                <div class="dropdown-item-text">Q3 sales report attached. Numbers look promising!</div>
+                            </div>
+                            <span class="dropdown-item-time">12m</span>
+                        </div>
+                        <div class="dropdown-item unread">
+                            <img src="https://i.pravatar.cc/64?img=12" alt="">
+                            <div class="dropdown-item-content">
+                                <div class="dropdown-item-title">Sarah Park</div>
+                                <div class="dropdown-item-text">Meeting rescheduled to 3 PM tomorrow. Let me know if that works.</div>
+                            </div>
+                            <span class="dropdown-item-time">28m</span>
+                        </div>
+                        <div class="dropdown-item">
+                            <img src="https://i.pravatar.cc/64?img=20" alt="">
+                            <div class="dropdown-item-content">
+                                <div class="dropdown-item-title">David Rivera</div>
+                                <div class="dropdown-item-text">New vendor contracts need your signature by Friday.</div>
+                            </div>
+                            <span class="dropdown-item-time">1h</span>
+                        </div>
+                        <div class="dropdown-item">
+                            <img src="https://i.pravatar.cc/64?img=33" alt="">
+                            <div class="dropdown-item-content">
+                                <div class="dropdown-item-title">Emma Wilson</div>
+                                <div class="dropdown-item-text">Thanks for the update! Will share with the team.</div>
+                            </div>
+                            <span class="dropdown-item-time">2h</span>
+                        </div>
+                    </div>
+                    <div class="dropdown-item-footer">
+                        <a href="#">View all messages <i class="bi bi-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="topbar-icon-btn" onclick="toggleDropdown(event, 'notifDropdown')" title="Notifications">
+                <i class="bi bi-bell"></i>
+                <span class="icon-badge">5</span>
+                <div class="dropdown-panel" id="notifDropdown" onclick="event.stopPropagation()">
+                    <div class="dropdown-panel-header">
+                        <strong><i class="bi bi-bell me-1"></i>Notifications</strong>
+                        <a href="#">Mark all as read</a>
+                    </div>
+                    <div class="dropdown-panel-body">
+                        <div class="dropdown-item unread">
+                            <div class="dropdown-item-icon" style="background:#e6f9ee;color:var(--green);"><i class="bi bi-check-circle"></i></div>
+                            <div class="dropdown-item-content">
+                                <div class="dropdown-item-title">Order completed</div>
+                                <div class="dropdown-item-text">Order #10234 has been delivered successfully.</div>
+                            </div>
+                            <span class="dropdown-item-time">2m</span>
+                        </div>
+                        <div class="dropdown-item unread">
+                            <div class="dropdown-item-icon" style="background:var(--accent-light);color:var(--accent);"><i class="bi bi-person-plus"></i></div>
+                            <div class="dropdown-item-content">
+                                <div class="dropdown-item-title">New customer</div>
+                                <div class="dropdown-item-text">Thomas Baker created an account.</div>
+                            </div>
+                            <span class="dropdown-item-time">8m</span>
+                        </div>
+                        <div class="dropdown-item unread">
+                            <div class="dropdown-item-icon" style="background:#fde8ea;color:var(--red);"><i class="bi bi-exclamation-triangle"></i></div>
+                            <div class="dropdown-item-content">
+                                <div class="dropdown-item-title">Low stock alert</div>
+                                <div class="dropdown-item-text">Wireless Buds only 12 units left in warehouse.</div>
+                            </div>
+                            <span class="dropdown-item-time">15m</span>
+                        </div>
+                        <div class="dropdown-item">
+                            <div class="dropdown-item-icon" style="background:#f3e8ff;color:#7c3aed;"><i class="bi bi-star"></i></div>
+                            <div class="dropdown-item-content">
+                                <div class="dropdown-item-title">New review</div>
+                                <div class="dropdown-item-text">★★★★★ — "Amazing quality, highly recommend!"</div>
+                            </div>
+                            <span class="dropdown-item-time">1h</span>
+                        </div>
+                        <div class="dropdown-item">
+                            <div class="dropdown-item-icon" style="background:#fff3cd;color:#e6a817;"><i class="bi bi-gear"></i></div>
+                            <div class="dropdown-item-content">
+                                <div class="dropdown-item-title">System update</div>
+                                <div class="dropdown-item-text">Scheduled maintenance tonight at 2 AM. Expect 10min downtime.</div>
+                            </div>
+                            <span class="dropdown-item-time">3h</span>
+                        </div>
+                    </div>
+                    <div class="dropdown-item-footer">
+                        <a href="#">View all notifications <i class="bi bi-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="topbar-profile" onclick="toggleProfileDropdown(event)">
+                <img src="https://i.pravatar.cc/64?img=47" alt="profile">
+                <div class="topbar-profile-name d-none d-sm-block">
+                    Jevline Kief
+                    <small>Admin</small>
+                </div>
+                <i class="bi bi-chevron-down d-none d-sm-block"></i>
+                <div class="profile-dropdown" id="profileDropdown">
+                    <a href="profile.html"><i class="bi bi-person"></i> Profile</a>
+                    <a href="#"><i class="bi bi-gear"></i> Settings</a>
+                    <hr>
+                    <a href="#" class="text-red"><i class="bi bi-box-arrow-right"></i> Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+        <div class="d-flex flex-wrap align-items-start justify-content-between gap-2 mb-3">
+            <div>
+                <h1 class="page-title mb-0">Users</h1>
+                <p class="page-subtitle mb-0">Manage all registered users and their permissions</p>
+            </div>
+            <div class="breadcrumb-custom">
+                <a href="index.html">Dashboard</a> / <a href="#">Account</a> / <span>Users</span>
+            </div>
+        </div>
+
+        <div class="dash-card">
+            <div class="users-toolbar">
+                <div class="d-flex align-items-center gap-2">
+                    <div class="search-box search-sm">
+                        <i class="bi bi-search"></i>
+                        <input type="text" placeholder="Search users...">
+                    </div>
+                    <select class="time-select">
+                        <option>All Roles</option>
+                        <option>Admin</option>
+                        <option>Editor</option>
+                        <option>Viewer</option>
+                    </select>
+                    <select class="time-select">
+                        <option>All Status</option>
+                        <option>Active</option>
+                        <option>Inactive</option>
+                        <option>Suspended</option>
+                    </select>
+                </div>
+                <button class="btn btn-sm btn-primary" style="border-radius:8px;font-size:12px;"><i class="bi bi-plus-lg"></i> Add User</button>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table-users">
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th>Created</th>
+                            <th style="text-align:right;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="user-cell">
+                                    <img src="https://i.pravatar.cc/64?img=1" alt="">
+                                    <div>
+                                        <div class="user-name">Alice Johnson</div>
+                                        <div class="user-email">alice@veselty.com</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><span class="role-badge admin">Admin</span></td>
+                            <td><span class="status-dot active"></span>Active</td>
+                            <td>Jan 12, 2024</td>
+                            <td style="text-align:right;">
+                                <button class="action-btn" title="Edit"><i class="bi bi-pencil"></i></button>
+                                <button class="action-btn" title="Delete"><i class="bi bi-trash"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="user-cell">
+                                    <img src="https://i.pravatar.cc/64?img=5" alt="">
+                                    <div>
+                                        <div class="user-name">Mike Chen</div>
+                                        <div class="user-email">mike@veselty.com</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><span class="role-badge editor">Editor</span></td>
+                            <td><span class="status-dot active"></span>Active</td>
+                            <td>Feb 3, 2024</td>
+                            <td style="text-align:right;">
+                                <button class="action-btn" title="Edit"><i class="bi bi-pencil"></i></button>
+                                <button class="action-btn" title="Delete"><i class="bi bi-trash"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="user-cell">
+                                    <img src="https://i.pravatar.cc/64?img=12" alt="">
+                                    <div>
+                                        <div class="user-name">Sarah Park</div>
+                                        <div class="user-email">sarah@veselty.com</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><span class="role-badge editor">Editor</span></td>
+                            <td><span class="status-dot active"></span>Active</td>
+                            <td>Mar 8, 2024</td>
+                            <td style="text-align:right;">
+                                <button class="action-btn" title="Edit"><i class="bi bi-pencil"></i></button>
+                                <button class="action-btn" title="Delete"><i class="bi bi-trash"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="user-cell">
+                                    <img src="https://i.pravatar.cc/64?img=20" alt="">
+                                    <div>
+                                        <div class="user-name">David Rivera</div>
+                                        <div class="user-email">david@veselty.com</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><span class="role-badge admin">Admin</span></td>
+                            <td><span class="status-dot active"></span>Active</td>
+                            <td>Apr 15, 2024</td>
+                            <td style="text-align:right;">
+                                <button class="action-btn" title="Edit"><i class="bi bi-pencil"></i></button>
+                                <button class="action-btn" title="Delete"><i class="bi bi-trash"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="user-cell">
+                                    <img src="https://i.pravatar.cc/64?img=33" alt="">
+                                    <div>
+                                        <div class="user-name">Emma Wilson</div>
+                                        <div class="user-email">emma@veselty.com</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><span class="role-badge viewer">Viewer</span></td>
+                            <td><span class="status-dot inactive"></span>Inactive</td>
+                            <td>May 22, 2024</td>
+                            <td style="text-align:right;">
+                                <button class="action-btn" title="Edit"><i class="bi bi-pencil"></i></button>
+                                <button class="action-btn" title="Delete"><i class="bi bi-trash"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="user-cell">
+                                    <img src="https://i.pravatar.cc/64?img=47" alt="">
+                                    <div>
+                                        <div class="user-name">Jevline Kief</div>
+                                        <div class="user-email">jevline@veselty.com</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><span class="role-badge admin">Admin</span></td>
+                            <td><span class="status-dot active"></span>Active</td>
+                            <td>Jun 5, 2024</td>
+                            <td style="text-align:right;">
+                                <button class="action-btn" title="Edit"><i class="bi bi-pencil"></i></button>
+                                <button class="action-btn" title="Delete"><i class="bi bi-trash"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="user-cell">
+                                    <img src="https://i.pravatar.cc/64?img=57" alt="">
+                                    <div>
+                                        <div class="user-name">Thomas Baker</div>
+                                        <div class="user-email">thomas@veselty.com</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><span class="role-badge viewer">Viewer</span></td>
+                            <td><span class="status-dot active"></span>Active</td>
+                            <td>Jul 2, 2024</td>
+                            <td style="text-align:right;">
+                                <button class="action-btn" title="Edit"><i class="bi bi-pencil"></i></button>
+                                <button class="action-btn" title="Delete"><i class="bi bi-trash"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="user-cell">
+                                    <img src="https://i.pravatar.cc/64?img=60" alt="">
+                                    <div>
+                                        <div class="user-name">Linda Grey</div>
+                                        <div class="user-email">linda@veselty.com</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><span class="role-badge editor">Editor</span></td>
+                            <td><span class="status-dot suspended"></span>Suspended</td>
+                            <td>Aug 18, 2024</td>
+                            <td style="text-align:right;">
+                                <button class="action-btn" title="Edit"><i class="bi bi-pencil"></i></button>
+                                <button class="action-btn" title="Delete"><i class="bi bi-trash"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="pagination-custom">
+                <button class="page-btn disabled"><i class="bi bi-chevron-left"></i></button>
+                <button class="page-btn active">1</button>
+                <button class="page-btn">2</button>
+                <button class="page-btn">3</button>
+                <button class="page-btn">4</button>
+                <button class="page-btn"><i class="bi bi-chevron-right"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
