@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detail Produk — ScandiHaven</title>
+  <meta name="description" content="Lihat detail produk furniture premium ScandiHaven.">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    :root {
+      --primary: #8B5E3C;
+      --primary-dark: #6B4528;
+      --secondary: #F5F1EB;
+      --accent: #D4A373;
+      --accent-light: #E8D5B7;
+      --dark: #2C2C2C;
+      --dark-light: #4A4A4A;
+      --gray: #888;
+      --gray-light: #E5E5E5;
+      --white: #FFF;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,.06);
+      --shadow-md: 0 8px 30px rgba(0,0,0,.1);
+      --shadow-lg: 0 16px 48px rgba(0,0,0,.12);
+      --radius: 12px;
+      --radius-lg: 20px;
+      --transition: .3s ease;
+    }
+    .detail-gallery .main-img { width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:var(--radius); background:var(--secondary); }
+    .detail-gallery .thumb-img { width:72px;height:72px;object-fit:cover;border-radius:8px;cursor:pointer;border:2px solid transparent;transition:var(--transition);opacity:.7; }
+    .detail-gallery .thumb-img:hover,.detail-gallery .thumb-img.active { border-color:var(--primary);opacity:1; }
+    .detail-info h1 { font-size:1.8rem;font-weight:700; }
+    .detail-info .price-main { font-size:1.6rem;font-weight:700;color:var(--primary); }
+    .detail-info .price-original { font-size:1rem;color:var(--gray);text-decoration:line-through; }
+    .badge-stok.ready { background:#27AE60;color:#fff; }
+    .badge-stok.low { background:#F39C12;color:#fff; }
+    .detail-info .spec-list { list-style:none;padding:0; }
+    .detail-info .spec-list li { padding:8px 0;border-bottom:1px solid var(--gray-light);display:flex;gap:8px; }
+    .detail-info .spec-list li:last-child { border-bottom:none; }
+    .detail-info .spec-list .label { font-weight:600;min-width:120px;color:var(--dark-light); }
+    .qty-input { width:60px;text-align:center;border:1.5px solid var(--gray-light);border-radius:8px;padding:6px; }
+    .btn-qty { width:36px;height:36px;border-radius:50%;border:1.5px solid var(--gray-light);background:var(--white);transition:var(--transition); }
+    .btn-qty:hover { border-color:var(--primary);color:var(--primary); }
+    .btn-add-to-cart { background:var(--primary);color:var(--white);border:none;padding:14px 40px;border-radius:50px;font-weight:600;transition:var(--transition); }
+    .btn-add-to-cart:hover { background:var(--primary-dark);transform:translateY(-2px);box-shadow:var(--shadow-md); }
+    .btn-wishlist-detail { width:48px;height:48px;border-radius:50%;border:1.5px solid var(--gray-light);background:var(--white);transition:var(--transition); }
+    .btn-wishlist-detail:hover { border-color:#E74C3C;color:#E74C3C; }
+    .desc-section { background:var(--white);border-radius:var(--radius);padding:32px;box-shadow:var(--shadow-sm); }
+    .desc-section h3 { font-size:1.2rem;font-weight:700;margin-bottom:16px; }
+    .desc-section p { color:var(--dark-light);line-height:1.8; }
+    @media (max-width:767.98px) { .detail-info h1 { font-size:1.4rem; } .detail-info .price-main { font-size:1.3rem; } }
+  </style>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-scandi">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">Scandi<span>Haven</span></a>
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarDetail">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarDetail">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Beranda</a></li>
+          <li class="nav-item"><a class="nav-link active" href="index.html">Koleksi</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Tentang</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Kontak</a></li>
+        </ul>
+        <div class="d-flex align-items-center gap-3">
+          <a href="#" class="icon-link"><i class="fa-regular fa-heart"></i></a>
+          <a href="#" class="icon-link"><i class="fa-regular fa-cart-shopping"></i><span class="cart-badge">3</span></a>
+          <a href="#" class="btn btn-sm btn-outline-primary rounded-pill px-3 fw-semibold" style="border-color:var(--primary);color:var(--primary)"><i class="fa-regular fa-user me-1"></i>Masuk</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- BREADCRUMB -->
+  <div class="container py-3">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb mb-0 small">
+        <li class="breadcrumb-item"><a href="index.html" class="text-muted">Beranda</a></li>
+        <li class="breadcrumb-item"><a href="index.html" class="text-muted">Koleksi</a></li>
+        <li class="breadcrumb-item active" aria-current="page" id="breadcrumbProduct">Produk</li>
+      </ol>
+    </nav>
+  </div>
+
+  <!-- DETAIL CONTENT -->
+  <section class="pb-5">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-6">
+          <div class="detail-gallery">
+            <img src="" alt="" class="main-img mb-3" id="mainImage">
+            <div class="d-flex gap-2" id="thumbList"></div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="detail-info">
+            <p class="card-category mb-1" id="productCategory">Kursi</p>
+            <h1 id="productName">Nama Produk</h1>
+            <div class="card-rating mb-2" id="productRating"><span id="ratingCount">(0)</span></div>
+            <div class="d-flex align-items-center gap-3 mb-3">
+              <span class="price-main" id="productPrice">Rp 0</span>
+              <span class="price-original" id="productOriginal"></span>
+              <span class="badge badge-stok ready" id="stockBadge">Stok Tersedia</span>
+            </div>
+            <p class="text-muted mb-4" id="productShortDesc">Deskripsi singkat.</p>
+            <h6 class="fw-bold mb-2">Spesifikasi</h6>
+            <ul class="spec-list mb-4" id="specList">
+              <li><span class="label">Material</span><span id="specMaterial">Kayu Jati</span></li>
+              <li><span class="label">Dimensi</span><span id="specDimensi">50 x 50 x 80 cm</span></li>
+              <li><span class="label">Berat</span><span id="specBerat">12 kg</span></li>
+              <li><span class="label">Warna</span><span id="specWarna">Cokelat Natural</span></li>
+              <li><span class="label">Garansi</span><span id="specGaransi">2 Tahun</span></li>
+            </ul>
+            <div class="d-flex align-items-center gap-3 mb-4">
+              <div class="d-flex align-items-center gap-2">
+                <button class="btn-qty" id="qtyMinus"><i class="fa-regular fa-minus"></i></button>
+                <input type="number" class="qty-input" id="qtyInput" value="1" min="1" max="99">
+                <button class="btn-qty" id="qtyPlus"><i class="fa-regular fa-plus"></i></button>
+              </div>
+              <button class="btn-add-to-cart"><i class="fa-regular fa-cart-shopping me-2"></i>Tambah ke Keranjang</button>
+              <button class="btn-wishlist-detail"><i class="fa-regular fa-heart"></i></button>
+            </div>
+            <div class="d-flex gap-2">
+              <a href="https://wa.me/6281234567890?text=Halo%20ScandiHaven" target="_blank" class="btn btn-success rounded-pill px-4"><i class="fa-brands fa-whatsapp me-1"></i>Chat WhatsApp</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="desc-section mt-5">
+        <h3>Deskripsi Produk</h3>
+        <p id="productDesc">Deskripsi lengkap produk.</p>
+      </div>
+      <div class="mt-4"><a href="index.html" class="text-muted small"><i class="fa-regular fa-arrow-left me-1"></i>Kembali ke Koleksi</a></div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer-scandi">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-6 text-center text-md-start mb-3 mb-md-0"><p class="mb-0 small">&copy; 2026 ScandiHaven. All rights reserved.</p></div>
+        <div class="col-md-6 text-center text-md-end">
+          <a href="https://wa.me/6281234567890" target="_blank" class="social-link" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+          <a href="https://instagram.com/scandihaven" target="_blank" class="social-link" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="mailto:hello@scandihaven.com" class="social-link" aria-label="Email"><i class="fa-regular fa-envelope"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // ── Product Database ──
+    var products = {
+      1:{name:'Kursi Kayu Jati Minimalis',category:'Kursi',price:2450000,original:3200000,rating:4.5,ratingCount:47,stock:'ready',shortDesc:'Kursi kayu jati solid dengan desain minimalis Skandinavia.',desc:'Dibuat dari kayu jati pilihan dengan tangan-tangan terampil pengrajin Jepara. Finishing natural mengikuti tekstur kayu asli, memberikan nuansa hangat dan elegan. Desain ergonomis dengan sandaran yang nyaman.',material:'Kayu Jati Solid',dimensi:'55 x 50 x 85 cm',berat:'14 kg',warna:'Cokelat Natural',garansi:'2 Tahun',image:'https://images.unsplash.com/photo-1592078615290-033ee584e267?w=800&q=80',thumbs:['https://images.unsplash.com/photo-1592078615290-033ee584e267?w=400&q=80','https://images.unsplash.com/photo-1506439773649-6e0eb8cfb237?w=400&q=80','https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&q=80']},
+      2:{name:'Meja Makan Ekstra Panjang',category:'Meja',price:4800000,original:6850000,rating:4,ratingCount:32,stock:'ready',shortDesc:'Meja makan panjang dari kayu mahoni dengan finishing premium.',desc:'Meja makan ekstra panjang dari kayu mahoni berkualitas tinggi. Desain minimalis dengan kaki kokoh. Finishing doff tahan gores dan noda. Cocok untuk keluarga besar.',material:'Kayu Mahoni',dimensi:'200 x 90 x 75 cm',berat:'45 kg',warna:'Dark Walnut',garansi:'3 Tahun',image:'https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc?w=800&q=80',thumbs:['https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc?w=400&q=80','https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=400&q=80','https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&q=80']},
+      3:{name:'Rak Dinding Skandinavia 3 Susun',category:'Rak & Lemari',price:1850000,original:null,rating:5,ratingCount:18,stock:'ready',shortDesc:'Rak dinding floating 3 susun dengan desain Skandinavia.',desc:'Rak dinding floating dengan konsep Skandinavia yang clean dan fungsional. Terbuat dari multiplek premium dengan finishing HPL. Kapasitas cukup untuk buku, pajangan, atau tanaman hias.',material:'Multiplek HPL',dimensi:'120 x 25 x 20 cm (per susun)',berat:'8 kg',warna:'Putih Oak',garansi:'1 Tahun',image:'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&q=80',thumbs:['https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&q=80','https://images.unsplash.com/photo-1586105251261-72a756497a11?w=400&q=80','https://images.unsplash.com/photo-1594026112284-02bb6f3352fe?w=400&q=80']},
+      4:{name:'Lampu Gantung Rotan Handmade',category:'Lampu',price:890000,original:null,rating:4,ratingCount:24,stock:'ready',shortDesc:'Lampu gantung rotan anyaman tangan.',desc:'Lampu gantung dari rotan asli yang dianyam secara handmade. Setiap produk memiliki motif anyaman yang unik. Menggunakan fitting E27 standar.',material:'Rotan Asli',dimensi:'Diamater 40 cm, Tinggi 50 cm',berat:'1.5 kg',warna:'Natural Rotan',garansi:'1 Tahun',image:'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80',thumbs:['https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80','https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?w=400&q=80','https://images.unsplash.com/photo-1517991104123-1d56a6e81ed9?w=400&q=80']},
+      5:{name:'Sofa Linen 3 Seater Premium',category:'Kursi',price:7200000,original:8470000,rating:5,ratingCount:56,stock:'ready',shortDesc:'Sofa 3 seater linen premium dengan busa high density.',desc:'Sofa 3 seater dengan bahan linen premium import. Busa high-density yang tidak mudah kempes. Rangka kayu jati solid. Kaki stainless steel. Sarung dapat dilepas untuk dicuci.',material:'Linen Premium + Kayu Jati',dimensi:'210 x 85 x 80 cm',berat:'55 kg',warna:'Beige Linen',garansi:'3 Tahun',image:'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=800&q=80',thumbs:['https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=400&q=80','https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&q=80','https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=400&q=80']},
+      6:{name:'Nakas Kayu Mahoni 2 Laci',category:'Rak & Lemari',price:1650000,original:null,rating:4,ratingCount:12,stock:'ready',shortDesc:'Nakas minimalis 2 laci dari kayu mahoni.',desc:'Nakas dari kayu mahoni solid dengan 2 laci yang dilengkapi silent runner. Finishing melamin doff. Desain compact dan fungsional.',material:'Kayu Mahoni',dimensi:'45 x 40 x 55 cm',berat:'10 kg',warna:'Cokelat Moka',garansi:'2 Tahun',image:'https://images.unsplash.com/photo-1544457070-4cd773b4d71e?w=800&q=80',thumbs:['https://images.unsplash.com/photo-1544457070-4cd773b4d71e?w=400&q=80','https://images.unsplash.com/photo-1506439773649-6e0eb8cfb237?w=400&q=80','https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&q=80']},
+      7:{name:'Meja Kopi Japandi Oval',category:'Meja',price:3150000,original:null,rating:5,ratingCount:89,stock:'ready',shortDesc:'Meja kopi oval dengan desain Japandi.',desc:'Meja kopi dengan desain Japandi perpaduan estetika Jepang dan Skandinavia. Bentuk oval elegan. Material kayu oak solid. Finishing natural.',material:'Kayu Oak Solid',dimensi:'120 x 60 x 40 cm',berat:'18 kg',warna:'Natural Oak',garansi:'2 Tahun',image:'https://images.unsplash.com/photo-1523371054106-bbf80586c38c?w=800&q=80',thumbs:['https://images.unsplash.com/photo-1523371054106-bbf80586c38c?w=400&q=80','https://images.unsplash.com/photo-1532372576444-dda954194ad0?w=400&q=80','https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&q=80']},
+      8:{name:'Kursi Santai Rotan Natural',category:'Kursi',price:2100000,original:null,rating:4,ratingCount:9,stock:'low',shortDesc:'Kursi santai rotan natural dengan bantal duduk empuk.',desc:'Kursi santai dari rotan asli dengan anyaman tangan. Dilengkapi bantal duduk busa tebal berbahan kanvas premium. Cocok untuk teras atau balkon.',material:'Rotan Asli + Kanvas',dimensi:'70 x 65 x 90 cm',berat:'6 kg',warna:'Natural + Putih',garansi:'1 Tahun',image:'https://images.unsplash.com/photo-1615571022219-eb45cf7faa36?w=800&q=80',thumbs:['https://images.unsplash.com/photo-1615571022219-eb45cf7faa36?w=400&q=80','https://images.unsplash.com/photo-1506439773649-6e0eb8cfb237?w=400&q=80','https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&q=80']},
+      9:{name:'Tempat Tidur Minimalis Queen Size',category:'Tempat Tidur',price:5600000,original:null,rating:4,ratingCount:41,stock:'ready',shortDesc:'Tempat tidur queen size minimalis dengan headboard berpanel.',desc:'Tempat tidur queen size dengan desain minimalis modern. Headboard berpanel dengan finishing cat doff. Rangka kayu jati solid. Slat kayu untuk support kasur.',material:'Kayu Jati + Cat Doff',dimensi:'160 x 200 x 110 cm',berat:'65 kg',warna:'Putih Dove',garansi:'3 Tahun',image:'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&q=80',thumbs:['https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&q=80','https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=400&q=80','https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&q=80']},
+      10:{name:'Vas Keramik Jepangis Set 3',category:'Dekorasi',price:750000,original:940000,rating:4.5,ratingCount:22,stock:'ready',shortDesc:'Set vas keramik 3 ukuran dengan glasir matte.',desc:'Set vas keramik handmade dengan glasir matte berkualitas. Tiga ukuran berbeda yang bisa dikombinasikan. Desain terinspirasi estetika Jepang.',material:'Keramik Glasir Matte',dimensi:'Tinggi 15/25/35 cm',berat:'2.5 kg (set)',warna:'Off White',garansi:'Tidak ada garansi',image:'https://images.unsplash.com/photo-1594026112284-02bb6f3352fe?w=800&q=80',thumbs:['https://images.unsplash.com/photo-1594026112284-02bb6f3352fe?w=400&q=80','https://images.unsplash.com/photo-1586105251261-72a756497a11?w=400&q=80','https://images.unsplash.com/photo-1544457070-4cd773b4d71e?w=400&q=80']},
+      11:{name:'Meja Belajar Lipat Multifungsi',category:'Meja',price:1200000,original:null,rating:4,ratingCount:15,stock:'ready',shortDesc:'Meja belajar lipat yang bisa disesuaikan ketinggiannya.',desc:'Meja belajar dengan desain lipat inovatif. Ketinggian bisa diatur. Rangka metal kokoh. Meja kayu MDF premium. Cocok untuk WFH atau belajar.',material:'MDF + Metal',dimensi:'80 x 50 x 65-85 cm (adjustable)',berat:'9 kg',warna:'Putih + Natural',garansi:'2 Tahun',image:'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80',thumbs:['https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&q=80','https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=400&q=80','https://images.unsplash.com/photo-1532372576444-dda954194ad0?w=400&q=80']},
+      12:{name:'Rak Buku Minimalis Floating',category:'Rak & Lemari',price:1450000,original:null,rating:5,ratingCount:33,stock:'ready',shortDesc:'Rak buku floating minimalis bentuk geometris.',desc:'Rak buku floating dengan desain geometris modern. Terbuat dari kayu lapis premium finishing cat doff. Bisa dipasang vertikal atau horizontal.',material:'Kayu Lapis Premium',dimensi:'60 x 20 x 20 cm (per modul)',berat:'3 kg per modul',warna:'Hitam Doff',garansi:'1 Tahun',image:'https://images.unsplash.com/photo-1581539250439-c96689b516dd?w=800&q=80',thumbs:['https://images.unsplash.com/photo-1581539250439-c96689b516dd?w=400&q=80','https://images.unsplash.com/photo-1506439773649-6e0eb8cfb237?w=400&q=80','https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&q=80']}
+    };
+    document.addEventListener('DOMContentLoaded', function() {
+      var params = new URLSearchParams(window.location.search);
+      var id = params.get('id') || '1';
+      var p = products[id];
+      if (!p) { document.querySelector('.detail-info').innerHTML = '<div class="alert alert-warning">Produk tidak ditemukan.</div>'; return; }
+      document.getElementById('breadcrumbProduct').textContent = p.name;
+      document.getElementById('mainImage').src = p.image; document.getElementById('mainImage').alt = p.name;
+      var th = ''; p.thumbs.forEach(function(t,i) { th += '<img src="' + t + '" alt="T' + (i+1) + '" class="thumb-img' + (i===0?' active':'') + '" onclick="setMain(this,\'' + t + '\')">'; });
+      document.getElementById('thumbList').innerHTML = th;
+      document.getElementById('productCategory').textContent = p.category;
+      document.getElementById('productName').textContent = p.name;
+      var f = Math.floor(p.rating), h = p.rating - f >= .5, e = 5 - f - (h?1:0), rh = '';
+      for (var i=0;i<f;i++) rh += '<i class="fa-solid fa-star"></i>';
+      if (h) rh += '<i class="fa-solid fa-star-half-stroke"></i>';
+      for (var i=0;i<e;i++) rh += '<i class="fa-regular fa-star"></i>';
+      rh += ' <span>(' + p.ratingCount + ')</span>';
+      document.getElementById('productRating').innerHTML = rh;
+      document.getElementById('productPrice').textContent = 'Rp ' + p.price.toLocaleString('id-ID');
+      if (p.original) document.getElementById('productOriginal').textContent = 'Rp ' + p.original.toLocaleString('id-ID');
+      var badge = document.getElementById('stockBadge');
+      if (p.stock === 'low') { badge.className = 'badge badge-stok low'; badge.textContent = 'Stok Terbatas'; }
+      else { badge.className = 'badge badge-stok ready'; badge.textContent = 'Stok Tersedia'; }
+      document.getElementById('productShortDesc').textContent = p.shortDesc;
+      document.getElementById('productDesc').textContent = p.desc;
+      document.getElementById('specMaterial').textContent = p.material;
+      document.getElementById('specDimensi').textContent = p.dimensi;
+      document.getElementById('specBerat').textContent = p.berat;
+      document.getElementById('specWarna').textContent = p.warna;
+      document.getElementById('specGaransi').textContent = p.garansi;
+      var wa = document.querySelector('[href*="wa.me"]');
+      if (wa) wa.href = 'https://wa.me/6281234567890?text=Halo%20ScandiHaven%2C%20saya%20tertarik%20dengan%20produk%20' + encodeURIComponent(p.name) + '%20(Rp%20' + p.price.toLocaleString('id-ID') + ')';
+      var qi = document.getElementById('qtyInput');
+      document.getElementById('qtyMinus').addEventListener('click', function() { var v = parseInt(qi.value)||1; if(v>1) qi.value=v-1; });
+      document.getElementById('qtyPlus').addEventListener('click', function() { var v = parseInt(qi.value)||1; if(v<99) qi.value=v+1; });
+      qi.addEventListener('change', function() { var v=parseInt(this.value)||1; if(v<1) this.value=1; if(v>99) this.value=99; });
+    });
+    function setMain(el,src) { document.getElementById('mainImage').src=src; document.querySelectorAll('.thumb-img').forEach(function(t){t.classList.remove('active');}); el.classList.add('active'); }
+  </script>
+</body>
+</html>

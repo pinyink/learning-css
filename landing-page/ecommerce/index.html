@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ScandiHaven — Furniture Premium Jepangis & Skandinavia</title>
+  <meta name="description" content="Temukan koleksi furniture premium Jepangis dan Skandinavia terbaik. Belanja online furnitur berkualitas dengan harga terbaik.">
+  <meta name="keywords" content="furniture premium, jepangis, skandinavia, mebel, kursi, meja, rak">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://scandihaven.com/">
+
+  <!-- Bootstrap 5 CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Google Fonts: Poppins & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ===== SECTION: NAVBAR ===== -->
+  <nav class="navbar navbar-expand-lg navbar-scandi">
+    <div class="container">
+      <a class="navbar-brand" href="#">Scandi<span>Haven</span></a>
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarMain">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item"><a class="nav-link active" href="index.html">Beranda</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html">Koleksi</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Tentang</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Kontak</a></li>
+        </ul>
+        <div class="d-flex align-items-center gap-3">
+          <a href="#" class="icon-link"><i class="fa-regular fa-heart"></i></a>
+          <a href="#" class="icon-link">
+            <i class="fa-regular fa-cart-shopping"></i>
+            <span class="cart-badge">3</span>
+          </a>
+          <a href="#" class="btn btn-sm btn-outline-primary rounded-pill px-3 fw-semibold" style="border-color:var(--primary);color:var(--primary)">
+            <i class="fa-regular fa-user me-1"></i>Masuk
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== SECTION: HERO ===== -->
+  <section class="hero-section">
+    <div class="hero-overlay"></div>
+    <div class="container hero-content">
+      <div class="row align-items-center">
+        <div class="col-lg-7">
+          <h1>Furnitur Premium<br><span>Jepangis & Skandinavia</span></h1>
+          <p>Hadirkan kehangatan dan estetika minimalis ke setiap sudut rumah Anda. Koleksi terbatas, kualitas tanpa kompromi.</p>
+          <div class="hero-stats">
+            <div class="hero-stat">
+              <h3>1000+</h3>
+              <p>Pelanggan</p>
+            </div>
+            <div class="hero-stat">
+              <h3>5000+</h3>
+              <p>Produk</p>
+            </div>
+            <div class="hero-stat">
+              <h3>10+</h3>
+              <p>Tahun</p>
+            </div>
+          </div>
+          <div class="hero-cta mt-4 d-flex flex-wrap gap-2">
+            <a href="#" class="btn btn-primary"><i class="fa-regular fa-store me-2"></i>Belanja Sekarang</a>
+            <a href="#" class="btn btn-outline-light"><i class="fa-regular fa-circle-play me-2"></i>Lihat Katalog</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION: PRODUCTS ===== -->
+  <section class="py-5">
+    <div class="container">
+      <!-- Header + Sort -->
+      <div class="section-header d-flex flex-wrap justify-content-between align-items-center mb-4">
+        <div>
+          <h2>Koleksi <span>Pilihan</span></h2>
+          <p class="mb-0">Temukan furnitur impian Anda dari koleksi kurasi kami.</p>
+        </div>
+        <div class="d-flex align-items-center gap-2 mt-3 mt-md-0">
+          <button class="btn-filter-toggle d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#filterOffcanvas">
+            <i class="fa-regular fa-sliders me-1"></i>Filter
+          </button>
+          <select class="sort-select form-select-sm">
+            <option>Terbaru</option>
+            <option>Termurah</option>
+            <option>Termahal</option>
+            <option>Terpopuler</option>
+            <option>Rating Tertinggi</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <!-- Sidebar Filter (Desktop) -->
+        <aside class="col-lg-3">
+          <div class="filter-sidebar desktop" id="filterDesktop">
+            <div class="filter-group">
+              <h5>Cari</h5>
+              <div class="input-group">
+                <span class="input-group-text bg-white border-end-0"><i class="fa-regular fa-magnifying-glass text-muted"></i></span>
+                <input type="text" class="form-control border-start-0 ps-0" placeholder="Cari produk...">
+              </div>
+            </div>
+
+            <div class="filter-group">
+              <h5>Kategori</h5>
+              <div class="form-check mb-2">
+                <input class="form-check-input" type="checkbox" id="cat-kursi">
+                <label class="form-check-label" for="cat-kursi">Kursi</label>
+              </div>
+              <div class="form-check mb-2">
+                <input class="form-check-input" type="checkbox" id="cat-meja">
+                <label class="form-check-label" for="cat-meja">Meja</label>
+              </div>
+              <div class="form-check mb-2">
+                <input class="form-check-input" type="checkbox" id="cat-rak">
+                <label class="form-check-label" for="cat-rak">Rak & Lemari</label>
+              </div>
+              <div class="form-check mb-2">
+                <input class="form-check-input" type="checkbox" id="cat-lampu">
+                <label class="form-check-label" for="cat-lampu">Lampu</label>
+              </div>
+              <div class="form-check mb-2">
+                <input class="form-check-input" type="checkbox" id="cat-dekorasi">
+                <label class="form-check-label" for="cat-dekorasi">Dekorasi</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="cat-tempat-tidur">
+                <label class="form-check-label" for="cat-tempat-tidur">Tempat Tidur</label>
+              </div>
+            </div>
+
+            <div class="filter-group">
+              <h5>Rentang Harga</h5>
+              <input type="range" class="form-range" min="0" max="100" id="priceRange">
+              <div class="d-flex justify-content-between">
+                <span class="price-range-value">Rp 0</span>
+                <span class="price-range-value">Rp 50 Jt</span>
+              </div>
+            </div>
+
+            <div class="filter-group">
+              <h5>Material</h5>
+              <div class="form-check mb-2">
+                <input class="form-check-input" type="checkbox" id="mat-kayu">
+                <label class="form-check-label" for="mat-kayu">Kayu Jati</label>
+              </div>
+              <div class="form-check mb-2">
+                <input class="form-check-input" type="checkbox" id="mat-kayu-mahoni">
+                <label class="form-check-label" for="mat-kayu-mahoni">Kayu Mahoni</label>
+              </div>
+              <div class="form-check mb-2">
+                <input class="form-check-input" type="checkbox" id="mat-rotain">
+                <label class="form-check-label" for="mat-rotain">Rotan</label>
+              </div>
+              <div class="form-check mb-2">
+                <input class="form-check-input" type="checkbox" id="mat-bambu">
+                <label class="form-check-label" for="mat-bambu">Bambu</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="mat-metal">
+                <label class="form-check-label" for="mat-metal">Metal</label>
+              </div>
+            </div>
+
+            <div class="filter-group">
+              <h5>Warna</h5>
+              <div>
+                <span class="color-swatch active" style="background:#8B5E3C" data-color="Cokelat"></span>
+                <span class="color-swatch" style="background:#2C2C2C" data-color="Hitam"></span>
+                <span class="color-swatch" style="background:#F5F1EB" data-color="Putih"></span>
+                <span class="color-swatch" style="background:#D4A373" data-color="Krem"></span>
+                <span class="color-swatch" style="background:#6B8E6B" data-color="Hijau"></span>
+                <span class="color-swatch" style="background:#A0522D" data-color="Sienna"></span>
+              </div>
+            </div>
+
+            <div class="filter-group">
+              <h5>Rating</h5>
+              <div class="form-check mb-1">
+                <input class="form-check-input" type="radio" name="rating" id="rate-all" checked>
+                <label class="form-check-label" for="rate-all">Semua</label>
+              </div>
+              <div class="form-check mb-1">
+                <input class="form-check-input" type="radio" name="rating" id="rate-4">
+                <label class="form-check-label" for="rate-4"><i class="fa-solid fa-star" style="color:#F39C12"></i> 4+ ke atas</label>
+              </div>
+              <div class="form-check mb-1">
+                <input class="form-check-input" type="radio" name="rating" id="rate-3">
+                <label class="form-check-label" for="rate-3"><i class="fa-solid fa-star" style="color:#F39C12"></i> 3+ ke atas</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="rating" id="rate-2">
+                <label class="form-check-label" for="rate-2"><i class="fa-solid fa-star" style="color:#F39C12"></i> 2+ ke atas</label>
+              </div>
+            </div>
+
+            <div class="filter-group">
+              <h5>Promo</h5>
+              <div class="form-check form-switch mb-2">
+                <input class="form-check-input" type="checkbox" id="promo-only">
+                <label class="form-check-label" for="promo-only">Sedang Diskon</label>
+              </div>
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="ready-stock">
+                <label class="form-check-label" for="ready-stock">Stok Tersedia</label>
+              </div>
+            </div>
+
+            <button class="btn-filter-apply mt-2">Terapkan Filter</button>
+          </div>
+        </aside>
+
+        <!-- Main Content: Product Grid + Pagination -->
+        <div class="col-lg-9">
+
+          <!-- Result Count -->
+          <p class="result-count mb-3">Menampilkan <strong>12</strong> dari <strong>128</strong> produk</p>
+
+          <!-- !!!PRODUCT_GRID_START!!! -->
+          <div class="row g-3" id="productGrid">
+            <!-- Card 1 -->
+            <div class="col-6 col-md-4 col-xl-3">
+              <a href="detail.html?id=1" class="product-card text-decoration-none">
+                <div class="card-img-wrap">
+                  <span class="card-badge badge-best">Terlaris</span>
+                  <button class="card-wishlist" onclick="event.stopPropagation()"><i class="fa-regular fa-heart"></i></button>
+                  <img src="https://images.unsplash.com/photo-1592078615290-033ee584e267?w=400&q=80" alt="Kursi Kayu Jati Minimalis" loading="lazy">
+                </div>
+                <div class="card-body">
+                  <p class="card-category mb-1">Kursi</p>
+                  <h5 class="card-title">Kursi Kayu Jati Minimalis</h5>
+                  <div class="card-rating mb-1">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star-half-stroke"></i>
+                    <span>(47)</span>
+                  </div>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <span class="card-price">Rp 2.450.000</span>
+                      <span class="original">Rp 3.200.000</span>
+                    </div>
+                    <button class="btn-add-cart" onclick="event.stopPropagation()"><i class="fa-regular fa-plus"></i></button>
+                  </div>
+                </div>
+              </a>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="col-6 col-md-4 col-xl-3">
+              <a href="detail.html?id=2" class="product-card text-decoration-none">
+                <div class="card-img-wrap">
+                  <span class="card-badge badge-promo">-30%</span>
+                  <button class="card-wishlist" onclick="event.stopPropagation()"><i class="fa-regular fa-heart"></i></button>
+                  <img src="https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc?w=400&q=80" alt="Meja Makan Ekstra Panjang" loading="lazy">
+                </div>
+                <div class="card-body">
+                  <p class="card-category mb-1">Meja</p>
+                  <h5 class="card-title">Meja Makan Ekstra Panjang</h5>
+                  <div class="card-rating mb-1">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-regular fa-star"></i>
+                    <span>(32)</span>
+                  </div>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <span class="card-price">Rp 4.800.000</span>
+                      <span class="original">Rp 6.850.000</span>
+                    </div>
+                    <button class="btn-add-cart" onclick="event.stopPropagation()"><i class="fa-regular fa-plus"></i></button>
+                  </div>
+                </div>
+              </a>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="col-6 col-md-4 col-xl-3">
+              <a href="detail.html?id=3" class="product-card text-decoration-none">
+                <div class="card-img-wrap">
+                  <span class="card-badge badge-new">Baru</span>
+                  <button class="card-wishlist" onclick="event.stopPropagation()"><i class="fa-regular fa-heart"></i></button>
+                  <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&q=80" alt="Rak Dinding Skandinavia" loading="lazy">
+                </div>
+                <div class="card-body">
+                  <p class="card-category mb-1">Rak & Lemari</p>
+                  <h5 class="card-title">Rak Dinding Skandinavia 3 Susun</h5>
+                  <div class="card-rating mb-1">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <span>(18)</span>
+                  </div>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <span class="card-price">Rp 1.850.000</span>
+                    </div>
+                    <button class="btn-add-cart" onclick="event.stopPropagation()"><i class="fa-regular fa-plus"></i></button>
+                  </div>
+                </div>
+              </a>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="col-6 col-md-4 col-xl-3">
+              <a href="detail.html?id=4" class="product-card text-decoration-none">
+                <div class="card-img-wrap">
+                  <button class="card-wishlist" onclick="event.stopPropagation()"><i class="fa-regular fa-heart"></i></button>
+                  <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80" alt="Lampu Gantung Rotan" loading="lazy">
+                </div>
+                <div class="card-body">
+                  <p class="card-category mb-1">Lampu</p>
+                  <h5 class="card-title">Lampu Gantung Rotan Handmade</h5>
+                  <div class="card-rating mb-1">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-regular fa-star"></i>
+                    <span>(24)</span>
+                  </div>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <span class="card-price">Rp 890.000</span>
+                    </div>
+                    <button class="btn-add-cart" onclick="event.stopPropagation()"><i class="fa-regular fa-plus"></i></button>
+                  </div>
+                </div>
+              </a>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="col-6 col-md-4 col-xl-3">
+              <a href="detail.html?id=5" class="product-card text-decoration-none">
+                <div class="card-img-wrap">
+                  <span class="card-badge badge-promo">-15%</span>
+                  <button class="card-wishlist" onclick="event.stopPropagation()"><i class="fa-regular fa-heart"></i></button>
+                  <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=400&q=80" alt="Sofa Linen 3 Seater" loading="lazy">
+                </div>
+                <div class="card-body">
+                  <p class="card-category mb-1">Kursi</p>
+                  <h5 class="card-title">Sofa Linen 3 Seater Premium</h5>
+                  <div class="card-rating mb-1">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <span>(56)</span>
+                  </div>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <span class="card-price">Rp 7.200.000</span>
+                      <span class="original">Rp 8.470.000</span>
+                    </div>
+                    <button class="btn-add-cart" onclick="event.stopPropagation()"><i class="fa-regular fa-plus"></i></button>
+                  </div>
+                </div>
+              </a>
+            </div>
+
+            <!-- Card 6 -->
+            <div class="col-6 col-md-4 col-xl-3">
+              <a href="detail.html?id=6" class="product-card text-decoration-none">
+                <div class="card-img-wrap">
+                  <button class="card-wishlist" onclick="event.stopPropagation()"><i class="fa-regular fa-heart"></i></button>
+                  <img src="https://images.unsplash.com/photo-1544457070-4cd773b4d71e?w=400&q=80" alt="Nakas Kayu Mahoni" loading="lazy">
+                </div>
+                <div class="card-body">
+                  <p class="card-category mb-1">Rak & Lemari</p>
+                  <h5 class="card-title">Nakas Kayu Mahoni 2 Laci</h5>
+                  <div class="card-rating mb-1">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-regular fa-star"></i>
+                    <span>(12)</span>
+                  </div>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <span class="card-price">Rp 1.650.000</span>
+                    </div>
+                    <button class="btn-add-cart" onclick="event.stopPropagation()"><i class="fa-regular fa-plus"></i></button>
+                  </div>
+                </div>
+              </a>
+            </div>
+
+            <!-- Card 7 -->
+            <div class="col-6 col-md-4 col-xl-3">
+              <a href="detail.html?id=7" class="product-card text-decoration-none">
+                <div class="card-img-wrap">
+                  <span class="card-badge badge-best">Terlaris</span>
+                  <button class="card-wishlist" onclick="event.stopPropagation()"><i class="fa-regular fa-heart"></i></button>
+                  <img src="https://images.unsplash.com/photo-1523371054106-bbf80586c38c?w=400&q=80" alt="Meja Kopi Japandi" loading="lazy">
+                </div>
+                <div class="card-body">
+                  <p class="card-category mb-1">Meja</p>
+                  <h5 class="card-title">Meja Kopi Japandi Oval</h5>
+                  <div class="card-rating mb-1">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <span>(89)</span>
+                  </div>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <span class="card-price">Rp 3.150.000</span>
+                    </div>
+                    <button class="btn-add-cart" onclick="event.stopPropagation()"><i class="fa-regular fa-plus"></i></button>
+                  </div>
+                </div>
+              </a>
+            </div>
+
+            <!-- Card 8 -->
+            <div class="col-6 col-md-4 col-xl-3">
+              <a href="detail.html?id=8" class="product-card text-decoration-none">
+                <div class="card-img-wrap">
+                  <span class="card-badge badge-new">Baru</span>
+                  <button class="card-wishlist" onclick="event.stopPropagation()"><i class="fa-regular fa-heart"></i></button>
+                  <img src="https://images.unsplash.com/photo-1615571022219-eb45cf7faa36?w=400&q=80" alt="Kursi Santai Rotan" loading="lazy">
+                </div>
+                <div class="card-body">
+                  <p class="card-category mb-1">Kursi</p>
+                  <h5 class="card-title">Kursi Santai Rotan Natural</h5>
+                  <div class="card-rating mb-1">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-regular fa-star"></i>
+                    <span>(9)</span>
+                  </div>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <span class="card-price">Rp 2.100.000</span>
+                    </div>
+                    <button class="btn-add-cart" onclick="event.stopPropagation()"><i class="fa-regular fa-plus"></i></button>
+                  </div>
+                </div>
+              </a>
+            </div>
+
+            <!-- Card 9 -->
+            <div class="col-6 col-md-4 col-xl-3">
+              <a href="detail.html?id=9" class="product-card text-decoration-none">
+                <div class="card-img-wrap">
+                  <button class="card-wishlist" onclick="event.stopPropagation()"><i class="fa-regular fa-heart"></i></button>
+                  <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&q=80" alt="Tempat Tidur Minimalis" loading="lazy">
+                </div>
+                <div class="card-body">
+                  <p class="card-category mb-1">Tempat Tidur</p>
+                  <h5 class="card-title">Tempat Tidur Minimalis Queen Size</h5>
+                  <div class="card-rating mb-1">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-regular fa-star"></i>
+                    <span>(41)</span>
+                  </div>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <span class="card-price">Rp 5.600.000</span>
+                    </div>
+                    <button class="btn-add-cart" onclick="event.stopPropagation()"><i class="fa-regular fa-plus"></i></button>
+                  </div>
+                </div>
+              </a>
+            </div>
+
+            <!-- Card 10 -->
+            <div class="col-6 col-md-4 col-xl-3">
+              <a href="detail.html?id=10" class="product-card text-decoration-none">
+                <div class="card-img-wrap">
+                  <span class="card-badge badge-promo">-20%</span>
+                  <button class="card-wishlist" onclick="event.stopPropagation()"><i class="fa-regular fa-heart"></i></button>
+                  <img src="https://images.unsplash.com/photo-1594026112284-02bb6f3352fe?w=400&q=80" alt="Vas Keramik Jepangis" loading="lazy">
+                </div>
+                <div class="card-body">
+                  <p class="card-category mb-1">Dekorasi</p>
+                  <h5 class="card-title">Vas Keramik Jepangis Set 3</h5>
+                  <div class="card-rating mb-1">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-star-half-stroke"></i>
+                    <span>(22)</span>
+                  </div>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <span class="card-price">Rp 750.000</span>
+                      <span class="original">Rp 940.000</span>
+                    </div>
+                    <button class="btn-add-cart" onclick="event.stopPropagation()"><i class="fa-regular fa-plus"></i></button>
+                  </div>
+                </div>
+              </a>
+            </div>
+
+            <!-- Card 11 -->
+            <div class="col-6 col-md-4 col-xl-3">
+              <a href="detail.html?id=11" class="product-card text-decoration-none">
+                <div class="card-img-wrap">
+                  <button class="card-wishlist" onclick="event.stopPropagation()"><i class="fa-regular fa-heart"></i></button>
+                  <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&q=80" alt="Meja Belajar Lipat" loading="lazy">
+                </div>
+                <div class="card-body">
+                  <p class="card-category mb-1">Meja</p>
+                  <h5 class="card-title">Meja Belajar Lipat Multifungsi</h5>
+                  <div class="card-rating mb-1">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-regular fa-star"></i>
+                    <span>(15)</span>
+                  </div>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <span class="card-price">Rp 1.200.000</span>
+                    </div>
+                    <button class="btn-add-cart" onclick="event.stopPropagation()"><i class="fa-regular fa-plus"></i></button>
+                  </div>
+                </div>
+              </a>
+            </div>
+
+            <!-- Card 12 -->
+            <div class="col-6 col-md-4 col-xl-3">
+              <a href="detail.html?id=12" class="product-card text-decoration-none">
+                <div class="card-img-wrap">
+                  <span class="card-badge badge-new">Baru</span>
+                  <button class="card-wishlist" onclick="event.stopPropagation()"><i class="fa-regular fa-heart"></i></button>
+                  <img src="https://images.unsplash.com/photo-1581539250439-c96689b516dd?w=400&q=80" alt="Rak Buku Minimalis" loading="lazy">
+                </div>
+                <div class="card-body">
+                  <p class="card-category mb-1">Rak & Lemari</p>
+                  <h5 class="card-title">Rak Buku Minimalis Floating</h5>
+                  <div class="card-rating mb-1">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <span>(33)</span>
+                  </div>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                      <span class="card-price">Rp 1.450.000</span>
+                    </div>
+                    <button class="btn-add-cart" onclick="event.stopPropagation()"><i class="fa-regular fa-plus"></i></button>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+          <!-- !!!PRODUCT_GRID_END!!! -->
+
+          <!-- Pagination -->
+          <nav class="mt-4 d-flex justify-content-center">
+            <ul class="pagination">
+              <li class="page-item disabled"><span class="page-link"><i class="fa-regular fa-chevron-left"></i></span></li>
+              <li class="page-item active"><span class="page-link">1</span></li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item"><a class="page-link" href="#">...</a></li>
+              <li class="page-item"><a class="page-link" href="#">11</a></li>
+              <li class="page-item"><a class="page-link" href="#"><i class="fa-regular fa-chevron-right"></i></a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION: FOOTER ===== -->
+  <footer class="footer-scandi">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+          <p class="mb-0 small">&copy; 2026 ScandiHaven. All rights reserved.</p>
+        </div>
+        <div class="col-md-6 text-center text-md-end">
+          <a href="https://wa.me/6281234567890" target="_blank" class="social-link" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+          <a href="https://instagram.com/scandihaven" target="_blank" class="social-link" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="mailto:hello@scandihaven.com" class="social-link" aria-label="Email"><i class="fa-regular fa-envelope"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== OFFCAVAS FILTER (Mobile) ===== -->
+  <div class="offcanvas offcanvas-start offcanvas-filter" tabindex="-1" id="filterOffcanvas">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title fw-bold">Filter</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="offcanvas-body">
+      <!-- Mobile filter sidebar content cloned from desktop via JS -->
+      <div id="mobileFilterContent"></div>
+    </div>
+  </div>
+
+  <!-- Bootstrap 5 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>
