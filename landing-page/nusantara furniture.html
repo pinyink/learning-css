@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nusantara Furniture | Mebel Premium Kualitas Terbaik</title>
+    <meta name="description" content="Nusantara Furniture menyediakan mebel premium berkualitas tinggi dengan desain modern, elegan, dan industrial. Temukan koleksi furnitur terbaik untuk hunian Anda.">
+    <meta name="keywords" content="furniture, mebel, nusantara furniture, kursi, meja, lemari, interior, premium furniture indonesia">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Nusantara Furniture">
+
+    <meta property="og:title" content="Nusantara Furniture | Mebel Premium Kualitas Terbaik">
+    <meta property="og:description" content="Nusantara Furniture menyediakan mebel premium berkualitas tinggi dengan desain modern, elegan, dan industrial.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1200">
+    <meta property="og:url" content="https://nusantaratfurniture.com">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="id_ID">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Nusantara Furniture | Mebel Premium Kualitas Terbaik">
+    <meta name="twitter:description" content="Nusantara Furniture menyediakan mebel premium berkualitas tinggi dengan desain modern, elegan, dan industrial.">
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1200">
+
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪑</text></svg>">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #8B5E3C;
+            --primary-dark: #6B4529;
+            --secondary: #F5F1EB;
+            --accent: #D4A373;
+            --dark: #1F1F1F;
+            --font-primary: 'Poppins', sans-serif;
+            --font-secondary: 'Inter', sans-serif;
+        }
+
+        * { box-sizing: border-box; }
+        body { font-family: var(--font-secondary); color: var(--dark); background: #fff; overflow-x: hidden; }
+        h1,h2,h3,h4,h5,h6 { font-family: var(--font-primary); font-weight: 700; }
+        a { text-decoration: none; }
+        img { max-width: 100%; height: auto; display: block; }
+
+        .fw-800 { font-weight: 800; }
+        .ls-3 { letter-spacing: 3px; }
+        .z-3 { z-index: 3; }
+
+        .text-primary { color: var(--primary) !important; }
+        .bg-primary { background-color: var(--primary) !important; }
+        .btn-primary { background-color: var(--primary) !important; border-color: var(--primary) !important; }
+        .btn-primary:hover { background-color: var(--primary-dark) !important; border-color: var(--primary-dark) !important; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(139,94,60,0.4); }
+        .btn-outline-primary { border-color: var(--primary) !important; color: var(--primary) !important; }
+        .btn-outline-primary:hover { background-color: var(--primary) !important; color: #fff !important; }
+        .btn-wa { background: #25D366; color: #fff !important; }
+        .btn-wa:hover { background: #1DA851; color: #fff !important; transform: translateY(-1px); }
+        .bg-secondary-custom { background-color: var(--secondary); }
+        .bg-dark-custom { background-color: var(--dark); }
+
+        .section-title { font-size: clamp(32px, 5vw, 48px); }
+        .section-label { font-family: var(--font-primary); font-size: 13px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--primary); }
+        .section-desc { font-size: 18px; color: #6c757d; max-width: 580px; line-height: 1.8; }
+
+        .transition { transition: 0.3s cubic-bezier(0.4,0,0.2,1); }
+        .hover-lift:hover { transform: translateY(-6px); box-shadow: 0 10px 40px rgba(0,0,0,0.12) !important; }
+        .hover-shadow:hover { box-shadow: 0 10px 40px rgba(0,0,0,0.12) !important; }
+        .img-zoom { overflow: hidden; }
+        .img-zoom img { transition: 0.5s cubic-bezier(0.4,0,0.2,1); }
+        .img-zoom:hover img { transform: scale(1.08); }
+
+        .scroll-progress {
+            position: fixed; top: 0; left: 0; width: 0%; height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent)); z-index: 9999; transition: width 0.1s;
+        }
+
+        /* Navbar */
+        .navbar-custom {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1050; padding: 16px 0;
+            background: transparent; transition: 0.3s;
+        }
+        .navbar-custom.scrolled {
+            background: rgba(255,255,255,0.97); backdrop-filter: blur(20px);
+            box-shadow: 0 2px 40px rgba(0,0,0,0.08); padding: 10px 0;
+        }
+        .navbar-custom .nav-link {
+            color: rgba(255,255,255,0.85) !important; font-weight: 500; font-size: 15px;
+            padding: 4px 0 !important; position: relative; transition: 0.3s;
+        }
+        .navbar-custom.scrolled .nav-link { color: #4D4945 !important; }
+        .navbar-custom .nav-link::after {
+            content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 2px;
+            background: var(--primary); transition: 0.3s;
+        }
+        .navbar-custom .nav-link:hover::after,
+        .navbar-custom .nav-link.active::after { width: 100%; }
+        .navbar-custom .nav-link:hover,
+        .navbar-custom .nav-link.active { color: var(--primary) !important; }
+        .navbar-custom.scrolled .nav-link:hover,
+        .navbar-custom.scrolled .nav-link.active { color: var(--primary) !important; }
+        .navbar-custom .nav-cta {
+            padding: 10px 24px !important; background: var(--primary) !important; color: #fff !important;
+            border-radius: 50px; font-weight: 600;
+        }
+        .navbar-custom .nav-cta::after { display: none !important; }
+        .navbar-custom .nav-cta:hover { background: var(--primary-dark) !important; box-shadow: 0 4px 15px rgba(139,94,60,0.35); }
+
+        .logo-text { font-family: var(--font-primary); font-weight: 800; font-size: 22px; color: #fff; transition: 0.3s; }
+        .navbar-custom.scrolled .logo-text { color: var(--dark); }
+        .logo-icon { width: 38px; height: 38px; background: var(--primary); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 18px; }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh; display: flex; align-items: center;
+            background: url('https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1920&q=80') center/cover no-repeat fixed;
+            position: relative;
+        }
+        .hero::before {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(135deg, rgba(31,31,31,0.85) 0%, rgba(31,31,31,0.5) 100%);
+        }
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 8px; padding: 8px 20px;
+            background: rgba(255,255,255,0.12); backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.15); border-radius: 50px;
+            font-size: 13px; font-weight: 500; color: #fff; margin-bottom: 28px;
+        }
+        .hero-title { font-size: clamp(40px, 7vw, 72px); color: #fff; line-height: 1.1; }
+        .hero-title span { color: var(--accent); }
+
+        /* About */
+        .about-img-wrap { position: relative; border-radius: 20px; overflow: hidden; }
+        .about-img-wrap img { height: 500px; object-fit: cover; transition: 0.5s; }
+        .about-img-wrap:hover img { transform: scale(1.03); }
+        .about-img-wrap::after {
+            content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 50%;
+            background: linear-gradient(to top, rgba(31,31,31,0.3), transparent);
+        }
+        .about-exp {
+            position: absolute; bottom: 30px; left: 30px; z-index: 3;
+            background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);
+            padding: 16px 24px; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.12);
+            display: flex; align-items: center; gap: 16px;
+        }
+        .about-exp h3 { font-size: 36px; color: var(--primary); line-height: 1; }
+
+        /* Why card */
+        .why-card { padding: 40px 32px; border-radius: 20px; border: 1px solid transparent; transition: 0.3s; }
+        .why-card:hover { transform: translateY(-8px); box-shadow: 0 10px 40px rgba(0,0,0,0.08) !important; border-color: #EFEDEA; }
+        .why-icon {
+            width: 64px; height: 64px; margin: 0 auto 24px; background: var(--secondary);
+            border-radius: 16px; display: flex; align-items: center; justify-content: center;
+            font-size: 26px; color: var(--primary); transition: 0.3s;
+        }
+        .why-card:hover .why-icon { background: var(--primary); color: #fff; transform: scale(1.05); }
+
+        /* Cat card */
+        .cat-card { position: relative; border-radius: 20px; overflow: hidden; cursor: pointer; aspect-ratio: 3/4; }
+        .cat-card img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .cat-card:hover img { transform: scale(1.08); }
+        .cat-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(to top, rgba(31,31,31,0.75) 0%, transparent 50%);
+            display: flex; flex-direction: column; justify-content: flex-end; padding: 28px; transition: 0.3s;
+        }
+        .cat-card:hover .cat-overlay { background: linear-gradient(to top, rgba(31,31,31,0.85) 0%, rgba(31,31,31,0.2) 50%); }
+        .cat-overlay span { display: inline-flex; align-items: center; gap: 6px; color: var(--accent); font-size: 13px; font-weight: 600; margin-top: 12px; opacity: 0; transform: translateY(10px); transition: 0.3s; }
+        .cat-card:hover .cat-overlay span { opacity: 1; transform: translateY(0); }
+
+        /* Product card */
+        .product-card { border-radius: 20px; overflow: hidden; border: 1px solid #EFEDEA; transition: 0.3s; }
+        .product-card:hover { transform: translateY(-6px); box-shadow: 0 10px 40px rgba(0,0,0,0.12) !important; }
+        .product-img { position: relative; overflow: hidden; aspect-ratio: 1; }
+        .product-img img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .product-card:hover .product-img img { transform: scale(1.05); }
+        .product-badge { position: absolute; top: 14px; left: 14px; padding: 4px 14px; background: var(--primary); color: #fff; font-size: 11px; font-weight: 600; border-radius: 50px; }
+        .product-wishlist { position: absolute; top: 14px; right: 14px; width: 36px; height: 36px; background: rgba(255,255,255,0.9); border: none; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; color: #6c757d; transition: 0.3s; backdrop-filter: blur(4px); }
+        .product-wishlist:hover { color: #e74c3c; }
+
+        /* Gallery */
+        .gallery-item { border-radius: 12px; overflow: hidden; position: relative; cursor: pointer; }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .gallery-item:hover img { transform: scale(1.08); }
+        .gallery-overlay { position: absolute; inset: 0; background: rgba(31,31,31,0.5); display: flex; align-items: center; justify-content: center; opacity: 0; transition: 0.3s; }
+        .gallery-item:hover .gallery-overlay { opacity: 1; }
+
+        /* Steps */
+        .step-number { width: 80px; height: 80px; margin: 0 auto 24px; background: #fff; border: 2px solid #D9D5D0; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-primary); font-size: 28px; font-weight: 700; color: #8E8A84; transition: 0.3s; }
+        .step:hover .step-number { background: var(--primary); border-color: var(--primary); color: #fff; transform: scale(1.05); box-shadow: 0 8px 25px rgba(139,94,60,0.3); }
+        .step-icon { font-size: 28px; color: var(--primary); margin-bottom: 16px; }
+
+        /* Testimonial */
+        .testimonial-card { padding: 0 60px; }
+        .testimonial-text { font-size: 20px; color: #6c757d; line-height: 1.8; font-style: italic; }
+        .testimonial-avatar { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; }
+        .testimonial-dot { width: 10px; height: 10px; border-radius: 50%; background: #D9D5D0; border: none; cursor: pointer; transition: 0.3s; }
+        .testimonial-dot.active { background: var(--primary); width: 30px; border-radius: 5px; }
+
+        /* Promo */
+        .promo-section {
+            background: url('https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=1920&q=80') center/cover no-repeat fixed;
+            position: relative;
+        }
+        .promo-section::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(31,31,31,0.88) 0%, rgba(31,31,31,0.6) 100%); }
+        .promo-section .container { position: relative; z-index: 2; }
+
+        /* FAQ */
+        .faq-item { border-bottom: 1px solid #EFEDEA; padding: 20px 0; }
+        .faq-question { display: flex; align-items: center; justify-content: space-between; cursor: pointer; gap: 16px; }
+        .faq-question h3 { font-size: 17px; font-weight: 600; flex: 1; }
+        .faq-icon { width: 32px; height: 32px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: var(--secondary); transition: 0.3s; font-size: 14px; color: var(--primary); }
+        .faq-item.active .faq-icon { background: var(--primary); color: #fff; transform: rotate(45deg); }
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.4s ease; padding: 0 48px 0 0; }
+        .faq-item.active .faq-answer { max-height: 300px; padding-top: 16px; }
+
+        /* Footer */
+        .footer { background: var(--dark); border-top: 1px solid rgba(255,255,255,0.06); }
+        .footer a { color: #8E8A84; transition: 0.3s; }
+        .footer a:hover { color: var(--accent); }
+        .footer .social-link {
+            width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.06);
+            display: flex; align-items: center; justify-content: center; color: #8E8A84; transition: 0.3s; font-size: 16px;
+        }
+        .footer .social-link:hover { background: var(--primary); color: #fff; transform: translateY(-2px); }
+        .footer .footer-map iframe { width: 100%; height: 140px; border: none; border-radius: 6px; }
+
+        /* Back to top */
+        .back-to-top {
+            position: fixed; bottom: 30px; right: 30px; width: 48px; height: 48px;
+            background: var(--primary); color: #fff; border: none; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-size: 18px;
+            cursor: pointer; z-index: 999; opacity: 0; visibility: hidden;
+            transform: translateY(20px); transition: 0.3s; box-shadow: 0 4px 20px rgba(139,94,60,0.35);
+        }
+        .back-to-top.visible { opacity: 1; visibility: visible; transform: translateY(0); }
+        .back-to-top:hover { background: var(--primary-dark); transform: translateY(-3px); }
+
+        /* AOS */
+        [data-aos] { opacity: 0; transition: opacity 0.8s ease, transform 0.8s ease; }
+        [data-aos="fade-up"] { transform: translateY(40px); }
+        [data-aos="fade-left"] { transform: translateX(40px); }
+        [data-aos="fade-right"] { transform: translateX(-40px); }
+        [data-aos="fade-in"] { transform: none; }
+        [data-aos].aos-animate { opacity: 1; transform: translate(0); }
+
+        @media (max-width: 992px) {
+            .navbar-custom .nav-link { color: #4D4945 !important; }
+            .hero-title { font-size: 36px; }
+            .about-img-wrap img { height: 340px; }
+            .testimonial-card { padding: 0 20px; }
+            .gallery-grid .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 1; }
+        }
+        @media (max-width: 768px) {
+            .hero-title { font-size: 28px; }
+            .hero-stats { gap: 20px; }
+            .section-desc { font-size: 16px; }
+            .testimonial-text { font-size: 16px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar navbar-expand-lg navbar-custom" id="navbar">
+    <div class="container">
+        <a class="navbar-brand d-flex align-items-center gap-2 logo-text" href="#hero">
+            <span class="logo-icon"><i class="fas fa-couch"></i></span>
+            Nusantara<span class="text-primary">Furniture</span>
+        </a>
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation" id="navToggler">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navMenu">
+            <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-3">
+                <li class="nav-item"><a class="nav-link active" href="#hero">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#about">Tentang</a></li>
+                <li class="nav-item"><a class="nav-link" href="#products">Produk</a></li>
+                <li class="nav-item"><a class="nav-link" href="#gallery">Galeri</a></li>
+                <li class="nav-item"><a class="nav-link" href="#testimonials">Testimoni</a></li>
+                <li class="nav-item"><a class="nav-link" href="#faq">FAQ</a></li>
+                <li class="nav-item"><a class="nav-link" href="#contact">Kontak</a></li>
+                <li class="nav-item ms-lg-2">
+                    <a class="nav-link nav-cta" href="https://wa.me/6281234567890?text=Halo%20Nusantara%20Furniture" target="_blank">
+                        <i class="fab fa-whatsapp"></i> Hubungi Kami
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="hero">
+    <div class="container position-relative z-3">
+        <div class="hero-content" style="max-width:700px;">
+            <div class="hero-badge" data-aos="fade-up">
+                <i class="fas fa-star"></i> Premium Furniture Collection 2026
+            </div>
+            <h1 class="hero-title mb-4" data-aos="fade-up" data-aos-delay="100">
+                Elegan & <span>Industrial</span> untuk Hunian Anda
+            </h1>
+            <p class="hero-desc text-white-50 mb-4" style="font-size:18px;max-width:540px;line-height:1.8;" data-aos="fade-up" data-aos-delay="200">
+                Nusantara Furniture menghadirkan mebel premium dengan desain solid, modern, dan industrial — crafted for those who appreciate timeless elegance.
+            </p>
+            <div class="d-flex flex-wrap gap-3 mb-5" data-aos="fade-up" data-aos-delay="300">
+                <a href="#products" class="btn btn-primary btn-lg rounded-pill px-4"><i class="fas fa-search"></i> Lihat Koleksi</a>
+                <a href="https://wa.me/6281234567890?text=Halo%20Nusantara%20Furniture" target="_blank" class="btn btn-outline-light btn-lg rounded-pill px-4"><i class="fab fa-whatsapp"></i> Konsultasi Gratis</a>
+            </div>
+            <div class="d-flex flex-wrap gap-5" data-aos="fade-up" data-aos-delay="400">
+                <div><h3 class="text-white mb-1 fw-bold" style="font-size:36px;"><span class="counter" data-target="1500">0</span>+</h3><p class="text-white-50 mb-0 small">Produk Terjual</p></div>
+                <div><h3 class="text-white mb-1 fw-bold" style="font-size:36px;"><span class="counter" data-target="800">0</span>+</h3><p class="text-white-50 mb-0 small">Pelanggan Puas</p></div>
+                <div><h3 class="text-white mb-1 fw-bold" style="font-size:36px;"><span class="counter" data-target="12">0</span>+</h3><p class="text-white-50 mb-0 small">Tahun Pengalaman</p></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<section class="py-5" id="about">
+    <div class="container py-5">
+        <div class="row g-5 align-items-center">
+            <div class="col-lg-6" data-aos="fade-right">
+                <div class="about-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=800&q=80" alt="Showroom Nusantara Furniture" class="w-100" loading="lazy">
+                    <div class="about-exp">
+                        <h3>12+</h3>
+                        <p class="mb-0 small" style="max-width:100px;line-height:1.4;color:#4D4945;">Tahun Pengalaman Industri Mebel</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6" data-aos="fade-left">
+                <span class="section-label d-inline-block mb-2">Tentang Kami</span>
+                <h2 class="section-title mb-3">Mengubah Ruang Menjadi Karya Seni</h2>
+                <p class="text-muted mb-3">Nusantara Furniture berdiri sejak 2014 dengan visi menghadirkan furnitur premium yang memadukan keindahan desain modern dengan ketahanan material terbaik. Setiap produk adalah hasil dari ketelitian pengrajin berpengalaman.</p>
+                <p class="text-muted mb-4">Kami percaya bahwa furnitur bukan sekadar benda fungsional — ia adalah jiwa dari sebuah ruangan. Dengan material pilihan dan pengerjaan presisi, setiap koleksi kami diciptakan untuk bertahan lintas generasi.</p>
+                <div class="row g-2">
+                    <div class="col-sm-6"><div class="d-flex align-items-center gap-2 p-3 bg-secondary-custom rounded-2"><i class="fas fa-check-circle text-primary"></i> Material Premium</div></div>
+                    <div class="col-sm-6"><div class="d-flex align-items-center gap-2 p-3 bg-secondary-custom rounded-2"><i class="fas fa-check-circle text-primary"></i> Desain Eksklusif</div></div>
+                    <div class="col-sm-6"><div class="d-flex align-items-center gap-2 p-3 bg-secondary-custom rounded-2"><i class="fas fa-check-circle text-primary"></i> Garansi 5 Tahun</div></div>
+                    <div class="col-sm-6"><div class="d-flex align-items-center gap-2 p-3 bg-secondary-custom rounded-2"><i class="fas fa-check-circle text-primary"></i> Pengiriman Nasional</div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== WHY US ===== -->
+<section class="py-5 bg-secondary-custom" id="why-us">
+    <div class="container py-5">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <span class="section-label d-inline-block mb-2">Mengapa Memilih Kami</span>
+            <h2 class="section-title">Lebih dari Sekadar Furnitur</h2>
+            <p class="section-desc mx-auto">Kami memberikan pengalaman terbaik dari proses konsultasi hingga pengiriman ke rumah Anda.</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-4" data-aos="fade-up"><div class="bg-white why-card text-center h-100"><div class="why-icon mx-auto"><i class="fas fa-medal"></i></div><h5 class="fw-bold">Material Premium</h5><p class="text-muted small mb-0">Kayu jati solid, mahoni, dan material impor berkualitas tinggi yang dijamin keasliannya.</p></div></div>
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100"><div class="bg-white why-card text-center h-100"><div class="why-icon mx-auto"><i class="fas fa-pencil-ruler"></i></div><h5 class="fw-bold">Custom Desain</h5><p class="text-muted small mb-0">Bebas menentukan ukuran, warna, dan model sesuai selera dan kebutuhan ruangan Anda.</p></div></div>
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200"><div class="bg-white why-card text-center h-100"><div class="why-icon mx-auto"><i class="fas fa-shield-alt"></i></div><h5 class="fw-bold">Garansi 5 Tahun</h5><p class="text-muted small mb-0">Setiap produk dilindungi garansi resmi selama 5 tahun untuk ketenangan pikiran Anda.</p></div></div>
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300"><div class="bg-white why-card text-center h-100"><div class="why-icon mx-auto"><i class="fas fa-truck"></i></div><h5 class="fw-bold">Gratis Ongkir</h5><p class="text-muted small mb-0">Pengiriman gratis untuk area Jabodetabek dengan sistem tracking real-time.</p></div></div>
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="400"><div class="bg-white why-card text-center h-100"><div class="why-icon mx-auto"><i class="fas fa-palette"></i></div><h5 class="fw-bold">Finishing Premium</h5><p class="text-muted small mb-0">Melamine, Duco, atau NC — semua finishing dikerjakan dengan standar tertinggi.</p></div></div>
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="500"><div class="bg-white why-card text-center h-100"><div class="why-icon mx-auto"><i class="fas fa-headset"></i></div><h5 class="fw-bold">Layanan 24/7</h5><p class="text-muted small mb-0">Tim support siap membantu Anda kapan pun, dari konsultasi hingga after-sales.</p></div></div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== CATEGORIES ===== -->
+<section class="py-5" id="categories">
+    <div class="container py-5">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <span class="section-label d-inline-block mb-2">Kategori Produk</span>
+            <h2 class="section-title">Temukan Koleksi Pilihan</h2>
+            <p class="section-desc mx-auto">Jelajahi berbagai kategori furnitur premium yang kami tawarkan untuk setiap sudut hunian Anda.</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-6 col-lg-3" data-aos="fade-up"><div class="cat-card"><img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=80" alt="Kursi premium Nusantara Furniture" loading="lazy"><div class="cat-overlay"><h5 class="text-white mb-1">Kursi & Sofa</h5><p class="text-white-50 small mb-0">12 Produk</p><span>Lihat Koleksi <i class="fas fa-arrow-right"></i></span></div></div></div>
+            <div class="col-6 col-lg-3" data-aos="fade-up" data-aos-delay="100"><div class="cat-card"><img src="https://images.unsplash.com/photo-1530018607912-eff2daa1bac4?w=600&q=80" alt="Meja premium Nusantara Furniture" loading="lazy"><div class="cat-overlay"><h5 class="text-white mb-1">Meja & Desktop</h5><p class="text-white-50 small mb-0">10 Produk</p><span>Lihat Koleksi <i class="fas fa-arrow-right"></i></span></div></div></div>
+            <div class="col-6 col-lg-3" data-aos="fade-up" data-aos-delay="200"><div class="cat-card"><img src="https://images.unsplash.com/photo-1597006335770-25b6a72c883f?w=600&q=80" alt="Lemari premium Nusantara Furniture" loading="lazy"><div class="cat-overlay"><h5 class="text-white mb-1">Lemari & Kabinet</h5><p class="text-white-50 small mb-0">8 Produk</p><span>Lihat Koleksi <i class="fas fa-arrow-right"></i></span></div></div></div>
+            <div class="col-6 col-lg-3" data-aos="fade-up" data-aos-delay="300"><div class="cat-card"><img src="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=600&q=80" alt="Tempat tidur premium Nusantara Furniture" loading="lazy"><div class="cat-overlay"><h5 class="text-white mb-1">Tempat Tidur</h5><p class="text-white-50 small mb-0">8 Produk</p><span>Lihat Koleksi <i class="fas fa-arrow-right"></i></span></div></div></div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== PRODUCTS ===== -->
+<section class="py-5 bg-body-tertiary" id="products">
+    <div class="container py-5">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <span class="section-label d-inline-block mb-2">Produk Unggulan</span>
+            <h2 class="section-title">Koleksi Terlaris Kami</h2>
+            <p class="section-desc mx-auto">Produk terpilih dengan kualitas terbaik dan desain yang banyak disukai pelanggan.</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-sm-6 col-lg-3" data-aos="fade-up"><div class="product-card bg-white"><div class="product-img"><img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&q=80" alt="Sofa modern Nusantara Furniture" loading="lazy"><span class="product-badge">Best Seller</span><button class="product-wishlist" aria-label="Wishlist"><i class="far fa-heart"></i></button></div><div class="p-3"><div class="d-flex align-items-center gap-2 mb-2"><i class="fas fa-star" style="color:#f1c40f;font-size:12px;"></i><i class="fas fa-star" style="color:#f1c40f;font-size:12px;"></i><i class="fas fa-star" style="color:#f1c40f;font-size:12px;"></i><i class="fas fa-star" style="color:#f1c40f;font-size:12px;"></i><i class="fas fa-star" style="color:#f1c40f;font-size:12px;"></i><span class="text-muted small">(128)</span></div><h6 class="fw-semibold">Sofa Industrial Linen</h6><p class="fw-bold text-primary mb-3" style="font-family:var(--font-primary);font-size:20px;">Rp 3.250.000</p><div class="d-flex gap-2"><a href="#contact" class="btn btn-primary btn-sm rounded-pill flex-grow-1">Detail</a><a href="https://wa.me/6281234567890?text=Halo%20saya%20tertarik%20dengan%20Sofa%20Industrial%20Linen" target="_blank" class="btn btn-wa btn-sm rounded-pill" style="width:44px;flex:0 0 auto;"><i class="fab fa-whatsapp"></i></a></div></div></div></div>
+            <div class="col-sm-6 col-lg-3" data-aos="fade-up" data-aos-delay="100"><div class="product-card bg-white"><div class="product-img"><img src="https://images.unsplash.com/photo-1530018607912-eff2daa1bac4?w=400&q=80" alt="Meja kayu premium Nusantara Furniture" loading="lazy"><button class="product-wishlist" aria-label="Wishlist"><i class="far fa-heart"></i></button></div><div class="p-3"><div class="d-flex align-items-center gap-2 mb-2"><i class="fas fa-star" style="color:#f1c40f;font-size:12px;"></i><i class="fas fa-star" style="color:#f1c40f;font-size:12px;"></i><i class="fas fa-star" style="color:#f1c40f;font-size:12px;"></i><i class="fas fa-star" style="color:#f1c40f;font-size:12px;"></i><i class="fas fa-star" style="color:#f1c40f;font-size:12px;"></i><span class="text-muted small">(96)</span></div><h6 class="fw-semibold">Meja Makan Jati Solid</h6><p class="fw-bold text-primary mb-3" style="font-family:var(--font-primary);font-size:20px;">Rp 4.550.000</p><div class="d-flex gap-2"><a href="#contact" class="btn btn-primary btn-sm rounded-pill flex-grow-1">Detail</a><a href="https://wa.me/6281234567890?text=Halo%20saya%20tertarik%20dengan%20Meja%20Makan%20Jati%20Solid" target="_blank" class="btn btn-wa btn-sm rounded-pill" style="width:44px;flex:0 0 auto;"><i class="fab fa-whatsapp"></i></a></div></div></div></div>
+            <div class="col-sm-6 col-lg-3" data-aos="fade-up" data-aos-delay="200"><div class="product-card bg-white"><div class="product-img"><img src="https://images.unsplash.com/photo-1597006335770-25b6a72c883f?w=400&q=80" alt="Rak premium Nusantara Furniture" loading="lazy"><span class="product-badge">New</span><button class="product-wishlist" aria-label="Wishlist"><i class="far fa-heart"></i></button></div><div class="p-3"><div class="d-flex align-items-center gap-2 mb-2"><i class="fas fa-star" style="color:#f1c40f;font-size:12px;"></i><i class="fas fa-star" style="color:#f1c40f;font-size:12px;"></i><i class="fas fa-star" style="color:#f1c40f;font-size:12px;"></i><i class="fas fa-star" style="color:#f1c40f;font-size:12px;"></i><i class="fas fa-star" style="color:#f1c40f;font-size:12px;"></i><span class="text-muted small">(74)</span></div><h6 class="fw-semibold">Rak Dinding Scandinavian</h6><p class="fw-bold text-primary mb-3" style="font-family:var(--font-primary);font-size:20px;">Rp 1.850.000</p><div class="d-flex gap-2"><a href="#contact" class="btn btn-primary btn-sm rounded-pill flex-grow-1">Detail</a><a href="https://wa.me/6281234567890?text=Halo%20saya%20tertarik%20dengan%20Rak%20Dinding%20Scandinavian" target="_blank" class="btn btn-wa btn-sm rounded-pill" style="width:44px;flex:0 0 auto;"><i class="fab fa-whatsapp"></i></a></div></div></div></div>
+            <div class="col-sm-6 col-lg-3" data-aos="fade-up" data-aos-delay="300"><div class="product-card bg-white"><div class="product-img"><img src="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=400&q=80" alt="Kursi premium Nusantara Furniture" loading="lazy"><button class="product-wishlist" aria-label="Wishlist"><i class="far fa-heart"></i></button></div><div class="p-3"><div class="d-flex align-items-center gap-2 mb-2"><i class="fas fa-star" style="color:#f1c40f;font-size:12px;"></i><i class="fas fa-star" style="color:#f1c40f;font-size:12px;"></i><i class="fas fa-star" style="color:#f1c40f;font-size:12px;"></i><i class="fas fa-star" style="color:#f1c40f;font-size:12px;"></i><i class="fas fa-star" style="color:#f1c40f;font-size:12px;"></i><span class="text-muted small">(112)</span></div><h6 class="fw-semibold">Kursi Tamu Minimalis</h6><p class="fw-bold text-primary mb-3" style="font-family:var(--font-primary);font-size:20px;">Rp 2.150.000</p><div class="d-flex gap-2"><a href="#contact" class="btn btn-primary btn-sm rounded-pill flex-grow-1">Detail</a><a href="https://wa.me/6281234567890?text=Halo%20saya%20tertarik%20dengan%20Kursi%20Tamu%20Minimalis" target="_blank" class="btn btn-wa btn-sm rounded-pill" style="width:44px;flex:0 0 auto;"><i class="fab fa-whatsapp"></i></a></div></div></div></div>
+            <div class="col-sm-6 col-lg-3" data-aos="fade-up" data-aos-delay="100"><div class="product-card bg-white"><div class="product-img"><img src="https://images.unsplash.com/photo-1506439773649-6e0eb8cfb237?w=400&q=80" alt="Lemari premium Nusantara Furniture" loading="lazy"><span class="product-badge">Best Seller</span><button class="product-wishlist" aria-label="Wishlist"><i class="far fa-heart"></i></button></div><div class="p-3"><div class="d-flex align-items-center gap-2 mb-2"><i class="fas fa-star" style="color:#f1c40f;font-size:12px;"></i><i class="fas fa-star" style="color:#f1c40f;font-size:12px;"></i><i class="fas fa-star" style="color:#f1c40f;font-size:12px;"></i><i class="fas fa-star" style="color:#f1c40f;font-size:12px;"></i><i class="fas fa-star" style="color:#f1c40f;font-size:12px;"></i><span class="text-muted small">(89)</span></div><h6 class="fw-semibold">Lemari Pakaian 3 Pintu</h6><p class="fw-bold text-primary mb-3" style="font-family:var(--font-primary);font-size:20px;">Rp 5.890.000</p><div class="d-flex gap-2"><a href="#contact" class="btn btn-primary btn-sm rounded-pill flex-grow-1">Detail</a><a href="https://wa.me/6281234567890?text=Halo%20saya%20tertarik%20dengan%20Lemari%20Pakaian%203%20Pintu" target="_blank" class="btn btn-wa btn-sm rounded-pill" style="width:44px;flex:0 0 auto;"><i class="fab fa-whatsapp"></i></a></div></div></div></div>
+            <div class="col-sm-6 col-lg-3" data-aos="fade-up" data-aos-delay="200"><div class="product-card bg-white"><div class="product-img"><img src="https://images.unsplash.com/photo-1544457070-4cd773b4d71e?w=400&q=80" alt="Tempat tidur premium Nusantara Furniture" loading="lazy"><button class="product-wishlist" aria-label="Wishlist"><i class="far fa-heart"></i></button></div><div class="p-3"><div class="d-flex align-items-center gap-2 mb-2"><i class="fas fa-star" style="color:#f1c40f;font-size:12px;"></i><i class="fas fa-star" style="color:#f1c40f;font-size:12px;"></i><i class="fas fa-star" style="color:#f1c40f;font-size:12px;"></i><i class="fas fa-star" style="color:#f1c40f;font-size:12px;"></i><i class="fas fa-star" style="color:#f1c40f;font-size:12px;"></i><span class="text-muted small">(67)</span></div><h6 class="fw-semibold">Bed Frame Minimalis</h6><p class="fw-bold text-primary mb-3" style="font-family:var(--font-primary);font-size:20px;">Rp 3.450.000</p><div class="d-flex gap-2"><a href="#contact" class="btn btn-primary btn-sm rounded-pill flex-grow-1">Detail</a><a href="https://wa.me/6281234567890?text=Halo%20saya%20tertarik%20dengan%20Bed%20Frame%20Minimalis" target="_blank" class="btn btn-wa btn-sm rounded-pill" style="width:44px;flex:0 0 auto;"><i class="fab fa-whatsapp"></i></a></div></div></div></div>
+            <div class="col-sm-6 col-lg-3" data-aos="fade-up" data-aos-delay="300"><div class="product-card bg-white"><div class="product-img"><img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=400&q=80" alt="Meja rias premium Nusantara Furniture" loading="lazy"><button class="product-wishlist" aria-label="Wishlist"><i class="far fa-heart"></i></button></div><div class="p-3"><div class="d-flex align-items-center gap-2 mb-2"><i class="fas fa-star" style="color:#f1c40f;font-size:12px;"></i><i class="fas fa-star" style="color:#f1c40f;font-size:12px;"></i><i class="fas fa-star" style="color:#f1c40f;font-size:12px;"></i><i class="fas fa-star" style="color:#f1c40f;font-size:12px;"></i><i class="fas fa-star" style="color:#f1c40f;font-size:12px;"></i><span class="text-muted small">(53)</span></div><h6 class="fw-semibold">Meja Rias Premium</h6><p class="fw-bold text-primary mb-3" style="font-family:var(--font-primary);font-size:20px;">Rp 2.750.000</p><div class="d-flex gap-2"><a href="#contact" class="btn btn-primary btn-sm rounded-pill flex-grow-1">Detail</a><a href="https://wa.me/6281234567890?text=Halo%20saya%20tertarik%20dengan%20Meja%20Rias%20Premium" target="_blank" class="btn btn-wa btn-sm rounded-pill" style="width:44px;flex:0 0 auto;"><i class="fab fa-whatsapp"></i></a></div></div></div></div>
+            <div class="col-sm-6 col-lg-3" data-aos="fade-up" data-aos-delay="400"><div class="product-card bg-white"><div class="product-img"><img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&q=80" alt="Sofa premium Nusantara Furniture" loading="lazy"><span class="product-badge">Best Seller</span><button class="product-wishlist" aria-label="Wishlist"><i class="far fa-heart"></i></button></div><div class="p-3"><div class="d-flex align-items-center gap-2 mb-2"><i class="fas fa-star" style="color:#f1c40f;font-size:12px;"></i><i class="fas fa-star" style="color:#f1c40f;font-size:12px;"></i><i class="fas fa-star" style="color:#f1c40f;font-size:12px;"></i><i class="fas fa-star" style="color:#f1c40f;font-size:12px;"></i><i class="fas fa-star" style="color:#f1c40f;font-size:12px;"></i><span class="text-muted small">(145)</span></div><h6 class="fw-semibold">Sofa L Sectional</h6><p class="fw-bold text-primary mb-3" style="font-family:var(--font-primary);font-size:20px;">Rp 6.890.000</p><div class="d-flex gap-2"><a href="#contact" class="btn btn-primary btn-sm rounded-pill flex-grow-1">Detail</a><a href="https://wa.me/6281234567890?text=Halo%20saya%20tertarik%20dengan%20Sofa%20L%20Sectional" target="_blank" class="btn btn-wa btn-sm rounded-pill" style="width:44px;flex:0 0 auto;"><i class="fab fa-whatsapp"></i></a></div></div></div></div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== GALLERY ===== -->
+<section class="py-5" id="gallery">
+    <div class="container py-5">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <span class="section-label d-inline-block mb-2">Galeri Proyek</span>
+            <h2 class="section-title">Portofolio Kami</h2>
+            <p class="section-desc mx-auto">Dokumentasi proyek-proyek yang telah kami kerjakan untuk berbagai klien di Indonesia.</p>
+        </div>
+        <div class="gallery-grid" style="display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:280px;gap:16px;">
+            <div class="gallery-item" style="grid-column:span 2;grid-row:span 2;" data-aos="fade-up"><img src="https://images.unsplash.com/photo-1618220179428-22790b461013?w=600&q=80" alt="Proyek living room" loading="lazy"><div class="gallery-overlay"><i class="fas fa-expand text-white" style="font-size:32px;"></i></div></div>
+            <div class="gallery-item" data-aos="fade-up" data-aos-delay="50"><img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=600&q=80" alt="Proyek dining room" loading="lazy"><div class="gallery-overlay"><i class="fas fa-expand text-white" style="font-size:32px;"></i></div></div>
+            <div class="gallery-item" data-aos="fade-up" data-aos-delay="100"><img src="https://images.unsplash.com/photo-1616137466211-f939a420be84?w=600&q=80" alt="Interior industrial" loading="lazy"><div class="gallery-overlay"><i class="fas fa-expand text-white" style="font-size:32px;"></i></div></div>
+            <div class="gallery-item" style="grid-column:span 2;" data-aos="fade-up" data-aos-delay="150"><img src="https://images.unsplash.com/photo-1560185007-5f0bb1866cab?w=600&q=80" alt="Desain kantor modern" loading="lazy"><div class="gallery-overlay"><i class="fas fa-expand text-white" style="font-size:32px;"></i></div></div>
+            <div class="gallery-item" style="grid-row:span 2;" data-aos="fade-up" data-aos-delay="200"><img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=600&q=80" alt="Kamar tidur premium" loading="lazy"><div class="gallery-overlay"><i class="fas fa-expand text-white" style="font-size:32px;"></i></div></div>
+            <div class="gallery-item" data-aos="fade-up" data-aos-delay="250"><img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&q=80" alt="Ruang tamu elegan" loading="lazy"><div class="gallery-overlay"><i class="fas fa-expand text-white" style="font-size:32px;"></i></div></div>
+            <div class="gallery-item" style="grid-column:span 2;" data-aos="fade-up" data-aos-delay="300"><img src="https://images.unsplash.com/photo-1602872030219-e2d5118cb6f4?w=600&q=80" alt="Interior Scandinavian" loading="lazy"><div class="gallery-overlay"><i class="fas fa-expand text-white" style="font-size:32px;"></i></div></div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== ORDER STEPS ===== -->
+<section class="py-5 bg-secondary-custom" id="order-steps">
+    <div class="container py-5">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <span class="section-label d-inline-block mb-2">Cara Pemesanan</span>
+            <h2 class="section-title">Mudah & Transparan</h2>
+            <p class="section-desc mx-auto">Empat langkah mudah untuk mendapatkan furnitur impian Anda.</p>
+        </div>
+        <div class="row g-4 position-relative">
+            <div class="col-lg text-center step" data-aos="fade-up"><div class="step-number mx-auto">1</div><div class="step-icon"><i class="fas fa-search"></i></div><h5 class="fw-bold">Pilih Produk</h5><p class="text-muted small">Jelajahi katalog dan pilih furnitur yang sesuai dengan kebutuhan Anda.</p></div>
+            <div class="col-lg text-center step" data-aos="fade-up" data-aos-delay="100"><div class="step-number mx-auto">2</div><div class="step-icon"><i class="fas fa-comments"></i></div><h5 class="fw-bold">Konsultasi</h5><p class="text-muted small">Hubungi tim kami untuk konsultasi desain, ukuran, dan bahan.</p></div>
+            <div class="col-lg text-center step" data-aos="fade-up" data-aos-delay="200"><div class="step-number mx-auto">3</div><div class="step-icon"><i class="fas fa-check-double"></i></div><h5 class="fw-bold">Konfirmasi</h5><p class="text-muted small">Setujui desain akhir dan lakukan pembayaran sesuai kesepakatan.</p></div>
+            <div class="col-lg text-center step" data-aos="fade-up" data-aos-delay="300"><div class="step-number mx-auto">4</div><div class="step-icon"><i class="fas fa-truck"></i></div><h5 class="fw-bold">Produksi & Kirim</h5><p class="text-muted small">Kami produksi dengan cermat dan kirim ke lokasi Anda tepat waktu.</p></div>
+            <div class="col-lg text-center step" data-aos="fade-up" data-aos-delay="400"><div class="step-number mx-auto">5</div><div class="step-icon"><i class="fas fa-smile"></i></div><h5 class="fw-bold">Pasang & Nikmati</h5><p class="text-muted small">Tim kami siap merakit dan menata furnitur di ruangan Anda.</p></div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== TESTIMONIALS ===== -->
+<section class="py-5" id="testimonials">
+    <div class="container py-5">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <span class="section-label d-inline-block mb-2">Testimoni</span>
+            <h2 class="section-title">Apa Kata Pelanggan</h2>
+            <p class="section-desc mx-auto">Kepercayaan dan kepuasan pelanggan adalah prioritas utama kami.</p>
+        </div>
+        <div class="position-relative" data-aos="fade-up">
+            <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="testimonial-card text-center">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Testimonial" class="testimonial-avatar mb-4 mx-auto" loading="lazy">
+                            <div class="mb-3"><i class="fas fa-star" style="color:#f1c40f;"></i><i class="fas fa-star" style="color:#f1c40f;"></i><i class="fas fa-star" style="color:#f1c40f;"></i><i class="fas fa-star" style="color:#f1c40f;"></i><i class="fas fa-star" style="color:#f1c40f;"></i></div>
+                            <p class="testimonial-text mb-4 mx-auto" style="max-width:720px;">"Kualitas luar biasa! Sofa yang saya pesan benar-benar sesuai dengan yang dijanjikan. Jahitan rapi, bahan nyaman, dan pengiriman tepat waktu. Tim Nusantara Furniture sangat profesional."</p>
+                            <h6 class="fw-bold mb-1">Sarah Wijaya</h6>
+                            <span class="text-muted small">Interior Designer, Jakarta</span>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="testimonial-card text-center">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Testimonial" class="testimonial-avatar mb-4 mx-auto" loading="lazy">
+                            <div class="mb-3"><i class="fas fa-star" style="color:#f1c40f;"></i><i class="fas fa-star" style="color:#f1c40f;"></i><i class="fas fa-star" style="color:#f1c40f;"></i><i class="fas fa-star" style="color:#f1c40f;"></i><i class="fas fa-star" style="color:#f1c40f;"></i></div>
+                            <p class="testimonial-text mb-4 mx-auto" style="max-width:720px;">"Meja makan custom yang saya buat ternyata lebih bagus dari ekspektasi. Kayu jati solid dengan finishing melamine yang sempurna. Highly recommended!"</p>
+                            <h6 class="fw-bold mb-1">Andi Pratama</h6>
+                            <span class="text-muted small">Pengusaha, Bandung</span>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="testimonial-card text-center">
+                            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Testimonial" class="testimonial-avatar mb-4 mx-auto" loading="lazy">
+                            <div class="mb-3"><i class="fas fa-star" style="color:#f1c40f;"></i><i class="fas fa-star" style="color:#f1c40f;"></i><i class="fas fa-star" style="color:#f1c40f;"></i><i class="fas fa-star" style="color:#f1c40f;"></i><i class="fas fa-star" style="color:#f1c40f;"></i></div>
+                            <p class="testimonial-text mb-4 mx-auto" style="max-width:720px;">"Seluruh furnitur di rumah saya dari Nusantara Furniture. Desainnya timeless, kualitasnya premium. Pelayanan after-sales juga sangat responsif. Pasti jadi langganan!"</p>
+                            <h6 class="fw-bold mb-1">Dewi Lestari</h6>
+                            <span class="text-muted small">Ibu Rumah Tangga, Surabaya</span>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="testimonial-card text-center">
+                            <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Testimonial" class="testimonial-avatar mb-4 mx-auto" loading="lazy">
+                            <div class="mb-3"><i class="fas fa-star" style="color:#f1c40f;"></i><i class="fas fa-star" style="color:#f1c40f;"></i><i class="fas fa-star" style="color:#f1c40f;"></i><i class="fas fa-star" style="color:#f1c40f;"></i><i class="fas fa-star" style="color:#f1c40f;"></i></div>
+                            <p class="testimonial-text mb-4 mx-auto" style="max-width:720px;">"Proyek kantor kami menggunakan furnitur dari Nusantara Furniture. Hasilnya elegan, fungsional, dan sesuai budget. Timnya sangat membantu proses konsultasi hingga instalasi."</p>
+                            <h6 class="fw-bold mb-1">Rudi Hartono</h6>
+                            <span class="text-muted small">CEO Creative Studio, Yogyakarta</span>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+                <div class="carousel-indicators position-static mt-4">
+                    <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="0" class="active testimonial-dot" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="1" class="testimonial-dot" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="2" class="testimonial-dot" aria-label="Slide 3"></button>
+                    <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="3" class="testimonial-dot" aria-label="Slide 4"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== PROMO ===== -->
+<section class="py-5 promo-section" id="promo">
+    <div class="container py-5 text-center">
+        <div data-aos="fade-up">
+            <div class="d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill mb-4" style="background:rgba(212,163,115,0.2);border:1px solid var(--accent);">
+                <i class="fas fa-gift" style="color:var(--accent);"></i> <span style="color:var(--accent);font-weight:600;font-size:13px;">Promo Spesial Akhir Tahun</span>
+            </div>
+            <h2 class="text-white mb-3" style="font-size:clamp(36px,5vw,52px);">Diskon 30% + Free Ongkir</h2>
+            <p class="text-white-50 mb-4 mx-auto" style="max-width:540px;font-size:18px;">Setiap pembelian furnitur minimal Rp 5 juta nikmati diskon 30% dan gratis ongkir se-Jabodetabek. Promo terbatas!</p>
+            <div class="d-flex justify-content-center gap-4 mb-4">
+                <div><h4 class="text-white fw-bold mb-0" style="font-size:40px;color:var(--accent) !important;" id="days">00</h4><p class="text-white-50 small text-uppercase ls-3">Hari</p></div>
+                <div><h4 class="text-white fw-bold mb-0" style="font-size:40px;color:var(--accent) !important;" id="hours">00</h4><p class="text-white-50 small text-uppercase ls-3">Jam</p></div>
+                <div><h4 class="text-white fw-bold mb-0" style="font-size:40px;color:var(--accent) !important;" id="minutes">00</h4><p class="text-white-50 small text-uppercase ls-3">Menit</p></div>
+                <div><h4 class="text-white fw-bold mb-0" style="font-size:40px;color:var(--accent) !important;" id="seconds">00</h4><p class="text-white-50 small text-uppercase ls-3">Detik</p></div>
+            </div>
+            <a href="https://wa.me/6281234567890?text=Halo%20saya%20ingin%20klaim%20promo%20diskon%2030" target="_blank" class="btn btn-primary btn-lg rounded-pill px-5 py-3"><i class="fab fa-whatsapp"></i> Klaim Promo Sekarang</a>
+        </div>
+    </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section class="py-5" id="faq">
+    <div class="container py-5">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <span class="section-label d-inline-block mb-2">FAQ</span>
+            <h2 class="section-title">Pertanyaan Umum</h2>
+            <p class="section-desc mx-auto">Temukan jawaban atas pertanyaan yang sering diajukan tentang produk dan layanan kami.</p>
+        </div>
+        <div class="mx-auto" style="max-width:800px;" data-aos="fade-up">
+            <div class="faq-item active">
+                <div class="faq-question" role="button" tabindex="0"><h3>Berapa lama waktu produksi furnitur custom?</h3><div class="faq-icon"><i class="fas fa-plus"></i></div></div>
+                <div class="faq-answer"><p class="text-muted">Waktu produksi untuk furnitur custom berkisar antara 2–4 minggu, tergantung pada kompleksitas desain dan jumlah pesanan. Tim kami akan memberikan estimasi waktu yang pasti setelah konsultasi desain.</p></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" role="button" tabindex="0"><h3>Apakah Nusantara Furniture melayani pengiriman ke luar kota?</h3><div class="faq-icon"><i class="fas fa-plus"></i></div></div>
+                <div class="faq-answer"><p class="text-muted">Ya, kami melayani pengiriman ke seluruh Indonesia melalui jasa ekspedisi terpercaya. Biaya pengiriman disesuaikan dengan lokasi dan volume barang. Gratis ongkir untuk area Jabodetabek.</p></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" role="button" tabindex="0"><h3>Bahan material apa saja yang digunakan?</h3><div class="faq-icon"><i class="fas fa-plus"></i></div></div>
+                <div class="faq-answer"><p class="text-muted">Kami menggunakan kayu jati solid, kayu mahoni, kayu trembesi, multiplek, dan material pendukung berkualitas tinggi. Finishing tersedia dalam pilihan Melamine, Duco, dan NC sesuai preferensi Anda.</p></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" role="button" tabindex="0"><h3>Bagaimana cara merawat furnitur kayu agar awet?</h3><div class="faq-icon"><i class="fas fa-plus"></i></div></div>
+                <div class="faq-answer"><p class="text-muted">Hindari paparan sinar matahari langsung dan kelembaban berlebih. Bersihkan dengan kain lembut yang sedikit dibasahi, lalu lap hingga kering. Gunakan furniture polish secara berkala untuk menjaga kilau kayu.</p></div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" role="button" tabindex="0"><h3>Apakah garansi 5 tahun benar-benar cover semua kerusakan?</h3><div class="faq-icon"><i class="fas fa-plus"></i></div></div>
+                <div class="faq-answer"><p class="text-muted">Garansi 5 tahun mencakup kerusakan struktural seperti retak, pecah, atau patah pada rangka kayu solid. Tidak termasuk kerusakan akibat penggunaan yang tidak wajar, bencana alam, atau goresan ringan karena pemakaian sehari-hari.</p></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section class="py-5 bg-dark-custom position-relative overflow-hidden" id="contact">
+    <div class="container py-5 text-center position-relative z-3">
+        <div data-aos="fade-up">
+            <h2 class="text-white mb-3" style="font-size:clamp(32px,4vw,44px);">Siap Mewujudkan Hunian Impian?</h2>
+            <p class="text-white-50 mb-4 mx-auto" style="max-width:520px;font-size:18px;">Konsultasi gratis dengan tim desain kami. Dapatkan solusi furnitur terbaik untuk setiap ruangan di rumah Anda.</p>
+            <div class="d-flex flex-wrap justify-content-center gap-3">
+                <a href="https://wa.me/6281234567890?text=Halo%20Nusantara%20Furniture%20saya%20ingin%20konsultasi" target="_blank" class="btn btn-primary btn-lg rounded-pill px-5 py-3"><i class="fab fa-whatsapp"></i> WhatsApp Sekarang</a>
+                <a href="tel:+6281234567890" class="btn btn-outline-light btn-lg rounded-pill px-5 py-3"><i class="fas fa-phone-alt"></i> Telepon Kami</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer pt-5 pb-0">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-4">
+                <a class="d-flex align-items-center gap-2 logo-text mb-3" href="#hero">
+                    <span class="logo-icon"><i class="fas fa-couch"></i></span>
+                    Nusantara<span class="text-primary">Furniture</span>
+                </a>
+                <p class="text-white-50 small" style="max-width:300px;">Menghadirkan furnitur premium dengan desain solid, modern, dan industrial sejak 2014. Crafted for those who appreciate timeless elegance.</p>
+                <div class="d-flex gap-2">
+                    <a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                    <a href="#" class="social-link" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="#" class="social-link" aria-label="Pinterest"><i class="fab fa-pinterest-p"></i></a>
+                </div>
+            </div>
+            <div class="col-6 col-lg-2">
+                <h6 class="text-white fw-bold mb-4">Menu</h6>
+                <ul class="list-unstyled small d-flex flex-column gap-2">
+                    <li><a href="#hero">Home</a></li>
+                    <li><a href="#about">Tentang</a></li>
+                    <li><a href="#products">Produk</a></li>
+                    <li><a href="#gallery">Galeri</a></li>
+                    <li><a href="#testimonials">Testimoni</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="col-6 col-lg-2">
+                <h6 class="text-white fw-bold mb-4">Kategori</h6>
+                <ul class="list-unstyled small d-flex flex-column gap-2">
+                    <li><a href="#categories">Kursi & Sofa</a></li>
+                    <li><a href="#categories">Meja & Desktop</a></li>
+                    <li><a href="#categories">Lemari & Kabinet</a></li>
+                    <li><a href="#categories">Tempat Tidur</a></li>
+                    <li><a href="#categories">Rak & Shelving</a></li>
+                    <li><a href="#categories">Aksesoris</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-4">
+                <h6 class="text-white fw-bold mb-4">Kontak</h6>
+                <ul class="list-unstyled small d-flex flex-column gap-3">
+                    <li class="d-flex gap-2"><i class="fas fa-map-marker-alt" style="color:var(--accent);margin-top:3px;"></i><span class="text-white-50">Jl. Industri Kreatif No. 88, Bandung, Jawa Barat 40123</span></li>
+                    <li class="d-flex gap-2"><i class="fas fa-envelope" style="color:var(--accent);margin-top:3px;"></i><span class="text-white-50">hello@nusantaratfurniture.com</span></li>
+                    <li class="d-flex gap-2"><i class="fab fa-whatsapp" style="color:var(--accent);margin-top:3px;"></i><span class="text-white-50">+62 812-3456-7890</span></li>
+                    <li class="d-flex gap-2"><i class="fas fa-clock" style="color:var(--accent);margin-top:3px;"></i><span class="text-white-50">Sen–Sab: 08:00 – 20:00<br>Minggu: 10:00 – 17:00</span></li>
+                </ul>
+                <div class="footer-map mt-3">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.818084086132!2d107.609627!3d-6.914744!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e639825247cb%3A0x146a1f93d3e815b2!2sBandung!5e0!3m2!1sid!2sid!4v1" loading="lazy" title="Lokasi Nusantara Furniture"></iframe>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 py-4 mt-5 border-top border-light border-opacity-10">
+            <p class="small text-white-50 mb-0">&copy; 2026 <a href="#hero" class="text-light">Nusantara Furniture</a>. All rights reserved.</p>
+            <div class="d-flex gap-4">
+                <a href="#" class="small">Kebijakan Privasi</a>
+                <a href="#" class="small">Syarat & Ketentuan</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- ===== BACK TO TOP ===== -->
+<button class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Scroll progress
+        const sp = document.getElementById('scrollProgress');
+        window.addEventListener('scroll', function() {
+            const st = window.scrollY, dh = document.documentElement.scrollHeight - window.innerHeight;
+            sp.style.width = (dh > 0 ? (st / dh) * 100 : 0) + '%';
+        });
+
+        // Navbar scroll + back to top
+        const nav = document.getElementById('navbar'), btt = document.getElementById('backToTop');
+        window.addEventListener('scroll', function() {
+            const y = window.scrollY;
+            nav.classList.toggle('scrolled', y > 80);
+            btt.classList.toggle('visible', y > 400);
+        });
+
+        // Active menu
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('#navMenu .nav-link:not(.nav-cta)');
+        function updateActive() {
+            const y = window.scrollY + 120;
+            let cur = 'hero';
+            sections.forEach(function(s) {
+                const t = s.offsetTop, h = s.offsetHeight;
+                if (y >= t && y < t + h) cur = s.id;
+            });
+            navLinks.forEach(function(a) {
+                a.classList.remove('active');
+                if (a.getAttribute('href') === '#' + cur) a.classList.add('active');
+            });
+        }
+        window.addEventListener('scroll', updateActive);
+        updateActive();
+
+        // Counter
+        function animateCounters() {
+            document.querySelectorAll('.counter').forEach(function(el) {
+                const target = parseInt(el.getAttribute('data-target'));
+                if (isNaN(target)) return;
+                let count = 0;
+                function upd() {
+                    count += Math.ceil(target / 60);
+                    if (count >= target) { el.textContent = target; return; }
+                    el.textContent = count;
+                    requestAnimationFrame(upd);
+                }
+                upd();
+            });
+        }
+
+        // AOS
+        const aosEls = document.querySelectorAll('[data-aos]');
+        if (aosEls.length) {
+            const obs = new IntersectionObserver(function(entries) {
+                entries.forEach(function(e) {
+                    if (e.isIntersecting) {
+                        e.target.classList.add('aos-animate');
+                        obs.unobserve(e.target);
+                        if (e.target.closest('#about')) animateCounters();
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+            aosEls.forEach(function(el) { obs.observe(el); });
+        }
+
+        // Hero counter
+        const heroObs = new IntersectionObserver(function(entries) {
+            entries.forEach(function(e) {
+                if (e.isIntersecting) { animateCounters(); heroObs.unobserve(e.target); }
+            });
+        }, { threshold: 0.3 });
+        const heroSec = document.querySelector('.hero');
+        if (heroSec) heroObs.observe(heroSec);
+
+        // FAQ accordion (custom)
+        document.querySelectorAll('.faq-item').forEach(function(item) {
+            item.querySelector('.faq-question').addEventListener('click', function() {
+                const active = item.classList.contains('active');
+                document.querySelectorAll('.faq-item').forEach(function(i) { i.classList.remove('active'); });
+                if (!active) item.classList.add('active');
+            });
+        });
+
+        // Countdown
+        function countdown() {
+            const end = new Date(); end.setDate(end.getDate() + 14); end.setHours(23,59,59,0);
+            function tick() {
+                const diff = end - new Date();
+                if (diff <= 0) return;
+                document.getElementById('days').textContent = String(Math.floor(diff / 86400000)).padStart(2,'0');
+                document.getElementById('hours').textContent = String(Math.floor((diff % 86400000) / 3600000)).padStart(2,'0');
+                document.getElementById('minutes').textContent = String(Math.floor((diff % 3600000) / 60000)).padStart(2,'0');
+                document.getElementById('seconds').textContent = String(Math.floor((diff % 60000) / 1000)).padStart(2,'0');
+            }
+            tick(); setInterval(tick, 1000);
+        }
+        countdown();
+
+        // Wishlist
+        document.querySelectorAll('.product-wishlist').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                const i = btn.querySelector('i');
+                i.classList.toggle('far'); i.classList.toggle('fas');
+                i.style.color = i.classList.contains('fas') ? '#e74c3c' : '';
+            });
+        });
+
+        // Close mobile nav on link click
+        document.querySelectorAll('#navMenu .nav-link').forEach(function(a) {
+            a.addEventListener('click', function() {
+                const toggler = document.querySelector('.navbar-toggler');
+                const collapse = document.getElementById('navMenu');
+                if (collapse.classList.contains('show')) {
+                    toggler.click();
+                }
+            });
+        });
+    });
+</script>
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Nusantara Furniture",
+    "url": "https://nusantaratfurniture.com",
+    "logo": "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=200",
+    "description": "Perusahaan mebel premium yang menghadirkan furnitur dengan desain solid, modern, dan industrial.",
+    "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Jl. Industri Kreatif No. 88",
+        "addressLocality": "Bandung",
+        "addressRegion": "Jawa Barat",
+        "postalCode": "40123",
+        "addressCountry": "ID"
+    },
+    "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+62-812-3456-7890",
+        "contactType": "customer service",
+        "availableLanguage": ["Indonesian"]
+    },
+    "sameAs": ["https://instagram.com/nusantaratfurniture","https://facebook.com/nusantaratfurniture","https://tiktok.com/@nusantaratfurniture"]
+}
+</script>
+</body>
+</html>
